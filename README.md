@@ -13,20 +13,25 @@ project (same timer and interruption idea, but with voice and a written record).
 
 ## How it works
 
-1. **Setup.** Project summary, stage (pre-launch skips metric questions),
+1. **Setup.** Project summary, industry (picks your simulated partner panel), stage (pre-launch skips metric questions),
    interviewer (strict timer of 20/30/45/60 s, or interruption mode that cuts
    you at a random 8 to 18 s), 6/10/15 questions capped at 10 minutes, voice
    on/off, microphone on/off.
 2. **Interview.** One question at a time, shown as text and played from an
    mp3 by one of four voices picked at random (Ethan, Adrian, Sarah, Hannah).
-   The countdown ring starts when the voice stops. Warning at 75%. Space or
+   The countdown ring starts when the voice stops. Time scales with the
+   question (deep 1.5x, quick facts 0.7x). Warning at 75%. When time runs
+   out another partner's voice cuts in and the card flashes red. Space or
    Enter ends an answer early, Esc ends the interview. With the mic on, each
    answer is recorded (MediaRecorder) and transcribed live (Web Speech API).
    With the mic off, you type.
 3. **Report.** Per answer: speaker, seconds used, cut-off, editable
    transcript, playback, words per minute and filler count. Totals. Buttons:
-   - **Copy YC-partner prompt.** Summary + every question and answer + a
-     scoring rubric. Paste it into any chat model.
+   - **Copy partner-panel prompt.** Three YC partners matched to your
+     industry (from `partners.json`: the roster on ycombinator.com/people
+     and the Winter 2027 RFS themes) react to every answer in character,
+     score it, rewrite it, vote, and debrief. A practice simulation in
+     their style, not their words. Paste it into any chat model.
    - **Copy Jev payload.** A ready JSON body for TypeSafe's Jev scorer
      (`POST https://api.typesafe.ai/v1/systemone`, `model: "jev-latest"`),
      with four `noul` questions per answer plus three overall ones. Send it
@@ -55,7 +60,8 @@ index.html       the three screens (setup, interview, report)
 style.css        plain CSS, dark theme, works at phone width
 app.js           all logic, ~400 lines, sections numbered 1-4
 questions.json   73 questions {id, text, type}: 57 GENERAL, 2 PRE_LAUNCH, 14 POST_LAUNCH
-audio/           292 mp3 files, audio/<voice>/<id>.mp3, plus manifest.json
+partners.json    20 YC partners (name, title, background, what they push on) and the 3-partner panel per industry
+audio/           308 mp3 files: audio/<voice>/<id>.mp3 per question, cut1-3 and timeup per voice, manifest.json, cuts.json
 ```
 
 The audio was generated once with [Fish Audio](https://fish.audio) (model

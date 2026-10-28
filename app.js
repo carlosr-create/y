@@ -23,11 +23,12 @@ const SHORT = new Set(['g7','g8','g10','g13','g16','g31','g52','post1','post3','
 const WEIGHT = { long: 1.5, normal: 1, short: 0.7 };
 const kindOf = (id) => LONG.has(id) ? 'long' : SHORT.has(id) ? 'short' : 'normal';
 let CUTS = { lines: {}, files: {} };          // loaded from audio/cuts.json
+let PARTNERS = null;                           // loaded from partners.json
 const FILLERS = ['um', 'uh', 'umm', 'uhh', 'like', 'you know', 'basically', 'actually', 'literally', 'kind of', 'sort of', 'i mean', 'so yeah', 'right'];
 
 let QUESTIONS = [];                        // loaded from questions.json
 const session = {
-  summary: '', stage: 'pre', mode: 'fixed', seconds: 30, count: 10, voice: true, mic: true,
+  summary: '', stage: 'pre', industry: 'other', mode: 'interrupt', seconds: 30, count: 10, voice: true, mic: true,
   plan: [],            // [{id, text, type, voice, limit, kind}]
   answers: [],         // [{id, question, type, voice, limit, seconds, cutOff, transcript, blob, blobUrl, source}]
   startedAt: null, endedAt: null,
@@ -66,6 +67,7 @@ function readForm() {
   const f = new FormData(form);
   session.summary = (f.get('summary') || '').trim();
   session.stage = f.get('stage');
+  session.industry = f.get('industry') || 'other';
   session.mode = f.get('mode');
   session.seconds = Number(f.get('seconds'));
   session.count = Number(f.get('count'));
@@ -350,6 +352,8 @@ function renderReport() {
     </li>`).join('');
 
   $('#whisper-block').hidden = !a.some((x) => x.blob);
+  const panel = panelFor(session.industry);
+  $('#panel').innerHTML = panel.length ? panel.map((p) => `<div class="pcard"><div class="pt">On your panel</div><b>${esc(p.name)}</b>${esc(p.title)}<p>${esc(p.lens[0])}</p></div>`).join('') : '';
 }
 
 function metaLine(x) {
@@ -365,8 +369,72 @@ $('#answers').addEventListener('input', (e) => {
   $(`[data-meta="${i}"]`).textContent = metaLine(session.answers[i]);
 });
 
-/* Prompt for any chat model: acts as a YC partner and scores the run. */
+/* The three simulated partners for this run, matched to the industry. */
+function panelFor(industry) {
+  if (!PARTNERS) return [];
+  const ind = PARTNERS.industries[industry] || PARTNERS.industries.other;
+  return ind.panel.map((k) => PARTNERS.partners[k]).filter(Boolean);
+}
+function industryLabel(industry) {
+  return PARTNERS && PARTNERS.industries[industry] ? PARTNERS.industries[industry].label : 'not specified';
+}
+
+/* Prompt for any chat model: a three-partner YC panel scores the run, question by question. */
 function partnerPrompt() {
+  const panel = panelFor(session.industry);
+  if (panel.length === 3) return panelPrompt(panel);
+  return genericPrompt();
+}
+
+function panelPrompt(panel) {
+  const a = session.answers;
+  const stage = session.stage === 'pre' ? 'pre-launch (no users or revenue yet)' : 'launched (has users or revenue)';
+  const names = panel.map((p) => p.name);
+  const cards = panel.map((p, i) => `### Partner ${i + 1}: ${p.name}, ${p.title}
+Background: ${p.bg}
+What ${p.name.split(' ')[0]} pushes on:
+${p.lens.map((l) => '- ' + l).join('\n')}`).join('\n\n');
+  const qa = a.map((x) => `### Q${x.n}. ${x.question}
+Asked by: ${VOICES[x.voice]}. Time used: ${x.seconds}s of ${x.limit}s${x.cutOff ? ' (INTERRUPTED, a partner cut the founder off)' : ''}.
+Answer (verbatim transcript): ${x.transcript.trim() ? '"' + x.transcript.trim() + '"' : '(no answer captured)'}`).join('\n\n');
+
+  return `You are simulating a Y Combinator interview panel. Three partners just finished a 10-minute interview with a founder and are now debriefing, then writing feedback the founder will read. The partners are real YC partners; their personas below are built from their public backgrounds and the themes they have written about. This is a practice simulation in their style, not their actual words or opinions. Stay in character, be direct, concrete and a little impatient, the way partners are in the room. Do not soften verdicts and do not invent facts about the company.
+
+## The panel
+${cards}
+
+## The company (written by the founder)
+${session.summary}
+
+Stage: ${stage}.
+Industry: ${industryLabel(session.industry)}.
+Format of this mock: ${session.mode === 'interrupt' ? 'partners interrupt at a random 8 to 18 seconds (deep questions get up to 1.5x, quick ones 0.7x)' : session.seconds + ' seconds per answer, strict timer, scaled by question depth'}. ${a.length} questions.
+
+## Transcript
+${qa}
+
+## Your job
+Write the output in these sections, with the same numbering.
+
+1. **Question by question.** For every question, in order:
+   - One line from each of ${names[0]}, ${names[1]} and ${names[2]}, in their own voice, reacting to the answer the way they would in the room: what landed, what was missing, the follow-up they would have fired back. Each line starts with the partner's first name.
+   - A score from 1 to 10 for the answer (one score, agreed by the panel) with the single word that explains it (for example: vague, specific, evasive, strong, interrupted, no-answer).
+   - "Say instead:" a rewrite in under 25 words, using only facts from the summary or the answers. If a number is missing write "[give the number]".
+   Interrupted answers that had not reached the point score low. Missing answers score 1.
+
+2. **Each partner's verdict.** One short paragraph per partner, in character: what they believe about this company after the interview, the one thing they would need to see to say yes, and their vote: FUND, PASS, or NEED MORE.
+
+3. **The debrief.** Three to six lines of the partners talking to each other, where they agree and disagree, and the decision the panel reaches.
+
+4. **Scorecard.** Four scores from 1 to 10 for the whole interview: Direct (first sentence answers the question), Specific (numbers, names, dates, mechanisms), Evidence (claims backed by things done or measured), Concise (half the words would do). Then an overall "would we fund this today" score from 1 to 10.
+
+5. **Before the real interview.** The three fixes that matter most, in order, each with the question number it comes from.
+
+Keep the whole thing under 1500 words. Plain text with the headings above, no tables.`;
+}
+
+/* Fallback when partners.json did not load: one anonymous partner. */
+function genericPrompt() {
   const a = session.answers;
   const stage = session.stage === 'pre' ? 'pre-launch (no users or revenue yet)' : 'launched (has users or revenue)';
   const qa = a.map((x) => `### Q${x.n}. ${x.question}
@@ -406,6 +474,7 @@ function jevPayload() {
   const state = {
     project_summary: session.summary,
     stage: session.stage === 'pre' ? 'pre-launch' : 'launched',
+    industry: industryLabel(session.industry),
     format: session.mode === 'interrupt' ? 'partners interrupt, 8-18 s per answer scaled by question depth' : `${session.seconds} s per answer scaled by question depth`,
     answers: a.map((x) => ({ n: x.n, question: x.question, answer: x.transcript.trim(), seconds_used: x.seconds, seconds_allowed: x.limit, cut_off: x.cutOff })),
   };
@@ -433,7 +502,7 @@ function jevPayload() {
 function exportJson() {
   return {
     tool: 'Y mock interview', version: 1, started_at: session.startedAt, ended_at: session.endedAt,
-    settings: { stage: session.stage, mode: session.mode, seconds: session.seconds, count: session.plan.length, voice: session.voice, mic: session.mic },
+    settings: { stage: session.stage, industry: session.industry, panel: panelFor(session.industry).map((p) => p.name), mode: session.mode, seconds: session.seconds, count: session.plan.length, voice: session.voice, mic: session.mic },
     summary: session.summary,
     answers: session.answers.map(({ blob, blobUrl, ...rest }) => rest),
     partner_prompt: partnerPrompt(),
@@ -449,7 +518,7 @@ async function copyText(text, label) {
     ta.remove();
   }
 }
-$('#copy-prompt').addEventListener('click', () => copyText(partnerPrompt(), 'YC-partner prompt'));
+$('#copy-prompt').addEventListener('click', () => copyText(partnerPrompt(), 'Partner-panel prompt'));
 $('#copy-jev').addEventListener('click', () => copyText(JSON.stringify(jevPayload(), null, 2), 'Jev payload'));
 $('#download-json').addEventListener('click', () => {
   const blob = new Blob([JSON.stringify(exportJson(), null, 2)], { type: 'application/json' });
@@ -517,6 +586,8 @@ function renderTotalsOnly() { renderReport(); }   // session.answers already hol
     const r = await fetch('questions.json'); QUESTIONS = await r.json();
   } catch (e) { $('#start').disabled = true; $('#estimate').textContent = 'Could not load questions.json.'; return; }
   try { CUTS = await (await fetch('audio/cuts.json')).json(); } catch (_) {}
+  try { PARTNERS = await (await fetch('partners.json')).json(); } catch (_) {}
+  window.Y = { partnerPrompt, jevPayload, exportJson, session };   // for tests and curious people
   updateEstimate();
   showScreen('setup');
 })();

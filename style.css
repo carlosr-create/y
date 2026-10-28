@@ -89,7 +89,15 @@ textarea {
   width: 100%; padding: 12px; border-radius: 8px; resize: vertical;
   background: var(--panel); border: 1px solid var(--line-2); color: var(--text); font: inherit;
 }
-textarea:focus { outline: none; box-shadow: var(--ring); border-color: var(--accent); }
+textarea:focus, select:focus { outline: none; box-shadow: var(--ring); border-color: var(--accent); }
+.select-label { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 10px; font-weight: 500; flex-wrap: wrap; }
+select { font: inherit; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line-2); background: var(--panel); color: var(--text); max-width: 100%; }
+.panel { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px; margin: 12px 0 0; }
+.panel:empty { display: none; }
+.pcard { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font-size: 13px; }
+.pcard b { display: block; font-size: 14px; }
+.pcard .pt { color: var(--muted); font: 11px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
+.pcard p { margin: 4px 0 0; color: var(--muted); }
 
 .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
 .choice {

@@ -35,6 +35,20 @@
       <div class="block">
         <div class="block-label">01 · Your company</div>
         <textarea id="summary" name="summary" rows="3" maxlength="2000" placeholder="One to three lines. Example: Clinic in a box for doctors. Patients own the record. 3 paying clinics, $2.1k MRR." required></textarea>
+        <label class="select-label" for="industry"><span>Industry</span>
+          <select id="industry" name="industry">
+            <option value="other">Something else / not sure</option>
+            <option value="ai">AI models, infra, dev tools</option>
+            <option value="b2b">B2B software, vertical AI</option>
+            <option value="fintech">Fintech, payments, insurance</option>
+            <option value="health">Healthcare, bio, wearables</option>
+            <option value="consumer">Consumer apps, social, media</option>
+            <option value="marketplace">Marketplaces, creators, e-commerce</option>
+            <option value="hardware">Hardware, robotics, space, deep tech</option>
+            <option value="climate">Climate, energy, government</option>
+            <option value="edtech">Education, learning</option>
+          </select></label>
+        <div class="hint">Picks which three YC partners sit on your simulated panel in the report.</div>
         <div class="choices" role="radiogroup" aria-label="Stage">
           <label class="choice"><input type="radio" name="stage" value="pre" checked><span class="choice-title">Not launched yet</span><span class="choice-sub">No metric questions</span></label>
           <label class="choice"><input type="radio" name="stage" value="post"><span class="choice-title">Launched</span><span class="choice-sub">Burn, growth, retention</span></label>
@@ -129,13 +143,14 @@
     <div class="totals" id="totals"></div>
 
     <div class="actions">
-      <button type="button" class="btn primary" id="copy-prompt">Copy YC-partner prompt</button>
+      <button type="button" class="btn primary" id="copy-prompt">Copy partner-panel prompt</button>
       <button type="button" class="btn" id="copy-jev">Copy Jev payload</button>
       <button type="button" class="btn" id="download-json">Download JSON</button>
       <button type="button" class="btn" id="print">Print</button>
       <button type="button" class="btn ghost" id="again">Go again</button>
     </div>
     <p class="hint mono" id="copy-status" aria-live="polite"></p>
+    <div class="panel" id="panel"></div>
 
     <details class="block" id="whisper-block" hidden>
       <summary>Improve transcripts with on-device Whisper (optional, ~40 MB download, runs in your browser)</summary>
@@ -150,7 +165,7 @@
 
     <h2>What to do now</h2>
     <ol class="tips">
-      <li><strong>Paste the prompt</strong> into Claude, ChatGPT or any model you trust. It scores each answer and tells you what a partner would push on.</li>
+      <li><strong>Paste the prompt</strong> into Claude, ChatGPT or any model you trust. Three simulated YC partners, matched to your industry, score every answer and say what they would push on.</li>
       <li><strong>Cut every answer in half.</strong> Partners want the number, the name, the date. Not the story.</li>
       <li><strong>Fix the cut-offs first.</strong> An interrupted answer is one that started with context instead of the point.</li>
       <li><strong>Go again.</strong> If your answer survives 8 seconds, it survives the real room.</li>
