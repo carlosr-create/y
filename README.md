@@ -13,7 +13,7 @@ project (same timer and interruption idea, but with voice and a written record).
 
 ## How it works
 
-1. **Setup.** Project summary, industry (picks your simulated partner panel), stage (pre-launch skips metric questions),
+1. **Setup.** Company one-liner, industry (picks your simulated partner panel), stage (pre-launch skips metric questions),
    interviewer (strict timer of 20/30/45/60 s, or interruption mode that cuts
    you at a random 8 to 18 s), 6/10/15 questions capped at 10 minutes, voice
    on/off, microphone on/off.

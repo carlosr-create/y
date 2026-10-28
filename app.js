@@ -461,7 +461,7 @@ Answer (verbatim transcript): ${x.transcript.trim() ? '"' + x.transcript.trim() 
 ## The panel
 ${cards}
 
-## The company (written by the founder)
+## The company one-liner (written by the founder)
 ${session.summary}
 
 Stage: ${stage}.
@@ -501,7 +501,7 @@ Answer (verbatim transcript): ${x.transcript.trim() ? '"' + x.transcript.trim() 
 
   return `You are a Y Combinator partner who just finished a 10-minute interview with a founder. Interviews are fast, partners interrupt, and they judge clarity, specificity, evidence and honesty, not polish. Be direct, concrete and a little impatient, the way a real partner would be. Do not soften the verdict.
 
-## The company (written by the founder)
+## The company one-liner (written by the founder)
 ${session.summary}
 
 Stage: ${stage}.
