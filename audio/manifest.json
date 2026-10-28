@@ -1,0 +1,2364 @@
+{
+ "model": "s2.1-pro",
+ "voices": {
+  "ethan": {
+   "id": "536d3a5e000945adb7038665781a4aca",
+   "gender": "m",
+   "name": "Ethan"
+  },
+  "adrian": {
+   "id": "bf322df2096a46f18c579d0baa36f41d",
+   "gender": "m",
+   "name": "Adrian"
+  },
+  "sarah": {
+   "id": "933563129e564b19a115bedd57b7406a",
+   "gender": "f",
+   "name": "Sarah"
+  },
+  "hannah": {
+   "id": "9a9cf47702da476aa4629e2506d4a857",
+   "gender": "f",
+   "name": "Hannah"
+  }
+ },
+ "source": "https://yci.vercel.app (questions)",
+ "items": [
+  {
+   "id": "g1",
+   "voice": "ethan",
+   "file": "audio/ethan/g1.mp3",
+   "text": "How will you make money?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g1",
+   "voice": "adrian",
+   "file": "audio/adrian/g1.mp3",
+   "text": "How will you make money?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g1",
+   "voice": "sarah",
+   "file": "audio/sarah/g1.mp3",
+   "text": "How will you make money?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g1",
+   "voice": "hannah",
+   "file": "audio/hannah/g1.mp3",
+   "text": "How will you make money?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g2",
+   "voice": "ethan",
+   "file": "audio/ethan/g2.mp3",
+   "text": "Why isn't someone already doing this?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g2",
+   "voice": "adrian",
+   "file": "audio/adrian/g2.mp3",
+   "text": "Why isn't someone already doing this?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g2",
+   "voice": "sarah",
+   "file": "audio/sarah/g2.mp3",
+   "text": "Why isn't someone already doing this?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g2",
+   "voice": "hannah",
+   "file": "audio/hannah/g2.mp3",
+   "text": "Why isn't someone already doing this?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g3",
+   "voice": "ethan",
+   "file": "audio/ethan/g3.mp3",
+   "text": "What do you know about this space/product others don't know?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g3",
+   "voice": "adrian",
+   "file": "audio/adrian/g3.mp3",
+   "text": "What do you know about this space/product others don't know?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g3",
+   "voice": "sarah",
+   "file": "audio/sarah/g3.mp3",
+   "text": "What do you know about this space/product others don't know?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g3",
+   "voice": "hannah",
+   "file": "audio/hannah/g3.mp3",
+   "text": "What do you know about this space/product others don't know?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g4",
+   "voice": "ethan",
+   "file": "audio/ethan/g4.mp3",
+   "text": "What is the next step with the product evolution?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g4",
+   "voice": "adrian",
+   "file": "audio/adrian/g4.mp3",
+   "text": "What is the next step with the product evolution?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g4",
+   "voice": "sarah",
+   "file": "audio/sarah/g4.mp3",
+   "text": "What is the next step with the product evolution?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g4",
+   "voice": "hannah",
+   "file": "audio/hannah/g4.mp3",
+   "text": "What is the next step with the product evolution?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g5",
+   "voice": "ethan",
+   "file": "audio/ethan/g5.mp3",
+   "text": "What's the biggest mistake you have made?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g5",
+   "voice": "adrian",
+   "file": "audio/adrian/g5.mp3",
+   "text": "What's the biggest mistake you have made?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g5",
+   "voice": "sarah",
+   "file": "audio/sarah/g5.mp3",
+   "text": "What's the biggest mistake you have made?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g5",
+   "voice": "hannah",
+   "file": "audio/hannah/g5.mp3",
+   "text": "What's the biggest mistake you have made?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g6",
+   "voice": "ethan",
+   "file": "audio/ethan/g6.mp3",
+   "text": "How do you know customers need what you're making?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g6",
+   "voice": "adrian",
+   "file": "audio/adrian/g6.mp3",
+   "text": "How do you know customers need what you're making?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g6",
+   "voice": "sarah",
+   "file": "audio/sarah/g6.mp3",
+   "text": "How do you know customers need what you're making?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g6",
+   "voice": "hannah",
+   "file": "audio/hannah/g6.mp3",
+   "text": "How do you know customers need what you're making?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g7",
+   "voice": "ethan",
+   "file": "audio/ethan/g7.mp3",
+   "text": "Who would be your next hire?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g7",
+   "voice": "adrian",
+   "file": "audio/adrian/g7.mp3",
+   "text": "Who would be your next hire?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g7",
+   "voice": "sarah",
+   "file": "audio/sarah/g7.mp3",
+   "text": "Who would be your next hire?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g7",
+   "voice": "hannah",
+   "file": "audio/hannah/g7.mp3",
+   "text": "Who would be your next hire?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g8",
+   "voice": "ethan",
+   "file": "audio/ethan/g8.mp3",
+   "text": "How long can you go before funding?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g8",
+   "voice": "adrian",
+   "file": "audio/adrian/g8.mp3",
+   "text": "How long can you go before funding?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g8",
+   "voice": "sarah",
+   "file": "audio/sarah/g8.mp3",
+   "text": "How long can you go before funding?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g8",
+   "voice": "hannah",
+   "file": "audio/hannah/g8.mp3",
+   "text": "How long can you go before funding?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g9",
+   "voice": "ethan",
+   "file": "audio/ethan/g9.mp3",
+   "text": "Someone just showed us an idea like this right before you guys. I don't like it. What else do you have?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g9",
+   "voice": "adrian",
+   "file": "audio/adrian/g9.mp3",
+   "text": "Someone just showed us an idea like this right before you guys. I don't like it. What else do you have?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g9",
+   "voice": "sarah",
+   "file": "audio/sarah/g9.mp3",
+   "text": "Someone just showed us an idea like this right before you guys. I don't like it. What else do you have?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g9",
+   "voice": "hannah",
+   "file": "audio/hannah/g9.mp3",
+   "text": "Someone just showed us an idea like this right before you guys. I don't like it. What else do you have?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g10",
+   "voice": "ethan",
+   "file": "audio/ethan/g10.mp3",
+   "text": "Will you reincorporate as a US company?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g10",
+   "voice": "adrian",
+   "file": "audio/adrian/g10.mp3",
+   "text": "Will you reincorporate as a US company?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g10",
+   "voice": "sarah",
+   "file": "audio/sarah/g10.mp3",
+   "text": "Will you reincorporate as a US company?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g10",
+   "voice": "hannah",
+   "file": "audio/hannah/g10.mp3",
+   "text": "Will you reincorporate as a US company?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g11",
+   "voice": "ethan",
+   "file": "audio/ethan/g11.mp3",
+   "text": "How will you get users?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g11",
+   "voice": "adrian",
+   "file": "audio/adrian/g11.mp3",
+   "text": "How will you get users?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g11",
+   "voice": "sarah",
+   "file": "audio/sarah/g11.mp3",
+   "text": "How will you get users?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g11",
+   "voice": "hannah",
+   "file": "audio/hannah/g11.mp3",
+   "text": "How will you get users?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g12",
+   "voice": "ethan",
+   "file": "audio/ethan/g12.mp3",
+   "text": "Will your team stick at this?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g12",
+   "voice": "adrian",
+   "file": "audio/adrian/g12.mp3",
+   "text": "Will your team stick at this?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g12",
+   "voice": "sarah",
+   "file": "audio/sarah/g12.mp3",
+   "text": "Will your team stick at this?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g12",
+   "voice": "hannah",
+   "file": "audio/hannah/g12.mp3",
+   "text": "Will your team stick at this?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g13",
+   "voice": "ethan",
+   "file": "audio/ethan/g13.mp3",
+   "text": "Have you raised funding?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g13",
+   "voice": "adrian",
+   "file": "audio/adrian/g13.mp3",
+   "text": "Have you raised funding?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g13",
+   "voice": "sarah",
+   "file": "audio/sarah/g13.mp3",
+   "text": "Have you raised funding?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g13",
+   "voice": "hannah",
+   "file": "audio/hannah/g13.mp3",
+   "text": "Have you raised funding?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g14",
+   "voice": "ethan",
+   "file": "audio/ethan/g14.mp3",
+   "text": "How do you know people want this?",
+   "tag": "[confident][curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g14",
+   "voice": "adrian",
+   "file": "audio/adrian/g14.mp3",
+   "text": "How do you know people want this?",
+   "tag": "[confident][curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g14",
+   "voice": "sarah",
+   "file": "audio/sarah/g14.mp3",
+   "text": "How do you know people want this?",
+   "tag": "[confident][curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g14",
+   "voice": "hannah",
+   "file": "audio/hannah/g14.mp3",
+   "text": "How do you know people want this?",
+   "tag": "[confident][curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g15",
+   "voice": "ethan",
+   "file": "audio/ethan/g15.mp3",
+   "text": "What's the funniest thing that has happened to you?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g15",
+   "voice": "adrian",
+   "file": "audio/adrian/g15.mp3",
+   "text": "What's the funniest thing that has happened to you?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g15",
+   "voice": "sarah",
+   "file": "audio/sarah/g15.mp3",
+   "text": "What's the funniest thing that has happened to you?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g15",
+   "voice": "hannah",
+   "file": "audio/hannah/g15.mp3",
+   "text": "What's the funniest thing that has happened to you?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g16",
+   "voice": "ethan",
+   "file": "audio/ethan/g16.mp3",
+   "text": "Would you relocate to Silicon Valley?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g16",
+   "voice": "adrian",
+   "file": "audio/adrian/g16.mp3",
+   "text": "Would you relocate to Silicon Valley?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g16",
+   "voice": "sarah",
+   "file": "audio/sarah/g16.mp3",
+   "text": "Would you relocate to Silicon Valley?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g16",
+   "voice": "hannah",
+   "file": "audio/hannah/g16.mp3",
+   "text": "Would you relocate to Silicon Valley?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g17",
+   "voice": "ethan",
+   "file": "audio/ethan/g17.mp3",
+   "text": "Tell us something surprising you have done?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g17",
+   "voice": "adrian",
+   "file": "audio/adrian/g17.mp3",
+   "text": "Tell us something surprising you have done?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g17",
+   "voice": "sarah",
+   "file": "audio/sarah/g17.mp3",
+   "text": "Tell us something surprising you have done?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g17",
+   "voice": "hannah",
+   "file": "audio/hannah/g17.mp3",
+   "text": "Tell us something surprising you have done?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g18",
+   "voice": "ethan",
+   "file": "audio/ethan/g18.mp3",
+   "text": "What obstacles will you face and how will you overcome them?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g18",
+   "voice": "adrian",
+   "file": "audio/adrian/g18.mp3",
+   "text": "What obstacles will you face and how will you overcome them?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g18",
+   "voice": "sarah",
+   "file": "audio/sarah/g18.mp3",
+   "text": "What obstacles will you face and how will you overcome them?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g18",
+   "voice": "hannah",
+   "file": "audio/hannah/g18.mp3",
+   "text": "What obstacles will you face and how will you overcome them?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g19",
+   "voice": "ethan",
+   "file": "audio/ethan/g19.mp3",
+   "text": "What else have you created together?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g19",
+   "voice": "adrian",
+   "file": "audio/adrian/g19.mp3",
+   "text": "What else have you created together?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g19",
+   "voice": "sarah",
+   "file": "audio/sarah/g19.mp3",
+   "text": "What else have you created together?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g19",
+   "voice": "hannah",
+   "file": "audio/hannah/g19.mp3",
+   "text": "What else have you created together?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g20",
+   "voice": "ethan",
+   "file": "audio/ethan/g20.mp3",
+   "text": "How will customers and/or users find out about you?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g20",
+   "voice": "adrian",
+   "file": "audio/adrian/g20.mp3",
+   "text": "How will customers and/or users find out about you?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g20",
+   "voice": "sarah",
+   "file": "audio/sarah/g20.mp3",
+   "text": "How will customers and/or users find out about you?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g20",
+   "voice": "hannah",
+   "file": "audio/hannah/g20.mp3",
+   "text": "How will customers and/or users find out about you?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g21",
+   "voice": "ethan",
+   "file": "audio/ethan/g21.mp3",
+   "text": "What's new about what you make?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g21",
+   "voice": "adrian",
+   "file": "audio/adrian/g21.mp3",
+   "text": "What's new about what you make?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g21",
+   "voice": "sarah",
+   "file": "audio/sarah/g21.mp3",
+   "text": "What's new about what you make?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g21",
+   "voice": "hannah",
+   "file": "audio/hannah/g21.mp3",
+   "text": "What's new about what you make?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g22",
+   "voice": "ethan",
+   "file": "audio/ethan/g22.mp3",
+   "text": "Who would use your product?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g22",
+   "voice": "adrian",
+   "file": "audio/adrian/g22.mp3",
+   "text": "Who would use your product?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g22",
+   "voice": "sarah",
+   "file": "audio/sarah/g22.mp3",
+   "text": "Who would use your product?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g22",
+   "voice": "hannah",
+   "file": "audio/hannah/g22.mp3",
+   "text": "Who would use your product?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g23",
+   "voice": "ethan",
+   "file": "audio/ethan/g23.mp3",
+   "text": "Who needs what you're making?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g23",
+   "voice": "adrian",
+   "file": "audio/adrian/g23.mp3",
+   "text": "Who needs what you're making?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g23",
+   "voice": "sarah",
+   "file": "audio/sarah/g23.mp3",
+   "text": "Who needs what you're making?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g23",
+   "voice": "hannah",
+   "file": "audio/hannah/g23.mp3",
+   "text": "Who needs what you're making?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g24",
+   "voice": "ethan",
+   "file": "audio/ethan/g24.mp3",
+   "text": "Why will you succeed?",
+   "tag": "[curious][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g24",
+   "voice": "adrian",
+   "file": "audio/adrian/g24.mp3",
+   "text": "Why will you succeed?",
+   "tag": "[curious][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g24",
+   "voice": "sarah",
+   "file": "audio/sarah/g24.mp3",
+   "text": "Why will you succeed?",
+   "tag": "[curious][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g24",
+   "voice": "hannah",
+   "file": "audio/hannah/g24.mp3",
+   "text": "Why will you succeed?",
+   "tag": "[curious][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g26",
+   "voice": "ethan",
+   "file": "audio/ethan/g26.mp3",
+   "text": "What systems have you hacked?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g26",
+   "voice": "adrian",
+   "file": "audio/adrian/g26.mp3",
+   "text": "What systems have you hacked?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g26",
+   "voice": "sarah",
+   "file": "audio/sarah/g26.mp3",
+   "text": "What systems have you hacked?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g26",
+   "voice": "hannah",
+   "file": "audio/hannah/g26.mp3",
+   "text": "What systems have you hacked?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g27",
+   "voice": "ethan",
+   "file": "audio/ethan/g27.mp3",
+   "text": "What domain expertise do you have?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g27",
+   "voice": "adrian",
+   "file": "audio/adrian/g27.mp3",
+   "text": "What domain expertise do you have?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g27",
+   "voice": "sarah",
+   "file": "audio/sarah/g27.mp3",
+   "text": "What domain expertise do you have?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g27",
+   "voice": "hannah",
+   "file": "audio/hannah/g27.mp3",
+   "text": "What domain expertise do you have?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g28",
+   "voice": "ethan",
+   "file": "audio/ethan/g28.mp3",
+   "text": "Who are your competitors?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g28",
+   "voice": "adrian",
+   "file": "audio/adrian/g28.mp3",
+   "text": "Who are your competitors?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g28",
+   "voice": "sarah",
+   "file": "audio/sarah/g28.mp3",
+   "text": "Who are your competitors?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g28",
+   "voice": "hannah",
+   "file": "audio/hannah/g28.mp3",
+   "text": "Who are your competitors?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g29",
+   "voice": "ethan",
+   "file": "audio/ethan/g29.mp3",
+   "text": "Who would you hire or how would you add to your team?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g29",
+   "voice": "adrian",
+   "file": "audio/adrian/g29.mp3",
+   "text": "Who would you hire or how would you add to your team?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g29",
+   "voice": "sarah",
+   "file": "audio/sarah/g29.mp3",
+   "text": "Who would you hire or how would you add to your team?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g29",
+   "voice": "hannah",
+   "file": "audio/hannah/g29.mp3",
+   "text": "Who would you hire or how would you add to your team?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g30",
+   "voice": "ethan",
+   "file": "audio/ethan/g30.mp3",
+   "text": "What are the key things about your field that outsiders don't understand?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g30",
+   "voice": "adrian",
+   "file": "audio/adrian/g30.mp3",
+   "text": "What are the key things about your field that outsiders don't understand?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g30",
+   "voice": "sarah",
+   "file": "audio/sarah/g30.mp3",
+   "text": "What are the key things about your field that outsiders don't understand?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g30",
+   "voice": "hannah",
+   "file": "audio/hannah/g30.mp3",
+   "text": "What are the key things about your field that outsiders don't understand?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g31",
+   "voice": "ethan",
+   "file": "audio/ethan/g31.mp3",
+   "text": "How much money could you make per year?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g31",
+   "voice": "adrian",
+   "file": "audio/adrian/g31.mp3",
+   "text": "How much money could you make per year?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g31",
+   "voice": "sarah",
+   "file": "audio/sarah/g31.mp3",
+   "text": "How much money could you make per year?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g31",
+   "voice": "hannah",
+   "file": "audio/hannah/g31.mp3",
+   "text": "How much money could you make per year?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g32",
+   "voice": "ethan",
+   "file": "audio/ethan/g32.mp3",
+   "text": "Why did you choose this idea?",
+   "tag": "[curious][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g32",
+   "voice": "adrian",
+   "file": "audio/adrian/g32.mp3",
+   "text": "Why did you choose this idea?",
+   "tag": "[curious][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g32",
+   "voice": "sarah",
+   "file": "audio/sarah/g32.mp3",
+   "text": "Why did you choose this idea?",
+   "tag": "[curious][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g32",
+   "voice": "hannah",
+   "file": "audio/hannah/g32.mp3",
+   "text": "Why did you choose this idea?",
+   "tag": "[curious][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g33",
+   "voice": "ethan",
+   "file": "audio/ethan/g33.mp3",
+   "text": "What's an impressive thing you have done?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g33",
+   "voice": "adrian",
+   "file": "audio/adrian/g33.mp3",
+   "text": "What's an impressive thing you have done?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g33",
+   "voice": "sarah",
+   "file": "audio/sarah/g33.mp3",
+   "text": "What's an impressive thing you have done?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g33",
+   "voice": "hannah",
+   "file": "audio/hannah/g33.mp3",
+   "text": "What's an impressive thing you have done?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g34",
+   "voice": "ethan",
+   "file": "audio/ethan/g34.mp3",
+   "text": "If your startup succeeds, what additional areas might you be able to expand into?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g34",
+   "voice": "adrian",
+   "file": "audio/adrian/g34.mp3",
+   "text": "If your startup succeeds, what additional areas might you be able to expand into?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g34",
+   "voice": "sarah",
+   "file": "audio/sarah/g34.mp3",
+   "text": "If your startup succeeds, what additional areas might you be able to expand into?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g34",
+   "voice": "hannah",
+   "file": "audio/hannah/g34.mp3",
+   "text": "If your startup succeeds, what additional areas might you be able to expand into?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g35",
+   "voice": "ethan",
+   "file": "audio/ethan/g35.mp3",
+   "text": "What are you going to do next?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g35",
+   "voice": "adrian",
+   "file": "audio/adrian/g35.mp3",
+   "text": "What are you going to do next?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g35",
+   "voice": "sarah",
+   "file": "audio/sarah/g35.mp3",
+   "text": "What are you going to do next?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g35",
+   "voice": "hannah",
+   "file": "audio/hannah/g35.mp3",
+   "text": "What are you going to do next?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g36",
+   "voice": "ethan",
+   "file": "audio/ethan/g36.mp3",
+   "text": "Who might become competitors?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g36",
+   "voice": "adrian",
+   "file": "audio/adrian/g36.mp3",
+   "text": "Who might become competitors?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g36",
+   "voice": "sarah",
+   "file": "audio/sarah/g36.mp3",
+   "text": "Who might become competitors?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g36",
+   "voice": "hannah",
+   "file": "audio/hannah/g36.mp3",
+   "text": "Who might become competitors?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g37",
+   "voice": "ethan",
+   "file": "audio/ethan/g37.mp3",
+   "text": "Why did you pick this idea to work on?",
+   "tag": "[confident][curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g37",
+   "voice": "adrian",
+   "file": "audio/adrian/g37.mp3",
+   "text": "Why did you pick this idea to work on?",
+   "tag": "[confident][curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g37",
+   "voice": "sarah",
+   "file": "audio/sarah/g37.mp3",
+   "text": "Why did you pick this idea to work on?",
+   "tag": "[confident][curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g37",
+   "voice": "hannah",
+   "file": "audio/hannah/g37.mp3",
+   "text": "Why did you pick this idea to work on?",
+   "tag": "[confident][curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g38",
+   "voice": "ethan",
+   "file": "audio/ethan/g38.mp3",
+   "text": "What do you understand that others don't?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g38",
+   "voice": "adrian",
+   "file": "audio/adrian/g38.mp3",
+   "text": "What do you understand that others don't?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g38",
+   "voice": "sarah",
+   "file": "audio/sarah/g38.mp3",
+   "text": "What do you understand that others don't?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g38",
+   "voice": "hannah",
+   "file": "audio/hannah/g38.mp3",
+   "text": "What do you understand that others don't?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g39",
+   "voice": "ethan",
+   "file": "audio/ethan/g39.mp3",
+   "text": "What are the top things users want?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g39",
+   "voice": "adrian",
+   "file": "audio/adrian/g39.mp3",
+   "text": "What are the top things users want?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g39",
+   "voice": "sarah",
+   "file": "audio/sarah/g39.mp3",
+   "text": "What are the top things users want?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g39",
+   "voice": "hannah",
+   "file": "audio/hannah/g39.mp3",
+   "text": "What are the top things users want?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g40",
+   "voice": "ethan",
+   "file": "audio/ethan/g40.mp3",
+   "text": "Are you open to changing your idea?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g40",
+   "voice": "adrian",
+   "file": "audio/adrian/g40.mp3",
+   "text": "Are you open to changing your idea?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g40",
+   "voice": "sarah",
+   "file": "audio/sarah/g40.mp3",
+   "text": "Are you open to changing your idea?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g40",
+   "voice": "hannah",
+   "file": "audio/hannah/g40.mp3",
+   "text": "Are you open to changing your idea?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g41",
+   "voice": "ethan",
+   "file": "audio/ethan/g41.mp3",
+   "text": "What will you do if we don't fund you?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g41",
+   "voice": "adrian",
+   "file": "audio/adrian/g41.mp3",
+   "text": "What will you do if we don't fund you?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g41",
+   "voice": "sarah",
+   "file": "audio/sarah/g41.mp3",
+   "text": "What will you do if we don't fund you?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g41",
+   "voice": "hannah",
+   "file": "audio/hannah/g41.mp3",
+   "text": "What will you do if we don't fund you?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g42",
+   "voice": "ethan",
+   "file": "audio/ethan/g42.mp3",
+   "text": "How does your product work in more detail?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g42",
+   "voice": "adrian",
+   "file": "audio/adrian/g42.mp3",
+   "text": "How does your product work in more detail?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g42",
+   "voice": "sarah",
+   "file": "audio/sarah/g42.mp3",
+   "text": "How does your product work in more detail?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g42",
+   "voice": "hannah",
+   "file": "audio/hannah/g42.mp3",
+   "text": "How does your product work in more detail?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g43",
+   "voice": "ethan",
+   "file": "audio/ethan/g43.mp3",
+   "text": "How do we know your team will stick together?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g43",
+   "voice": "adrian",
+   "file": "audio/adrian/g43.mp3",
+   "text": "How do we know your team will stick together?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g43",
+   "voice": "sarah",
+   "file": "audio/sarah/g43.mp3",
+   "text": "How do we know your team will stick together?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g43",
+   "voice": "hannah",
+   "file": "audio/hannah/g43.mp3",
+   "text": "How do we know your team will stick together?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g44",
+   "voice": "ethan",
+   "file": "audio/ethan/g44.mp3",
+   "text": "Six months from now, what's going to be your biggest problem?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g44",
+   "voice": "adrian",
+   "file": "audio/adrian/g44.mp3",
+   "text": "Six months from now, what's going to be your biggest problem?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g44",
+   "voice": "sarah",
+   "file": "audio/sarah/g44.mp3",
+   "text": "Six months from now, what's going to be your biggest problem?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g44",
+   "voice": "hannah",
+   "file": "audio/hannah/g44.mp3",
+   "text": "Six months from now, what's going to be your biggest problem?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g45",
+   "voice": "ethan",
+   "file": "audio/ethan/g45.mp3",
+   "text": "Tell us about a tough problem you solved?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g45",
+   "voice": "adrian",
+   "file": "audio/adrian/g45.mp3",
+   "text": "Tell us about a tough problem you solved?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g45",
+   "voice": "sarah",
+   "file": "audio/sarah/g45.mp3",
+   "text": "Tell us about a tough problem you solved?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g45",
+   "voice": "hannah",
+   "file": "audio/hannah/g45.mp3",
+   "text": "Tell us about a tough problem you solved?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g46",
+   "voice": "ethan",
+   "file": "audio/ethan/g46.mp3",
+   "text": "In what ways are you resourceful?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g46",
+   "voice": "adrian",
+   "file": "audio/adrian/g46.mp3",
+   "text": "In what ways are you resourceful?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g46",
+   "voice": "sarah",
+   "file": "audio/sarah/g46.mp3",
+   "text": "In what ways are you resourceful?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g46",
+   "voice": "hannah",
+   "file": "audio/hannah/g46.mp3",
+   "text": "In what ways are you resourceful?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g47",
+   "voice": "ethan",
+   "file": "audio/ethan/g47.mp3",
+   "text": "What, exactly, makes you different from existing options?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g47",
+   "voice": "adrian",
+   "file": "audio/adrian/g47.mp3",
+   "text": "What, exactly, makes you different from existing options?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g47",
+   "voice": "sarah",
+   "file": "audio/sarah/g47.mp3",
+   "text": "What, exactly, makes you different from existing options?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g47",
+   "voice": "hannah",
+   "file": "audio/hannah/g47.mp3",
+   "text": "What, exactly, makes you different from existing options?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g48",
+   "voice": "ethan",
+   "file": "audio/ethan/g48.mp3",
+   "text": "So what are you working on?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g48",
+   "voice": "adrian",
+   "file": "audio/adrian/g48.mp3",
+   "text": "So what are you working on?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g48",
+   "voice": "sarah",
+   "file": "audio/sarah/g48.mp3",
+   "text": "So what are you working on?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g48",
+   "voice": "hannah",
+   "file": "audio/hannah/g48.mp3",
+   "text": "So what are you working on?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g49",
+   "voice": "ethan",
+   "file": "audio/ethan/g49.mp3",
+   "text": "How big an opportunity is there?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g49",
+   "voice": "adrian",
+   "file": "audio/adrian/g49.mp3",
+   "text": "How big an opportunity is there?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g49",
+   "voice": "sarah",
+   "file": "audio/sarah/g49.mp3",
+   "text": "How big an opportunity is there?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g49",
+   "voice": "hannah",
+   "file": "audio/hannah/g49.mp3",
+   "text": "How big an opportunity is there?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g50",
+   "voice": "ethan",
+   "file": "audio/ethan/g50.mp3",
+   "text": "Where is the rocket science here?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g50",
+   "voice": "adrian",
+   "file": "audio/adrian/g50.mp3",
+   "text": "Where is the rocket science here?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g50",
+   "voice": "sarah",
+   "file": "audio/sarah/g50.mp3",
+   "text": "Where is the rocket science here?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g50",
+   "voice": "hannah",
+   "file": "audio/hannah/g50.mp3",
+   "text": "Where is the rocket science here?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g51",
+   "voice": "ethan",
+   "file": "audio/ethan/g51.mp3",
+   "text": "What problems/hurdles are you anticipating?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g51",
+   "voice": "adrian",
+   "file": "audio/adrian/g51.mp3",
+   "text": "What problems/hurdles are you anticipating?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g51",
+   "voice": "sarah",
+   "file": "audio/sarah/g51.mp3",
+   "text": "What problems/hurdles are you anticipating?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g51",
+   "voice": "hannah",
+   "file": "audio/hannah/g51.mp3",
+   "text": "What problems/hurdles are you anticipating?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g52",
+   "voice": "ethan",
+   "file": "audio/ethan/g52.mp3",
+   "text": "Do you have a demo?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g52",
+   "voice": "adrian",
+   "file": "audio/adrian/g52.mp3",
+   "text": "Do you have a demo?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g52",
+   "voice": "sarah",
+   "file": "audio/sarah/g52.mp3",
+   "text": "Do you have a demo?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g52",
+   "voice": "hannah",
+   "file": "audio/hannah/g52.mp3",
+   "text": "Do you have a demo?",
+   "tag": "[calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g53",
+   "voice": "ethan",
+   "file": "audio/ethan/g53.mp3",
+   "text": "How is your product different?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g53",
+   "voice": "adrian",
+   "file": "audio/adrian/g53.mp3",
+   "text": "How is your product different?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g53",
+   "voice": "sarah",
+   "file": "audio/sarah/g53.mp3",
+   "text": "How is your product different?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g53",
+   "voice": "hannah",
+   "file": "audio/hannah/g53.mp3",
+   "text": "How is your product different?",
+   "tag": "[curious]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g54",
+   "voice": "ethan",
+   "file": "audio/ethan/g54.mp3",
+   "text": "What competition do you fear most?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g54",
+   "voice": "adrian",
+   "file": "audio/adrian/g54.mp3",
+   "text": "What competition do you fear most?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g54",
+   "voice": "sarah",
+   "file": "audio/sarah/g54.mp3",
+   "text": "What competition do you fear most?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g54",
+   "voice": "hannah",
+   "file": "audio/hannah/g54.mp3",
+   "text": "What competition do you fear most?",
+   "tag": "[confident][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g55",
+   "voice": "ethan",
+   "file": "audio/ethan/g55.mp3",
+   "text": "Who in your team does what?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g55",
+   "voice": "adrian",
+   "file": "audio/adrian/g55.mp3",
+   "text": "Who in your team does what?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g55",
+   "voice": "sarah",
+   "file": "audio/sarah/g55.mp3",
+   "text": "Who in your team does what?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g55",
+   "voice": "hannah",
+   "file": "audio/hannah/g55.mp3",
+   "text": "Who in your team does what?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g56",
+   "voice": "ethan",
+   "file": "audio/ethan/g56.mp3",
+   "text": "What is your distribution strategy?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g56",
+   "voice": "adrian",
+   "file": "audio/adrian/g56.mp3",
+   "text": "What is your distribution strategy?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g56",
+   "voice": "sarah",
+   "file": "audio/sarah/g56.mp3",
+   "text": "What is your distribution strategy?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g56",
+   "voice": "hannah",
+   "file": "audio/hannah/g56.mp3",
+   "text": "What is your distribution strategy?",
+   "tag": "[in a hurry tone]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g57",
+   "voice": "ethan",
+   "file": "audio/ethan/g57.mp3",
+   "text": "Why did your team get together?",
+   "tag": "[curious][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g57",
+   "voice": "adrian",
+   "file": "audio/adrian/g57.mp3",
+   "text": "Why did your team get together?",
+   "tag": "[curious][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g57",
+   "voice": "sarah",
+   "file": "audio/sarah/g57.mp3",
+   "text": "Why did your team get together?",
+   "tag": "[curious][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g57",
+   "voice": "hannah",
+   "file": "audio/hannah/g57.mp3",
+   "text": "Why did your team get together?",
+   "tag": "[curious][calm]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g58",
+   "voice": "ethan",
+   "file": "audio/ethan/g58.mp3",
+   "text": "How did your team meet?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g58",
+   "voice": "adrian",
+   "file": "audio/adrian/g58.mp3",
+   "text": "How did your team meet?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g58",
+   "voice": "sarah",
+   "file": "audio/sarah/g58.mp3",
+   "text": "How did your team meet?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "g58",
+   "voice": "hannah",
+   "file": "audio/hannah/g58.mp3",
+   "text": "How did your team meet?",
+   "tag": "[confident]",
+   "type": "GENERAL"
+  },
+  {
+   "id": "pre1",
+   "voice": "ethan",
+   "file": "audio/ethan/pre1.mp3",
+   "text": "What part of your project are you going to build first?",
+   "tag": "[calm]",
+   "type": "PRE_LAUNCH"
+  },
+  {
+   "id": "pre1",
+   "voice": "adrian",
+   "file": "audio/adrian/pre1.mp3",
+   "text": "What part of your project are you going to build first?",
+   "tag": "[calm]",
+   "type": "PRE_LAUNCH"
+  },
+  {
+   "id": "pre1",
+   "voice": "sarah",
+   "file": "audio/sarah/pre1.mp3",
+   "text": "What part of your project are you going to build first?",
+   "tag": "[calm]",
+   "type": "PRE_LAUNCH"
+  },
+  {
+   "id": "pre1",
+   "voice": "hannah",
+   "file": "audio/hannah/pre1.mp3",
+   "text": "What part of your project are you going to build first?",
+   "tag": "[calm]",
+   "type": "PRE_LAUNCH"
+  },
+  {
+   "id": "pre2",
+   "voice": "ethan",
+   "file": "audio/ethan/pre2.mp3",
+   "text": "Who is going to be your first paying customer?",
+   "tag": "[calm]",
+   "type": "PRE_LAUNCH"
+  },
+  {
+   "id": "pre2",
+   "voice": "adrian",
+   "file": "audio/adrian/pre2.mp3",
+   "text": "Who is going to be your first paying customer?",
+   "tag": "[calm]",
+   "type": "PRE_LAUNCH"
+  },
+  {
+   "id": "pre2",
+   "voice": "sarah",
+   "file": "audio/sarah/pre2.mp3",
+   "text": "Who is going to be your first paying customer?",
+   "tag": "[calm]",
+   "type": "PRE_LAUNCH"
+  },
+  {
+   "id": "pre2",
+   "voice": "hannah",
+   "file": "audio/hannah/pre2.mp3",
+   "text": "Who is going to be your first paying customer?",
+   "tag": "[calm]",
+   "type": "PRE_LAUNCH"
+  },
+  {
+   "id": "post1",
+   "voice": "ethan",
+   "file": "audio/ethan/post1.mp3",
+   "text": "What is your burn rate?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post1",
+   "voice": "adrian",
+   "file": "audio/adrian/post1.mp3",
+   "text": "What is your burn rate?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post1",
+   "voice": "sarah",
+   "file": "audio/sarah/post1.mp3",
+   "text": "What is your burn rate?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post1",
+   "voice": "hannah",
+   "file": "audio/hannah/post1.mp3",
+   "text": "What is your burn rate?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post2",
+   "voice": "ethan",
+   "file": "audio/ethan/post2.mp3",
+   "text": "How are you meeting customers?",
+   "tag": "[calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post2",
+   "voice": "adrian",
+   "file": "audio/adrian/post2.mp3",
+   "text": "How are you meeting customers?",
+   "tag": "[calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post2",
+   "voice": "sarah",
+   "file": "audio/sarah/post2.mp3",
+   "text": "How are you meeting customers?",
+   "tag": "[calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post2",
+   "voice": "hannah",
+   "file": "audio/hannah/post2.mp3",
+   "text": "How are you meeting customers?",
+   "tag": "[calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post3",
+   "voice": "ethan",
+   "file": "audio/ethan/post3.mp3",
+   "text": "What is your user growth rate?",
+   "tag": "[calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post3",
+   "voice": "adrian",
+   "file": "audio/adrian/post3.mp3",
+   "text": "What is your user growth rate?",
+   "tag": "[calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post3",
+   "voice": "sarah",
+   "file": "audio/sarah/post3.mp3",
+   "text": "What is your user growth rate?",
+   "tag": "[calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post3",
+   "voice": "hannah",
+   "file": "audio/hannah/post3.mp3",
+   "text": "What is your user growth rate?",
+   "tag": "[calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post4",
+   "voice": "ethan",
+   "file": "audio/ethan/post4.mp3",
+   "text": "How much does customer acquisition cost?",
+   "tag": "[in a hurry tone]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post4",
+   "voice": "adrian",
+   "file": "audio/adrian/post4.mp3",
+   "text": "How much does customer acquisition cost?",
+   "tag": "[in a hurry tone]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post4",
+   "voice": "sarah",
+   "file": "audio/sarah/post4.mp3",
+   "text": "How much does customer acquisition cost?",
+   "tag": "[in a hurry tone]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post4",
+   "voice": "hannah",
+   "file": "audio/hannah/post4.mp3",
+   "text": "How much does customer acquisition cost?",
+   "tag": "[in a hurry tone]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post5",
+   "voice": "ethan",
+   "file": "audio/ethan/post5.mp3",
+   "text": "What do you understand about your users?",
+   "tag": "[curious]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post5",
+   "voice": "adrian",
+   "file": "audio/adrian/post5.mp3",
+   "text": "What do you understand about your users?",
+   "tag": "[curious]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post5",
+   "voice": "sarah",
+   "file": "audio/sarah/post5.mp3",
+   "text": "What do you understand about your users?",
+   "tag": "[curious]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post5",
+   "voice": "hannah",
+   "file": "audio/hannah/post5.mp3",
+   "text": "What do you understand about your users?",
+   "tag": "[curious]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post6",
+   "voice": "ethan",
+   "file": "audio/ethan/post6.mp3",
+   "text": "What is your growth like?",
+   "tag": "[calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post6",
+   "voice": "adrian",
+   "file": "audio/adrian/post6.mp3",
+   "text": "What is your growth like?",
+   "tag": "[calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post6",
+   "voice": "sarah",
+   "file": "audio/sarah/post6.mp3",
+   "text": "What is your growth like?",
+   "tag": "[calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post6",
+   "voice": "hannah",
+   "file": "audio/hannah/post6.mp3",
+   "text": "What is your growth like?",
+   "tag": "[calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post7",
+   "voice": "ethan",
+   "file": "audio/ethan/post7.mp3",
+   "text": "Why do the reluctant users hold back?",
+   "tag": "[curious]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post7",
+   "voice": "adrian",
+   "file": "audio/adrian/post7.mp3",
+   "text": "Why do the reluctant users hold back?",
+   "tag": "[curious]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post7",
+   "voice": "sarah",
+   "file": "audio/sarah/post7.mp3",
+   "text": "Why do the reluctant users hold back?",
+   "tag": "[curious]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post7",
+   "voice": "hannah",
+   "file": "audio/hannah/post7.mp3",
+   "text": "Why do the reluctant users hold back?",
+   "tag": "[curious]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post8",
+   "voice": "ethan",
+   "file": "audio/ethan/post8.mp3",
+   "text": "How many users are paying?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post8",
+   "voice": "adrian",
+   "file": "audio/adrian/post8.mp3",
+   "text": "How many users are paying?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post8",
+   "voice": "sarah",
+   "file": "audio/sarah/post8.mp3",
+   "text": "How many users are paying?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post8",
+   "voice": "hannah",
+   "file": "audio/hannah/post8.mp3",
+   "text": "How many users are paying?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post9",
+   "voice": "ethan",
+   "file": "audio/ethan/post9.mp3",
+   "text": "What makes new users try you?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post9",
+   "voice": "adrian",
+   "file": "audio/adrian/post9.mp3",
+   "text": "What makes new users try you?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post9",
+   "voice": "sarah",
+   "file": "audio/sarah/post9.mp3",
+   "text": "What makes new users try you?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post9",
+   "voice": "hannah",
+   "file": "audio/hannah/post9.mp3",
+   "text": "What makes new users try you?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post10",
+   "voice": "ethan",
+   "file": "audio/ethan/post10.mp3",
+   "text": "What resistance will they have to trying you and how will you overcome it?",
+   "tag": "[curious]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post10",
+   "voice": "adrian",
+   "file": "audio/adrian/post10.mp3",
+   "text": "What resistance will they have to trying you and how will you overcome it?",
+   "tag": "[curious]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post10",
+   "voice": "sarah",
+   "file": "audio/sarah/post10.mp3",
+   "text": "What resistance will they have to trying you and how will you overcome it?",
+   "tag": "[curious]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post10",
+   "voice": "hannah",
+   "file": "audio/hannah/post10.mp3",
+   "text": "What resistance will they have to trying you and how will you overcome it?",
+   "tag": "[curious]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post11",
+   "voice": "ethan",
+   "file": "audio/ethan/post11.mp3",
+   "text": "Where do new users come from?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post11",
+   "voice": "adrian",
+   "file": "audio/adrian/post11.mp3",
+   "text": "Where do new users come from?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post11",
+   "voice": "sarah",
+   "file": "audio/sarah/post11.mp3",
+   "text": "Where do new users come from?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post11",
+   "voice": "hannah",
+   "file": "audio/hannah/post11.mp3",
+   "text": "Where do new users come from?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post12",
+   "voice": "ethan",
+   "file": "audio/ethan/post12.mp3",
+   "text": "What's the conversion rate?",
+   "tag": "[confident][calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post12",
+   "voice": "adrian",
+   "file": "audio/adrian/post12.mp3",
+   "text": "What's the conversion rate?",
+   "tag": "[confident][calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post12",
+   "voice": "sarah",
+   "file": "audio/sarah/post12.mp3",
+   "text": "What's the conversion rate?",
+   "tag": "[confident][calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post12",
+   "voice": "hannah",
+   "file": "audio/hannah/post12.mp3",
+   "text": "What's the conversion rate?",
+   "tag": "[confident][calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post13",
+   "voice": "ethan",
+   "file": "audio/ethan/post13.mp3",
+   "text": "What has surprised you about user behaviour?",
+   "tag": "[confident][calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post13",
+   "voice": "adrian",
+   "file": "audio/adrian/post13.mp3",
+   "text": "What has surprised you about user behaviour?",
+   "tag": "[confident][calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post13",
+   "voice": "sarah",
+   "file": "audio/sarah/post13.mp3",
+   "text": "What has surprised you about user behaviour?",
+   "tag": "[confident][calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post13",
+   "voice": "hannah",
+   "file": "audio/hannah/post13.mp3",
+   "text": "What has surprised you about user behaviour?",
+   "tag": "[confident][calm]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post14",
+   "voice": "ethan",
+   "file": "audio/ethan/post14.mp3",
+   "text": "How many users do you have?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post14",
+   "voice": "adrian",
+   "file": "audio/adrian/post14.mp3",
+   "text": "How many users do you have?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post14",
+   "voice": "sarah",
+   "file": "audio/sarah/post14.mp3",
+   "text": "How many users do you have?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  },
+  {
+   "id": "post14",
+   "voice": "hannah",
+   "file": "audio/hannah/post14.mp3",
+   "text": "How many users do you have?",
+   "tag": "[confident]",
+   "type": "POST_LAUNCH"
+  }
+ ]
+}
