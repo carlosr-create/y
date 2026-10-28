@@ -163,6 +163,10 @@ select { font: inherit; padding: 8px 10px; border-radius: 8px; border: 1px solid
 .avatar[data-voice="sarah"]  { background: #b63f8c; }
 .avatar[data-voice="hannah"] { background: #c0721c; }
 #speaker-name { color: var(--text); font-weight: 600; }
+.bars { display: flex; align-items: center; gap: 3px; height: 28px; }
+.bars i { display: block; width: 4px; height: 4px; border-radius: 2px; background: var(--line-2); transition: height .08s linear, background .2s; }
+.bars.speaking i { background: var(--accent); }
+.bars.listening i { background: var(--ok); }
 .speaker-state.speaking::after { content: " ●"; color: var(--accent); animation: blink 1s infinite; }
 @keyframes blink { 50% { opacity: .2; } }
 .question { font-size: clamp(22px, 3.4vw, 30px); line-height: 1.25; font-weight: 600; margin: 0; max-width: 600px; letter-spacing: -.01em; }
@@ -222,6 +226,12 @@ select { font: inherit; padding: 8px 10px; border-radius: 8px; border: 1px solid
 .answer-meta { color: var(--muted); font: 12px/1.4 var(--mono); margin-top: 6px; }
 .tips li { margin-bottom: 8px; }
 details summary { cursor: pointer; font-weight: 600; }
+.prompt-block { margin-top: 16px; }
+.prompt-text {
+  white-space: pre-wrap; word-break: break-word; font: 12.5px/1.5 var(--mono); color: var(--text);
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 12px;
+  max-height: 420px; overflow: auto; margin: 8px 0 12px;
+}
 progress { width: 100%; accent-color: var(--accent); }
 
 @media (max-width: 520px) {
@@ -235,6 +245,6 @@ progress { width: 100%; accent-color: var(--accent); }
 }
 @media print {
   body { background: #fff; }
-  .top, .foot, .actions, #whisper-block, .tips, .hint { display: none !important; }
+  .top, .foot, .actions, #whisper-block, #prompt-block, .tips, .hint { display: none !important; }
   .answer textarea { border: none; }
 }

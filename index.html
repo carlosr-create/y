@@ -109,6 +109,7 @@
         <span id="speaker-name">Ethan</span>
         <span id="speaker-state" class="speaker-state">asks</span>
       </div>
+      <div class="bars" id="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <p id="q-text" class="question">…</p>
 
       <div class="timer-wrap" id="timer-wrap">
@@ -151,6 +152,13 @@
     </div>
     <p class="hint mono" id="copy-status" aria-live="polite"></p>
     <div class="panel" id="panel"></div>
+
+    <details class="block prompt-block" id="prompt-block" open>
+      <summary>Read the prompt before pasting</summary>
+      <p class="hint">This is exactly what "Copy partner-panel prompt" puts on your clipboard. Edit a transcript above and it updates.</p>
+      <pre id="prompt-text" class="prompt-text" tabindex="0"></pre>
+      <button type="button" class="btn primary" id="copy-prompt-2">Copy partner-panel prompt</button>
+    </details>
 
     <details class="block" id="whisper-block" hidden>
       <summary>Improve transcripts with on-device Whisper (optional, ~40 MB download, runs in your browser)</summary>

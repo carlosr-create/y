@@ -109,6 +109,7 @@ form.addEventListener('change', updateEstimate);
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   readForm();
+  ensureAudioCtx();                                           // created on a user gesture: iOS needs that
   updateEstimate();
   if (!session.summary) { summaryEl.focus(); return; }
   if (session.mic) {
@@ -132,13 +133,63 @@ let currentAudio = null;
 let micStream = null, recorder = null, chunks = [], recog = null, liveFinal = '', liveInterim = '';
 let advancing = false;
 
+/* Audio bars: orange with the partner's voice, green with the microphone. */
+let audioCtx = null, voiceAnalyser = null, micAnalyser = null, barsMode = '', barsRaf = 0;
+const barEls = () => $$('#bars i');
+function ensureAudioCtx() {
+  if (audioCtx) return audioCtx;
+  try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (_) { audioCtx = null; }
+  return audioCtx;
+}
+function attachVoice(audioEl) {
+  const ctx = ensureAudioCtx(); if (!ctx) return;
+  try {
+    const src = ctx.createMediaElementSource(audioEl);
+    voiceAnalyser = ctx.createAnalyser(); voiceAnalyser.fftSize = 64;
+    src.connect(voiceAnalyser); voiceAnalyser.connect(ctx.destination);
+    if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+  } catch (_) { voiceAnalyser = null; }
+}
+function attachMic(stream) {
+  const ctx = ensureAudioCtx(); if (!ctx || micAnalyser) return;
+  try {
+    const src = ctx.createMediaStreamSource(stream);
+    micAnalyser = ctx.createAnalyser(); micAnalyser.fftSize = 64;
+    src.connect(micAnalyser);                                  // not to destination: no feedback
+  } catch (_) { micAnalyser = null; }
+}
+function setBars(mode) {                                       // 'speaking' | 'listening' | ''
+  barsMode = mode;
+  $('#bars').className = `bars ${mode}`;
+  cancelAnimationFrame(barsRaf);
+  if (!mode) { barEls().forEach((b) => { b.style.height = '4px'; }); return; }
+  const an = mode === 'speaking' ? voiceAnalyser : micAnalyser;
+  const data = an ? new Uint8Array(an.frequencyBinCount) : null;
+  let t = 0;
+  const loop = () => {
+    const bars = barEls();
+    if (an) { an.getByteFrequencyData(data); }
+    bars.forEach((b, i) => {
+      let v;
+      if (an) { const idx = Math.min(data.length - 1, 1 + Math.floor(i * (data.length - 2) / bars.length)); v = data[idx] / 255; }
+      else { v = 0.25 + 0.35 * Math.abs(Math.sin(t / 7 + i)); }   // no analyser: gentle fake motion
+      b.style.height = `${4 + Math.round(v * 24)}px`;
+    });
+    t++;
+    barsRaf = requestAnimationFrame(loop);
+  };
+  loop();
+}
+
 async function openMic() {
   if (micStream) return micStream;
   micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  attachMic(micStream);
   return micStream;
 }
 function closeMic() {
-  if (micStream) { micStream.getTracks().forEach((t) => t.stop()); micStream = null; }
+  if (micStream) { micStream.getTracks().forEach((t) => t.stop()); micStream = null; micAnalyser = null; }
+  setBars('');
 }
 
 function setTimer(sec, cls, msg) {
@@ -171,8 +222,11 @@ function askQuestion(i) {
   const next = session.plan[i + 1];
   if (next && session.voice) { const a = new Audio(`audio/${next.voice}/${next.id}.mp3`); a.preload = 'auto'; }
 
+  setBars('');
   if (session.voice) {
     currentAudio = new Audio(`audio/${q.voice}/${q.id}.mp3`);
+    attachVoice(currentAudio);
+    currentAudio.addEventListener('playing', () => setBars('speaking'), { once: true });
     const start = () => { currentAudio = null; startAnswer(); };
     currentAudio.addEventListener('ended', start, { once: true });
     currentAudio.addEventListener('error', start, { once: true });
@@ -187,7 +241,7 @@ function startAnswer() {
   $('#speaker-state').textContent = 'is waiting'; $('#speaker-state').classList.remove('speaking');
   timer = { raf: 0, start: performance.now(), limit: q.limit, running: true, cutOff: false, elapsed: 0 };
   setTimer(q.limit, '', session.mode === 'interrupt' ? 'Answer' : 'Go');
-  if (session.mic) startRecording(); else { $('#answer-typed').focus(); }
+  if (session.mic) { startRecording(); setBars('listening'); } else { setBars(''); $('#answer-typed').focus(); }
   tick();
 }
 
@@ -248,7 +302,7 @@ function stopRecording() {
 async function finishAnswer(cutOff) {
   if (!timer.running || advancing) return;
   advancing = true;
-  timer.running = false; cancelAnimationFrame(timer.raf);
+  timer.running = false; cancelAnimationFrame(timer.raf); setBars('');
   if (currentAudio) { currentAudio.pause(); currentAudio = null; }
   const q = session.plan[qIndex];
   const blob = session.mic ? await stopRecording() : null;
@@ -281,7 +335,8 @@ function playCutIn(q, done) {
   setTimeout(() => { if (!session.voice) finish(); }, 2000);
   if (session.voice) {
     const a = new Audio(`audio/${voice}/${key}.mp3`);
-    a.addEventListener('ended', () => setTimeout(finish, 350), { once: true });
+    attachVoice(a); a.addEventListener('playing', () => setBars('speaking'), { once: true });
+    a.addEventListener('ended', () => { setBars(''); setTimeout(finish, 350); }, { once: true });
     a.addEventListener('error', () => setTimeout(finish, 1000), { once: true });
     a.play().catch(() => setTimeout(finish, 1000));
     setTimeout(finish, 4000);                                 // safety: never hang on a stuck clip
@@ -354,7 +409,9 @@ function renderReport() {
   $('#whisper-block').hidden = !a.some((x) => x.blob);
   const panel = panelFor(session.industry);
   $('#panel').innerHTML = panel.length ? panel.map((p) => `<div class="pcard"><div class="pt">On your panel</div><b>${esc(p.name)}</b>${esc(p.title)}<p>${esc(p.lens[0])}</p></div>`).join('') : '';
+  refreshPromptPreview();
 }
+function refreshPromptPreview() { $('#prompt-text').textContent = partnerPrompt(); }
 
 function metaLine(x) {
   const w = words(x.transcript), f = fillerCount(x.transcript);
@@ -367,6 +424,7 @@ $('#answers').addEventListener('input', (e) => {
   const i = Number(e.target.dataset.i);
   session.answers[i].transcript = e.target.value;
   $(`[data-meta="${i}"]`).textContent = metaLine(session.answers[i]);
+  clearTimeout(refreshPromptPreview.t); refreshPromptPreview.t = setTimeout(refreshPromptPreview, 300);
 });
 
 /* The three simulated partners for this run, matched to the industry. */
@@ -519,6 +577,7 @@ async function copyText(text, label) {
   }
 }
 $('#copy-prompt').addEventListener('click', () => copyText(partnerPrompt(), 'Partner-panel prompt'));
+$('#copy-prompt-2').addEventListener('click', () => { copyText(partnerPrompt(), 'Partner-panel prompt'); $('#copy-prompt-2').textContent = 'Copied'; setTimeout(() => { $('#copy-prompt-2').textContent = 'Copy partner-panel prompt'; }, 1500); });
 $('#copy-jev').addEventListener('click', () => copyText(JSON.stringify(jevPayload(), null, 2), 'Jev payload'));
 $('#download-json').addEventListener('click', () => {
   const blob = new Blob([JSON.stringify(exportJson(), null, 2)], { type: 'application/json' });
