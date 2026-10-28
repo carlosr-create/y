@@ -5,7 +5,7 @@ your company, pick a timer, and four voices ask you real interview questions
 out loud. Your answers are recorded and written down on your device. At the
 end you get a report and two copy-ready prompts that score the run.
 
-**Live:** https://y-mock.vercel.app (see Deploy below)
+**Live:** https://y-liart-eta.vercel.app
 
 Not affiliated with Y Combinator. Questions come from
 [yci.vercel.app](https://yci.vercel.app/) by Ali Elroby, which inspired this
