@@ -4,18 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Y · YC mock interview</title>
-<meta name="description" content="Free YC mock interview. Timed questions asked out loud by four different voices. Your answers are written down on your device and turned into a scoring prompt.">
+<meta name="description" content="Free YC mock interview. Timed questions asked out loud by four different voices that interrupt you. Your answers are written down on your device and turned into a scoring prompt.">
+<meta name="color-scheme" content="light">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23f26522'/%3E%3Ctext x='32' y='46' font-family='Helvetica,Arial,sans-serif' font-size='40' font-weight='700' text-anchor='middle' fill='white'%3EY%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="top">
-  <a class="brand" href="./" aria-label="Y home"><span class="mark">Y</span><span class="brand-text">mock interview</span></a>
+  <a class="brand" href="./" aria-label="Y home"><span class="mark">Y</span><span class="brand-text">YC mock interview</span></a>
   <nav class="steps" aria-label="Progress">
-    <span class="step" data-step="setup">1 Setup</span>
-    <span class="step" data-step="interview">2 Interview</span>
-    <span class="step" data-step="report">3 Report</span>
+    <span class="step" data-step="setup">01 Setup</span>
+    <span class="step" data-step="interview">02 Interview</span>
+    <span class="step" data-step="report">03 Report</span>
   </nav>
 </header>
 
@@ -24,41 +27,27 @@
   <!-- ============ 1. SETUP ============ -->
   <section id="screen-setup" class="screen" data-screen="setup">
     <h1>Practice the 10-minute YC interview.</h1>
-    <p class="lead">Real partners ask fast, out loud, and cut you off. This does the same.
-      Four voices, a timer, and a written record of every answer. Free, no account, nothing leaves your device.</p>
+    <p class="lead">Partners ask fast, out loud, and cut you off. So does this.
+      Four voices, a timer, a written record of every answer. Free. Nothing leaves your device.</p>
 
     <form id="setup-form" autocomplete="off">
 
-      <fieldset class="block">
-        <legend>Your project</legend>
-        <label for="summary">Describe your company in a few lines. The report uses this as context.</label>
-        <textarea id="summary" name="summary" rows="4" maxlength="2000" placeholder="Example: Clinic in a box for doctors. Patients own the record. 3 paying clinics, $2.1k MRR, founded by two doctors and one engineer." required></textarea>
-        <div class="hint"><span id="summary-count">0</span> / 2000</div>
-      </fieldset>
-
-      <fieldset class="block">
-        <legend>Stage</legend>
-        <div class="choices" role="radiogroup">
-          <label class="choice"><input type="radio" name="stage" value="pre" checked>
-            <span class="choice-title">We haven't launched yet</span>
-            <span class="choice-sub">Skips metric-heavy questions</span></label>
-          <label class="choice"><input type="radio" name="stage" value="post">
-            <span class="choice-title">We have users or revenue</span>
-            <span class="choice-sub">Adds burn, growth and retention questions</span></label>
+      <div class="block">
+        <div class="block-label">01 · Your company</div>
+        <textarea id="summary" name="summary" rows="3" maxlength="2000" placeholder="One to three lines. Example: Clinic in a box for doctors. Patients own the record. 3 paying clinics, $2.1k MRR." required></textarea>
+        <div class="choices" role="radiogroup" aria-label="Stage">
+          <label class="choice"><input type="radio" name="stage" value="pre" checked><span class="choice-title">Not launched yet</span><span class="choice-sub">No metric questions</span></label>
+          <label class="choice"><input type="radio" name="stage" value="post"><span class="choice-title">Launched</span><span class="choice-sub">Burn, growth, retention</span></label>
         </div>
-      </fieldset>
+      </div>
 
-      <fieldset class="block">
-        <legend>Interviewer</legend>
-        <div class="choices" role="radiogroup">
-          <label class="choice"><input type="radio" name="mode" value="fixed" checked>
-            <span class="choice-title">Strict timer</span>
-            <span class="choice-sub">Same time for every answer. Warning at 75%.</span></label>
-          <label class="choice"><input type="radio" name="mode" value="interrupt">
-            <span class="choice-title">Interruption mode</span>
-            <span class="choice-sub">Partners cut you off at random, 8 to 18 seconds.</span></label>
+      <div class="block">
+        <div class="block-label">02 · Interviewer</div>
+        <div class="choices" role="radiogroup" aria-label="Interviewer">
+          <label class="choice"><input type="radio" name="mode" value="interrupt" checked><span class="choice-title">Partners interrupt</span><span class="choice-sub">A partner cuts in at a random moment, 8 to 18 s. Deep questions get more.</span></label>
+          <label class="choice"><input type="radio" name="mode" value="fixed"><span class="choice-title">Strict timer</span><span class="choice-sub">Fixed time per answer. Warning at 75%.</span></label>
         </div>
-        <div id="seconds-row" class="row">
+        <div id="seconds-row" class="row" hidden>
           <span class="row-label">Seconds per answer</span>
           <div class="segmented" role="radiogroup" aria-label="Seconds per answer">
             <label><input type="radio" name="seconds" value="20"><span>20</span></label>
@@ -68,40 +57,39 @@
           </div>
         </div>
         <div class="row">
-          <span class="row-label">Questions</span>
+          <span class="row-label">Length</span>
           <div class="segmented" role="radiogroup" aria-label="Number of questions">
-            <label><input type="radio" name="count" value="6"><span>6</span></label>
-            <label><input type="radio" name="count" value="10" checked><span>10</span></label>
-            <label><input type="radio" name="count" value="15"><span>15</span></label>
+            <label><input type="radio" name="count" value="6"><span>Short · 6</span></label>
+            <label><input type="radio" name="count" value="10" checked><span>Standard · 10</span></label>
+            <label><input type="radio" name="count" value="15"><span>Full · 15</span></label>
           </div>
         </div>
-        <div class="hint" id="estimate"></div>
-      </fieldset>
+        <div class="hint mono" id="estimate"></div>
+      </div>
 
-      <fieldset class="block">
-        <legend>Sound</legend>
-        <label class="switch"><input type="checkbox" name="voice" checked>
-          <span class="switch-title">Questions read out loud</span>
-          <span class="switch-sub">Four pre-recorded voices, picked at random for each question.</span></label>
-        <label class="switch"><input type="checkbox" name="mic" checked>
-          <span class="switch-title">Record and transcribe my answers</span>
-          <span class="switch-sub">Uses your microphone. Audio and text stay in this tab. Turn off to type instead.</span></label>
-        <div class="hint" id="mic-support"></div>
-      </fieldset>
+      <div class="block">
+        <div class="block-label">03 · Sound</div>
+        <div class="toggles">
+          <label class="switch"><input type="checkbox" name="voice" checked><span class="switch-title">Questions read out loud</span></label>
+          <label class="switch"><input type="checkbox" name="mic" checked><span class="switch-title">Record and transcribe my answers</span></label>
+        </div>
+        <div class="hint" id="mic-support">Audio and text stay in this tab. Turn the mic off to type instead.</div>
+      </div>
 
       <button type="submit" class="btn primary big" id="start">Start mock interview</button>
-      <p class="hint center">During the interview: <kbd>Space</kbd> or <kbd>Enter</kbd> ends your answer early. <kbd>Esc</kbd> ends the interview.</p>
+      <p class="hint center"><kbd>Space</kbd> or <kbd>Enter</kbd> ends an answer early · <kbd>Esc</kbd> ends the interview</p>
     </form>
   </section>
 
   <!-- ============ 2. INTERVIEW ============ -->
   <section id="screen-interview" class="screen" data-screen="interview" hidden>
     <div class="interview-head">
-      <span id="q-counter" class="counter">Question 1 of 10</span>
+      <span id="q-counter" class="counter mono">Q 01 / 10</span>
+      <span id="q-kind" class="kind mono"></span>
       <button type="button" class="btn ghost small" id="end-early">End interview</button>
     </div>
 
-    <div class="stage-card">
+    <div class="stage-card" id="stage-card">
       <div class="speaker">
         <span id="speaker-avatar" class="avatar" aria-hidden="true">E</span>
         <span id="speaker-name">Ethan</span>
@@ -114,17 +102,22 @@
           <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
           <circle class="ring-fg" id="ring-fg" cx="60" cy="60" r="52"></circle>
         </svg>
-        <div class="timer-num"><span id="timer-sec">30</span><small>s</small></div>
+        <div class="timer-num mono"><span id="timer-sec">30</span><small>s</small></div>
       </div>
-      <div id="timer-msg" class="timer-msg" aria-live="polite"></div>
+      <div id="timer-msg" class="timer-msg mono" aria-live="polite"></div>
 
       <div id="answer-live" class="answer-live" aria-live="polite"></div>
       <textarea id="answer-typed" class="answer-typed" rows="4" placeholder="Type your answer. Ctrl+Enter (or ⌘+Enter) moves on." hidden></textarea>
+
+      <div id="cutin" class="cutin" hidden aria-live="assertive">
+        <span id="cutin-avatar" class="avatar">S</span>
+        <div><div class="cutin-name" id="cutin-name">Sarah cuts in</div><div class="cutin-line" id="cutin-line">“Okay, let me stop you there.”</div></div>
+      </div>
     </div>
 
     <div class="interview-foot">
-      <button type="button" class="btn primary" id="next">Next question <kbd>Space</kbd></button>
-      <span id="mic-state" class="mic-state"></span>
+      <button type="button" class="btn primary" id="next">Done, next <kbd>Space</kbd></button>
+      <span id="mic-state" class="mic-state mono"></span>
     </div>
   </section>
 
@@ -142,13 +135,13 @@
       <button type="button" class="btn" id="print">Print</button>
       <button type="button" class="btn ghost" id="again">Go again</button>
     </div>
-    <p class="hint" id="copy-status" aria-live="polite"></p>
+    <p class="hint mono" id="copy-status" aria-live="polite"></p>
 
     <details class="block" id="whisper-block" hidden>
       <summary>Improve transcripts with on-device Whisper (optional, ~40 MB download, runs in your browser)</summary>
       <p class="hint">Live transcription is fast but rough. Whisper re-listens to each recording on this device. Nothing is uploaded.</p>
       <button type="button" class="btn" id="whisper-run">Run Whisper on all answers</button>
-      <div class="hint" id="whisper-status"></div>
+      <div class="hint mono" id="whisper-status"></div>
     </details>
 
     <h2>Your answers</h2>
@@ -159,8 +152,8 @@
     <ol class="tips">
       <li><strong>Paste the prompt</strong> into Claude, ChatGPT or any model you trust. It scores each answer and tells you what a partner would push on.</li>
       <li><strong>Cut every answer in half.</strong> Partners want the number, the name, the date. Not the story.</li>
-      <li><strong>Fix the cut-offs first.</strong> An answer that was interrupted is an answer that started with context instead of the point.</li>
-      <li><strong>Go again with interruption mode.</strong> If your answer survives 8 seconds, it survives the real room.</li>
+      <li><strong>Fix the cut-offs first.</strong> An interrupted answer is one that started with context instead of the point.</li>
+      <li><strong>Go again.</strong> If your answer survives 8 seconds, it survives the real room.</li>
     </ol>
   </section>
 

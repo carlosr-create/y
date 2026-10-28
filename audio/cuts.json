@@ -1,0 +1,26 @@
+{
+ "lines": {
+  "cut1": "Okay, let me stop you there.",
+  "cut2": "Got it. Next question.",
+  "cut3": "Sorry, I'm going to cut you off.",
+  "timeup": "Okay, time. Next one."
+ },
+ "files": {
+  "ethan/cut1": "audio/ethan/cut1.mp3",
+  "ethan/cut2": "audio/ethan/cut2.mp3",
+  "ethan/cut3": "audio/ethan/cut3.mp3",
+  "ethan/timeup": "audio/ethan/timeup.mp3",
+  "adrian/cut1": "audio/adrian/cut1.mp3",
+  "adrian/cut2": "audio/adrian/cut2.mp3",
+  "adrian/cut3": "audio/adrian/cut3.mp3",
+  "adrian/timeup": "audio/adrian/timeup.mp3",
+  "sarah/cut1": "audio/sarah/cut1.mp3",
+  "sarah/cut2": "audio/sarah/cut2.mp3",
+  "sarah/cut3": "audio/sarah/cut3.mp3",
+  "sarah/timeup": "audio/sarah/timeup.mp3",
+  "hannah/cut1": "audio/hannah/cut1.mp3",
+  "hannah/cut2": "audio/hannah/cut2.mp3",
+  "hannah/cut3": "audio/hannah/cut3.mp3",
+  "hannah/timeup": "audio/hannah/timeup.mp3"
+ }
+}
