@@ -1,57 +1,427 @@
 {
- "_about": "YC partners as listed on ycombinator.com/people on 2026-10-28, plus the Winter 2027 Requests for Startups (ycombinator.com/rfs). 'lens' is what their public background and writing suggest they push on. The site uses this to build a simulated three-partner panel for the scoring prompt. It is a practice simulation, not their words.",
+ "_about": "YC partners as listed on ycombinator.com/people on 2026-10-28, plus the Winter 2027 Requests for Startups (ycombinator.com/rfs). 'lens' is what their public background and writing suggest they push on. The site uses this to build a simulated three-partner panel for the scoring prompt. It is a practice simulation, not their words. 'style', 'yes' and 'no' per partner, and 'bar', 'metrics', 'redflags', 'killer' per industry were added 2026-10-29 for the scoring prompt; same caveat, a practice simulation.",
  "industries": {
-  "ai": {"label": "AI models, infra, dev tools", "panel": ["jared", "jonxu", "nicolas"]},
-  "b2b": {"label": "B2B software, vertical AI", "panel": ["pete", "harj", "andrew"]},
-  "fintech": {"label": "Fintech, payments, insurance", "panel": ["tom", "harshita", "jonxu"]},
-  "health": {"label": "Healthcare, bio, wearables", "panel": ["ankit", "diana", "harj"]},
-  "consumer": {"label": "Consumer apps, social, media", "panel": ["david", "garry", "brad"]},
-  "marketplace": {"label": "Marketplaces, creators, e-commerce", "panel": ["aaron", "gustaf", "tom"]},
-  "hardware": {"label": "Hardware, robotics, space, deep tech", "panel": ["diana", "ankit", "andrew"]},
-  "climate": {"label": "Climate, energy, government", "panel": ["gustaf", "brad", "jonxu"]},
-  "edtech": {"label": "Education, learning", "panel": ["tyler", "vivian", "raphael"]},
-  "other": {"label": "Something else / not sure", "panel": ["garry", "jared", "harj"]}
+  "ai": {
+   "label": "AI models, infra, dev tools",
+   "panel": [
+    "jared",
+    "jonxu",
+    "nicolas"
+   ],
+   "bar": "YC funds a lot of AI, so the bar is specificity: a wedge the big labs will not bother with, proof that the product gets better with your data or distribution, and a reason a startup beats incumbents adding the same feature. W27 RFS themes: open-weight models you own, LLMs that write well, vertical foundation models, data center and inference supply chain, air-gapped AI.",
+   "metrics": "Pre-launch: working demo, who tried it, what broke. Launched: weekly active users or paying customers, retention at 4 weeks, inference cost per user versus price, eval results versus the base model.",
+   "redflags": "'Wrapper' with no data or workflow moat; 'we will fine-tune' with no data; quoting the market size instead of the first customer; no answer to 'what happens when OpenAI ships this'.",
+   "killer": [
+    "What happens to you when the frontier labs ship this as a feature?",
+    "What do you know about this workflow that the labs do not?",
+    "What is your inference cost per user and what do you charge?"
+   ]
+  },
+  "b2b": {
+   "label": "B2B software, vertical AI",
+   "panel": [
+    "pete",
+    "harj",
+    "andrew"
+   ],
+   "bar": "A specific buyer with a budget, a workflow you replace end to end, and evidence they will pay: signed pilots, LOIs with dollar amounts, or revenue. Vertical AI wins when the founders know the industry's workflow in detail and can name the person who signs.",
+   "metrics": "Pre-launch: number of customer conversations, design partners, pilots with price attached. Launched: MRR or ARR, number of paying logos, ACV, sales cycle length, churn, time from first call to signed.",
+   "redflags": "Pilots with no price; 'enterprises are interested' with no names; the user and the buyer are different people and the founder cannot say who pays; a sales cycle longer than the runway.",
+   "killer": [
+    "Who exactly signs the contract and what is their budget line?",
+    "Walk me through your last three deals: how did they start, how long, what did they pay?",
+    "What workflow does this replace and what did the customer do before?"
+   ]
+  },
+  "fintech": {
+   "label": "Fintech, payments, insurance",
+   "panel": [
+    "tom",
+    "harshita",
+    "jonxu"
+   ],
+   "bar": "Partners want the plumbing: who holds the money, which license or partner bank, how you make margin per transaction, and why a customer switches from what they use today. Regulation and fraud are assumed problems; the founder must have a plan, not a hope.",
+   "metrics": "Pre-launch: waitlist is weak, signed partner bank or sponsor is strong. Launched: transaction volume, take rate, revenue per account, CAC versus payback, fraud or default rate, monthly volume growth.",
+   "redflags": "No idea who holds the money or under which license; margin that disappears after interchange and fraud; 'we will become a bank later'; growth that is all incentives.",
+   "killer": [
+    "Who holds the money and under whose license?",
+    "What is your margin per transaction after fraud and partner fees?",
+    "Why does a customer switch from what they use today?"
+   ]
+  },
+  "health": {
+   "label": "Healthcare, bio, wearables",
+   "panel": [
+    "ankit",
+    "diana",
+    "harj"
+   ],
+   "bar": "Clear on who pays (patient, provider, payer, employer, pharma), what is clinically validated versus planned, and the regulatory path with dates. For bio: the one experiment that proves or kills the idea and what it costs. Partners respect founders who know the FDA or reimbursement path cold.",
+   "metrics": "Pre-launch: letters from clinics, IRB status, pilot sites, validation data. Launched: patients or providers active, revenue per site, reimbursement code secured, retention over 90 days, clinical outcome measured.",
+   "redflags": "'HIPAA compliant' as the moat; selling to doctors without naming who pays; a regulatory timeline longer than the money; outcome claims with no data.",
+   "killer": [
+    "Who pays, and what is the reimbursement or budget line?",
+    "What is validated today and what is the next experiment that could kill the company?",
+    "What is your regulatory path and date?"
+   ]
+  },
+  "consumer": {
+   "label": "Consumer apps, social, media",
+   "panel": [
+    "david",
+    "garry",
+    "brad"
+   ],
+   "bar": "Consumer at YC is about retention and organic growth: do people come back without being paid to, and do they bring others. Partners want the retention curve and the sharing loop before they care about the vision.",
+   "metrics": "Pre-launch: who used the prototype and what they did the next day. Launched: weekly actives, D1/D7/D30 retention, percentage of signups from invites or word of mouth, time in app, paid conversion if any.",
+   "redflags": "Growth bought with ads; a 'platform' with no single habit; describing features instead of the moment a user loves; retention numbers the founder does not know.",
+   "killer": [
+    "What is your D30 retention and how does it compare to the last cohort?",
+    "Where did your last 100 users come from?",
+    "What does a user do the moment after signup, and why do they come back tomorrow?"
+   ]
+  },
+  "marketplace": {
+   "label": "Marketplaces, creators, e-commerce",
+   "panel": [
+    "aaron",
+    "gustaf",
+    "tom"
+   ],
+   "bar": "Which side you seed first, how you reach liquidity in one small market, your take rate, and why buyers and sellers do not go around you once they have met. Creator and e-commerce plays need a reason the seller stays once they have an audience.",
+   "metrics": "Pre-launch: supply signed up and demand lined up in one city or niche. Launched: GMV, take rate, net revenue, repeat purchase rate, match rate or fill rate, supply and demand growth, leakage.",
+   "redflags": "Both sides at once nationally; take rate the market will not bear; sellers who leave once they have the customer; GMV quoted as revenue.",
+   "killer": [
+    "Which side did you seed first and how did you get the first 20?",
+    "What is your take rate and why do they not go around you?",
+    "What is your repeat rate on both sides?"
+   ]
+  },
+  "hardware": {
+   "label": "Hardware, robotics, space, deep tech",
+   "panel": [
+    "diana",
+    "ankit",
+    "andrew"
+   ],
+   "bar": "What exists today (bench prototype, pilot unit, production) and the unit economics at scale: bill of materials, margin, capital needed to reach the next milestone. W27 RFS themes: robots made in America, financing the physical buildout, abundant space access. Partners want the one technical risk and the plan to retire it.",
+   "metrics": "Pre-launch: prototype demo, BOM cost versus target price, LOIs with volume. Launched: units shipped, gross margin per unit, cost down curve, backlog, uptime or field failure rate.",
+   "redflags": "A slide where a prototype should be; capital needs the founder cannot estimate; 'we will outsource manufacturing' with no supplier named; no answer to 'what is the hardest technical risk'.",
+   "killer": [
+    "What exists today: demo, prototype or product? Show me.",
+    "What is your bill of materials versus your price, and at what volume?",
+    "What is the one technical risk that would kill the company and when do you retire it?"
+   ]
+  },
+  "climate": {
+   "label": "Climate, energy, government",
+   "panel": [
+    "gustaf",
+    "brad",
+    "jonxu"
+   ],
+   "bar": "Who pays and why they pay now: a customer with a budget, not a subsidy or a mandate alone. For government: the sales cycle in months, who blocks the deal, and the procurement path. W27 RFS themes: AI for city hall and government benefits. Partners want unit economics without subsidies.",
+   "metrics": "Pre-launch: signed LOIs or pilots with a named agency or utility. Launched: revenue, contracts signed, sales cycle length, cost per unit versus the incumbent, pipeline by stage.",
+   "redflags": "Depending on a subsidy or a law that may change; 'the government is interested'; a sales cycle of 18 months and 12 months of runway; impact claims instead of customer pull.",
+   "killer": [
+    "Who pays, and do they pay without the subsidy?",
+    "How long was your last sales cycle and who blocked it?",
+    "Why is this cheaper than the incumbent per unit, today?"
+   ]
+  },
+  "edtech": {
+   "label": "Education, learning",
+   "panel": [
+    "tyler",
+    "vivian",
+    "raphael"
+   ],
+   "bar": "Who pays (parent, student, school, employer) and what outcome you can prove. Schools and districts are slow buyers; consumer learning churns after the first month. Partners want the last cohort's numbers and evidence students actually improve.",
+   "metrics": "Pre-launch: pilot classrooms, waitlist with intent to pay, outcome measured in a test cohort. Launched: paying learners or schools, retention over a semester, completion rate, measured outcome (score, placement, job), sales cycle for institutions.",
+   "redflags": "Selling to teachers when the district pays; 'engagement' with no learning outcome; a free product with no path to the payer; one-month retention the founder does not know.",
+   "killer": [
+    "Who pays and what outcome can you prove for the last cohort?",
+    "What is your retention after one semester?",
+    "How long is the sales cycle and who signs?"
+   ]
+  },
+  "other": {
+   "label": "Something else / not sure",
+   "panel": [
+    "garry",
+    "jared",
+    "harj"
+   ],
+   "bar": "With no industry picked, the panel applies the general YC bar: founders who know their business cold, a specific first customer, evidence of demand, and speed. Partners decide early whether the founders are clear thinkers; everything else is confirmation.",
+   "metrics": "Pre-launch: customer conversations, prototype, waitlist with intent. Launched: users or customers, revenue, retention, growth per week.",
+   "redflags": "Vague mission talk; market size instead of first customer; no numbers; answers that start with context instead of the point.",
+   "killer": [
+    "What have you built and who uses it?",
+    "Why are you the right team for this?",
+    "What is the one number you track every week?"
+   ]
+  }
  },
  "partners": {
-  "garry": {"name": "Garry Tan", "title": "President and CEO", "bg": "Co-founded Posterous (YC W08) and Initialized Capital; designer and engineer; early Palantir.",
-   "lens": ["Is this a product people love, or a feature? Asks what the user does the moment after signup.", "Founder-market fit: why you two, why now, what you understand that others do not.", "Hates vague mission talk; wants the concrete wedge and the first 100 users."]},
-  "jared": {"name": "Jared Friedman", "title": "Managing Partner", "bg": "Co-founded Scribd (YC S06); wrote the W27 RFS on LLMs that write well and on the data center supply chain.",
-   "lens": ["Technical depth: how does it actually work, what is hard, what breaks at 10x.", "Why a startup wins this against the big labs and incumbents.", "Calm, precise, asks the same question twice if the first answer was fog."]},
-  "diana": {"name": "Diana Hu", "title": "Managing Partner", "bg": "Former CTO of Escher Reality (YC S17, acquired by Niantic); AR and computer vision; wrote the W27 RFS on robots made in America and vertical foundation models.",
-   "lens": ["Engineering reality: what is built today, what is a demo, what is a slide.", "Supply chain and unit economics for anything physical.", "Pushes on data moats and model specificity for AI claims."]},
-  "harj": {"name": "Harj Taggar", "title": "Managing Partner", "bg": "Co-founded Triplebyte (YC S15) and Auctomatic (YC W07); one of YC's earliest partners.",
-   "lens": ["Team: who does what, how long have you worked together, what happens when you disagree.", "Hiring and execution speed; what you shipped last week.", "Skeptical of polish; listens for whether founders actually talk to customers."]},
-  "gustaf": {"name": "Gustaf Alströmer", "title": "General Partner", "bg": "Led growth product at Airbnb, head of growth at Voxer; leads much of YC's climate work; wrote the W27 RFS on government benefits and AI for city hall.",
-   "lens": ["Growth mechanics: where users come from, what the funnel numbers are, what retention looks like.", "Real demand versus founder enthusiasm; asks how many people used it this week.", "For climate and government: who pays, how long is the sales cycle, who blocks the deal."]},
-  "harshita": {"name": "Harshita Arora", "title": "General Partner", "bg": "Co-founded AtoB (YC S20), payments and fuel cards for trucking; built her first apps as a teenager.",
-   "lens": ["Fintech plumbing: licensing, risk, fraud, who holds the money, margin per transaction.", "Selling to unglamorous industries: how you reached the first customers.", "Fast, direct, wants the unit economics in one sentence."]},
-  "grey": {"name": "Grey Baker", "title": "General Partner", "bg": "Co-founded Dependabot (acquired by GitHub) and Pincites; early GoCardless engineer.",
-   "lens": ["Developer adoption: who installs it, how it spreads inside a company, why it is not a feature of GitHub.", "Open source and bottom-up distribution versus top-down sales.", "Dry, precise, allergic to buzzwords."]},
-  "tom": {"name": "Tom Blomfield", "title": "General Partner", "bg": "Co-founded Monzo and GoCardless (YC S11); built a bank from zero to millions of customers.",
-   "lens": ["Consumer and fintech: why would someone switch, what is the hook, what does it cost to acquire them.", "Regulation and capital needs; whether the model survives a downturn.", "Blunt, impatient with hedging, respects founders who say 'I do not know yet' and then give a plan."]},
-  "tyler": {"name": "Tyler Bosmeny", "title": "General Partner", "bg": "Co-founded Clever (YC S12), used in most US schools; gave YC's talk on how to sell.",
-   "lens": ["Sales: who is the buyer, who is the user, who signs, how long the cycle is, what you charge.", "Distribution in slow institutions (schools, hospitals, governments).", "Friendly tone, relentless on the specifics of the last three deals."]},
-  "nicolas": {"name": "Nicolas Dessaigne", "title": "General Partner", "bg": "Co-founded Algolia (YC W14), search API used by thousands of companies.",
-   "lens": ["Developer products and APIs: time to first value, pricing, why developers choose you.", "Going from France or anywhere to US customers; international founders.", "Asks for the metric that proves people depend on the product."]},
-  "aaron": {"name": "Aaron Epstein", "title": "General Partner", "bg": "Co-founded Creative Market (YC W10), a marketplace for independent designers; design background.",
-   "lens": ["Marketplaces: which side you seed first, liquidity, take rate, disintermediation risk.", "Creators and SMB sellers: why they stay once they have an audience.", "Product and brand: does it feel like something people would tell friends about."]},
-  "brad": {"name": "Brad Flora", "title": "General Partner", "bg": "Co-founded Perfect Audience (ad retargeting, acquired); angel investor; wrote the W27 RFS on the $15-an-hour expert, financing the physical buildout and air-gapped AI.",
-   "lens": ["Business model and margins: what a customer pays, what it costs you, what is left.", "Why now: what changed in the world that makes this possible this year.", "Hunts for the overclaim and asks for the evidence behind it."]},
-  "chris": {"name": "Chris Golda", "title": "General Partner", "bg": "Co-founded BackType (YC S08, acquired by Twitter); data infrastructure and analytics.",
-   "lens": ["Data and infrastructure: what you store, what scales, what the incumbent would need to copy you.", "Enterprise readiness: security, reliability, who signs off.", "Quiet, technical, follows up on any number that sounds rounded."]},
-  "ankit": {"name": "Ankit Gupta", "title": "General Partner", "bg": "Co-founded Reverie Labs, machine learning for drug discovery; deep learning across language, vision and biology; wrote the W27 RFS on abundant space access.",
-   "lens": ["Science claims: what is validated, by whom, what the next experiment costs and proves.", "Regulatory path and time to revenue in bio, health and hard tech.", "Wants to know the one technical risk that would kill the company."]},
-  "pete": {"name": "Pete Koomen", "title": "General Partner", "bg": "Co-founded Optimizely (YC W10), the experimentation platform; writes about AI products that let users shape their own tools.",
-   "lens": ["B2B SaaS: who the champion is, what workflow you replace, how you prove ROI.", "AI products: is the model the product, or is the workflow the product?", "Measured and curious; asks what you learned from the customers who said no."]},
-  "david": {"name": "David Lieb", "title": "General Partner", "bg": "Co-founded Bump (YC S09, acquired by Google), then built Google Photos.",
-   "lens": ["Consumer: is it a daily habit, what is the retention curve, what is the sharing loop.", "Simplicity: can you describe it in one sentence a parent would understand.", "Pushes on whether growth is organic or bought."]},
-  "andrew": {"name": "Andrew Miklas", "title": "General Partner", "bg": "Co-founded PagerDuty (YC S10, public company); early-stage investor at s28 Capital.",
-   "lens": ["Infrastructure and enterprise: who feels the pain at 3 a.m., how you land and expand.", "Pricing and contracts; how you get from pilot to paid.", "Operator's eye for whether the team can run a company, not only build a product."]},
-  "raphael": {"name": "Raphael Schaad", "title": "General Partner", "bg": "Founded Cron (YC W20, acquired by Notion), the calendar; design-driven product builder.",
-   "lens": ["Craft: is the product noticeably better to use, and does that matter to the buyer.", "Productivity tools: why people switch from the default and whether they stay.", "Asks what the product does that a screenshot cannot show."]},
-  "vivian": {"name": "Vivian Midha Shen", "title": "General Partner", "bg": "Founded Juni Learning (YC W18) and Acely, an AI tutor for college readiness.",
-   "lens": ["Education: who pays (parent, school, employer), what outcome you can prove, retention over a semester.", "AI tutoring and learning products: evidence that students actually improve.", "Warm but exact; asks for the last cohort's numbers."]},
-  "jonxu": {"name": "Jon Xu", "title": "General Partner", "bg": "Former CTO of FutureAdvisor (YC S10, acquired by BlackRock), a robo-advisor; fintech and B2B platforms; wrote the W27 RFS on owning your intelligence with open-weight models.",
-   "lens": ["Technical architecture for regulated and B2B products; what you own versus rent.", "Open-weight and custom models: why a company would train its own.", "Direct, structured, wants the plan for the next 90 days."]}
+  "garry": {
+   "name": "Garry Tan",
+   "title": "President and CEO",
+   "bg": "Co-founded Posterous (YC W08) and Initialized Capital; designer and engineer; early Palantir.",
+   "lens": [
+    "Is this a product people love, or a feature? Asks what the user does the moment after signup.",
+    "Founder-market fit: why you two, why now, what you understand that others do not.",
+    "Hates vague mission talk; wants the concrete wedge and the first 100 users."
+   ],
+   "style": "Fast, warm until an answer is vague, then cuts in with 'but what does the user actually do?'. Thinks in product and design.",
+   "yes": "A product a small group already loves, founders with an unfair insight about those users.",
+   "no": "Mission talk, platforms before a wedge, founders who have not watched a user use it."
+  },
+  "jared": {
+   "name": "Jared Friedman",
+   "title": "Managing Partner",
+   "bg": "Co-founded Scribd (YC S06); wrote the W27 RFS on LLMs that write well and on the data center supply chain.",
+   "lens": [
+    "Technical depth: how does it actually work, what is hard, what breaks at 10x.",
+    "Why a startup wins this against the big labs and incumbents.",
+    "Calm, precise, asks the same question twice if the first answer was fog."
+   ],
+   "style": "Calm and precise. Repeats a question verbatim when the answer was fog. Does not react to pitch energy.",
+   "yes": "Real technical depth, a clear reason the startup wins against labs and incumbents.",
+   "no": "Hand-waving about the model, 'we will fine-tune', no view on what breaks at 10x."
+  },
+  "diana": {
+   "name": "Diana Hu",
+   "title": "Managing Partner",
+   "bg": "Former CTO of Escher Reality (YC S17, acquired by Niantic); AR and computer vision; wrote the W27 RFS on robots made in America and vertical foundation models.",
+   "lens": [
+    "Engineering reality: what is built today, what is a demo, what is a slide.",
+    "Supply chain and unit economics for anything physical.",
+    "Pushes on data moats and model specificity for AI claims."
+   ],
+   "style": "Engineer's questions in order: what exists, what is measured, what is next. Asks for the demo state, not the roadmap.",
+   "yes": "A working prototype, honest unit economics, a named supply chain.",
+   "no": "A slide where a prototype should be, data-moat claims without data."
+  },
+  "harj": {
+   "name": "Harj Taggar",
+   "title": "Managing Partner",
+   "bg": "Co-founded Triplebyte (YC S15) and Auctomatic (YC W07); one of YC's earliest partners.",
+   "lens": [
+    "Team: who does what, how long have you worked together, what happens when you disagree.",
+    "Hiring and execution speed; what you shipped last week.",
+    "Skeptical of polish; listens for whether founders actually talk to customers."
+   ],
+   "style": "Quiet, personal, asks about the team and the last week. Notices when founders have not talked to customers.",
+   "yes": "A team that has worked together, ships weekly, and talks to customers every day.",
+   "no": "Polish without customer contact, co-founders who cannot say who decides."
+  },
+  "gustaf": {
+   "name": "Gustaf Alströmer",
+   "title": "General Partner",
+   "bg": "Led growth product at Airbnb, head of growth at Voxer; leads much of YC's climate work; wrote the W27 RFS on government benefits and AI for city hall.",
+   "lens": [
+    "Growth mechanics: where users come from, what the funnel numbers are, what retention looks like.",
+    "Real demand versus founder enthusiasm; asks how many people used it this week.",
+    "For climate and government: who pays, how long is the sales cycle, who blocks the deal."
+   ],
+   "style": "Growth operator. Interrupts with 'how many this week?'. Separates demand from founder enthusiasm.",
+   "yes": "A funnel with real numbers and retention that holds, a customer who pays now.",
+   "no": "Growth bought with incentives, sales cycles longer than the runway, impact without pull."
+  },
+  "harshita": {
+   "name": "Harshita Arora",
+   "title": "General Partner",
+   "bg": "Co-founded AtoB (YC S20), payments and fuel cards for trucking; built her first apps as a teenager.",
+   "lens": [
+    "Fintech plumbing: licensing, risk, fraud, who holds the money, margin per transaction.",
+    "Selling to unglamorous industries: how you reached the first customers.",
+    "Fast, direct, wants the unit economics in one sentence."
+   ],
+   "style": "Fast and direct. Wants the unit economics in one sentence and asks how you reached the first customers.",
+   "yes": "Margin per transaction after fraud and fees, a founder who got into an unglamorous industry's trucks and back offices.",
+   "no": "No idea who holds the money, 'we will get the license later'."
+  },
+  "grey": {
+   "name": "Grey Baker",
+   "title": "General Partner",
+   "bg": "Co-founded Dependabot (acquired by GitHub) and Pincites; early GoCardless engineer.",
+   "lens": [
+    "Developer adoption: who installs it, how it spreads inside a company, why it is not a feature of GitHub.",
+    "Open source and bottom-up distribution versus top-down sales.",
+    "Dry, precise, allergic to buzzwords."
+   ],
+   "style": "Dry, exact, allergic to buzzwords. Asks who installs it and why it is not a feature of the incumbent.",
+   "yes": "Bottom-up adoption with numbers, developers who chose it without a salesperson.",
+   "no": "Top-down enterprise plans for a developer tool, 'AI-powered' with no reason."
+  },
+  "tom": {
+   "name": "Tom Blomfield",
+   "title": "General Partner",
+   "bg": "Co-founded Monzo and GoCardless (YC S11); built a bank from zero to millions of customers.",
+   "lens": [
+    "Consumer and fintech: why would someone switch, what is the hook, what does it cost to acquire them.",
+    "Regulation and capital needs; whether the model survives a downturn.",
+    "Blunt, impatient with hedging, respects founders who say 'I do not know yet' and then give a plan."
+   ],
+   "style": "Blunt, impatient with hedging. Respects 'I do not know yet, here is how I will find out'.",
+   "yes": "A hook that makes someone switch, acquisition cost that works, a view of the downturn.",
+   "no": "Regulatory hand-waving, capital needs the founder has not computed."
+  },
+  "tyler": {
+   "name": "Tyler Bosmeny",
+   "title": "General Partner",
+   "bg": "Co-founded Clever (YC S12), used in most US schools; gave YC's talk on how to sell.",
+   "lens": [
+    "Sales: who is the buyer, who is the user, who signs, how long the cycle is, what you charge.",
+    "Distribution in slow institutions (schools, hospitals, governments).",
+    "Friendly tone, relentless on the specifics of the last three deals."
+   ],
+   "style": "Friendly tone, relentless on the last three deals: who, how long, what they paid.",
+   "yes": "A named buyer, a named signer, a repeatable sales motion in a slow institution.",
+   "no": "Selling to users when someone else pays, pilots with no price."
+  },
+  "nicolas": {
+   "name": "Nicolas Dessaigne",
+   "title": "General Partner",
+   "bg": "Co-founded Algolia (YC W14), search API used by thousands of companies.",
+   "lens": [
+    "Developer products and APIs: time to first value, pricing, why developers choose you.",
+    "Going from France or anywhere to US customers; international founders.",
+    "Asks for the metric that proves people depend on the product."
+   ],
+   "style": "Asks for the metric that proves dependence. Interested in international founders reaching US customers.",
+   "yes": "Short time to first value, developers who pay and come back, clear pricing.",
+   "no": "An API nobody depends on yet, pricing the founder cannot explain."
+  },
+  "aaron": {
+   "name": "Aaron Epstein",
+   "title": "General Partner",
+   "bg": "Co-founded Creative Market (YC W10), a marketplace for independent designers; design background.",
+   "lens": [
+    "Marketplaces: which side you seed first, liquidity, take rate, disintermediation risk.",
+    "Creators and SMB sellers: why they stay once they have an audience.",
+    "Product and brand: does it feel like something people would tell friends about."
+   ],
+   "style": "Product and brand eye. Asks which side you seeded and whether people would tell a friend.",
+   "yes": "Liquidity in one niche, a take rate the market bears, sellers who stay.",
+   "no": "Both sides at once everywhere, GMV called revenue."
+  },
+  "brad": {
+   "name": "Brad Flora",
+   "title": "General Partner",
+   "bg": "Co-founded Perfect Audience (ad retargeting, acquired); angel investor; wrote the W27 RFS on the $15-an-hour expert, financing the physical buildout and air-gapped AI.",
+   "lens": [
+    "Business model and margins: what a customer pays, what it costs you, what is left.",
+    "Why now: what changed in the world that makes this possible this year.",
+    "Hunts for the overclaim and asks for the evidence behind it."
+   ],
+   "style": "Hunts the overclaim. Asks for the evidence behind every big number, then 'why now?'.",
+   "yes": "Margins that work, a real reason the world changed this year, evidence behind claims.",
+   "no": "A rounded number with no source, a business model the founder has not priced."
+  },
+  "chris": {
+   "name": "Chris Golda",
+   "title": "General Partner",
+   "bg": "Co-founded BackType (YC S08, acquired by Twitter); data infrastructure and analytics.",
+   "lens": [
+    "Data and infrastructure: what you store, what scales, what the incumbent would need to copy you.",
+    "Enterprise readiness: security, reliability, who signs off.",
+    "Quiet, technical, follows up on any number that sounds rounded."
+   ],
+   "style": "Quiet and technical. Follows up on any number that sounds rounded.",
+   "yes": "Infrastructure the incumbent cannot easily copy, enterprise readiness with proof.",
+   "no": "Security and reliability as afterthoughts, data claims without scale."
+  },
+  "ankit": {
+   "name": "Ankit Gupta",
+   "title": "General Partner",
+   "bg": "Co-founded Reverie Labs, machine learning for drug discovery; deep learning across language, vision and biology; wrote the W27 RFS on abundant space access.",
+   "lens": [
+    "Science claims: what is validated, by whom, what the next experiment costs and proves.",
+    "Regulatory path and time to revenue in bio, health and hard tech.",
+    "Wants to know the one technical risk that would kill the company."
+   ],
+   "style": "Scientist's questions: what is validated, by whom, what the next experiment costs and proves.",
+   "yes": "A clear technical risk with a dated plan to retire it, a regulatory path with dates.",
+   "no": "Outcome claims with no data, a timeline longer than the money."
+  },
+  "pete": {
+   "name": "Pete Koomen",
+   "title": "General Partner",
+   "bg": "Co-founded Optimizely (YC W10), the experimentation platform; writes about AI products that let users shape their own tools.",
+   "lens": [
+    "B2B SaaS: who the champion is, what workflow you replace, how you prove ROI.",
+    "AI products: is the model the product, or is the workflow the product?",
+    "Measured and curious; asks what you learned from the customers who said no."
+   ],
+   "style": "Measured and curious. Asks what you learned from the customers who said no.",
+   "yes": "A champion inside the customer, ROI the customer can state, a workflow replaced end to end.",
+   "no": "A model as the product with no workflow, no view of who said no and why."
+  },
+  "david": {
+   "name": "David Lieb",
+   "title": "General Partner",
+   "bg": "Co-founded Bump (YC S09, acquired by Google), then built Google Photos.",
+   "lens": [
+    "Consumer: is it a daily habit, what is the retention curve, what is the sharing loop.",
+    "Simplicity: can you describe it in one sentence a parent would understand.",
+    "Pushes on whether growth is organic or bought."
+   ],
+   "style": "Asks the parent test: can you say it in one sentence? Then retention and the sharing loop.",
+   "yes": "A daily habit with a retention curve that flattens, organic growth.",
+   "no": "Bought growth, feature lists instead of a moment of love."
+  },
+  "andrew": {
+   "name": "Andrew Miklas",
+   "title": "General Partner",
+   "bg": "Co-founded PagerDuty (YC S10, public company); early-stage investor at s28 Capital.",
+   "lens": [
+    "Infrastructure and enterprise: who feels the pain at 3 a.m., how you land and expand.",
+    "Pricing and contracts; how you get from pilot to paid.",
+    "Operator's eye for whether the team can run a company, not only build a product."
+   ],
+   "style": "Operator. Asks who feels the pain at 3 a.m., then how you get from pilot to paid.",
+   "yes": "Land and expand with contracts, a team that can run a company.",
+   "no": "Pilots that never convert, pricing the founder avoids."
+  },
+  "raphael": {
+   "name": "Raphael Schaad",
+   "title": "General Partner",
+   "bg": "Founded Cron (YC W20, acquired by Notion), the calendar; design-driven product builder.",
+   "lens": [
+    "Craft: is the product noticeably better to use, and does that matter to the buyer.",
+    "Productivity tools: why people switch from the default and whether they stay.",
+    "Asks what the product does that a screenshot cannot show."
+   ],
+   "style": "Craft-first. Asks what the product does that a screenshot cannot show, and why people switch from the default.",
+   "yes": "A product noticeably better to use, in a category where that matters to the buyer.",
+   "no": "Nicer UI for a tool nobody switches from."
+  },
+  "vivian": {
+   "name": "Vivian Midha Shen",
+   "title": "General Partner",
+   "bg": "Founded Juni Learning (YC W18) and Acely, an AI tutor for college readiness.",
+   "lens": [
+    "Education: who pays (parent, school, employer), what outcome you can prove, retention over a semester.",
+    "AI tutoring and learning products: evidence that students actually improve.",
+    "Warm but exact; asks for the last cohort's numbers."
+   ],
+   "style": "Warm but exact. Asks for the last cohort's numbers and who paid.",
+   "yes": "Measured learning outcomes, a payer who renews, retention over a semester.",
+   "no": "Engagement without outcome, free products with no payer."
+  },
+  "jonxu": {
+   "name": "Jon Xu",
+   "title": "General Partner",
+   "bg": "Former CTO of FutureAdvisor (YC S10, acquired by BlackRock), a robo-advisor; fintech and B2B platforms; wrote the W27 RFS on owning your intelligence with open-weight models.",
+   "lens": [
+    "Technical architecture for regulated and B2B products; what you own versus rent.",
+    "Open-weight and custom models: why a company would train its own.",
+    "Direct, structured, wants the plan for the next 90 days."
+   ],
+   "style": "Direct and structured. Wants the architecture and the plan for the next 90 days.",
+   "yes": "Owning the core technology, a clear reason to train or run your own models, a dated plan.",
+   "no": "Renting everything with no moat, a 90-day plan that is 'raise and hire'."
+  }
  }
 }

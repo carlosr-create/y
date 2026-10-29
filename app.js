@@ -462,89 +462,125 @@ function partnerPrompt() {
   return genericPrompt();
 }
 
+function stageLine() {
+  return session.stage === 'pre'
+    ? 'pre-launch: no users or revenue yet. The bar: a working prototype or a clear plan to have one in weeks, specific customer conversations with names and numbers, and founders who know the first customer by name.'
+    : 'launched: has users or revenue. The bar: real numbers (users, revenue, retention, growth per week), what changed since launch, and why growth will continue without buying it.';
+}
+function formatLine() {
+  return session.mode === 'interrupt'
+    ? 'no clock on screen; a partner cut in at an unannounced moment between 4 and 45 seconds (most often before 16). Interruptions are normal in the real room and are not a penalty by themselves: what matters is whether the point was out before the cut.'
+    : session.seconds + ' seconds per answer, strict timer, scaled by question depth.';
+}
+function transcriptBlock() {
+  return session.answers.map((x) => `### Q${x.n}. ${x.question}
+Asked by ${VOICES[x.voice]}. Time used: ${x.seconds}s${x.cutOff ? ', INTERRUPTED (a partner cut in)' : ', finished on their own'}.
+Founder (verbatim transcript): ${x.transcript.trim() ? '"' + x.transcript.trim() + '"' : '(no answer captured)'}`).join('\n\n');
+}
+function industryBlock() {
+  const ind = PARTNERS && (PARTNERS.industries[session.industry] || PARTNERS.industries.other);
+  if (!ind || !ind.bar) return `Industry: ${industryLabel(session.industry)}.`;
+  return `Industry: ${ind.label}.
+What YC looks for here: ${ind.bar}
+Numbers partners expect to hear: ${ind.metrics}
+Red flags in this industry: ${ind.redflags}
+Questions this panel almost always asks: ${ind.killer.map((q, i) => `(${i + 1}) ${q}`).join(' ')}`;
+}
+
+const HOW_YC_JUDGES = `## How a YC interview is judged
+The real interview is 10 minutes, usually two or three partners, rapid questions, frequent interruptions. Partners are not judging the pitch; they are testing whether the founders know their business cold. They form a view in the first two or three answers and spend the rest confirming or overturning it. They decide on:
+- Founders: clear thinkers, fast, honest, with a specific insight about their customer that outsiders do not have. "I do not know yet, here is how I will find out" beats a confident guess.
+- Customer and demand: a named first customer, evidence people want this (used it, paid, came back), not market size.
+- Product and progress: what exists today, what shipped recently, speed since the application.
+- Why now and why you: what changed in the world, what you understand that others do not.
+- Honesty: an overclaim caught once poisons every other answer.
+A good answer gives the point in the first sentence, then one number or one concrete example, then stops. Context first, point later, is the most common failure, and the reason founders get cut off.`;
+
+const CALIBRATION = `Score calibration (apply it strictly):
+- 1-3: no answer, evasive, pure context, or an overclaim with nothing behind it.
+- 4-5: on topic but generic; no number, no name, no example; the partner would have to ask again.
+- 6-7: direct and specific; at least one real number, name or mechanism; a partner could move on.
+- 8-10: direct, specific and backed by something done or measured; it teaches the panel something; it survived the interruption because the point came first.`;
+
 function panelPrompt(panel) {
-  const a = session.answers;
-  const stage = session.stage === 'pre' ? 'pre-launch (no users or revenue yet)' : 'launched (has users or revenue)';
   const names = panel.map((p) => p.name);
+  const first = (n) => n.split(' ')[0];
   const cards = panel.map((p, i) => `### Partner ${i + 1}: ${p.name}, ${p.title}
 Background: ${p.bg}
-What ${p.name.split(' ')[0]} pushes on:
-${p.lens.map((l) => '- ' + l).join('\n')}`).join('\n\n');
-  const qa = a.map((x) => `### Q${x.n}. ${x.question}
-Asked by: ${VOICES[x.voice]}. Time used: ${x.seconds}s of ${x.limit}s${x.cutOff ? ' (INTERRUPTED, a partner cut the founder off)' : ''}.
-Answer (verbatim transcript): ${x.transcript.trim() ? '"' + x.transcript.trim() + '"' : '(no answer captured)'}`).join('\n\n');
+Style in the room: ${p.style || 'direct, concrete, impatient with fog.'}
+What ${first(p.name)} pushes on:
+${p.lens.map((l) => '- ' + l).join('\n')}
+What wins ${first(p.name)}: ${p.yes || 'specificity and evidence.'}
+What makes ${first(p.name)} pass: ${p.no || 'vagueness and overclaims.'}`).join('\n\n');
 
-  return `You are simulating a Y Combinator interview panel. Three partners just finished a 10-minute interview with a founder and are now debriefing, then writing feedback the founder will read. The partners are real YC partners; their personas below are built from their public backgrounds and the themes they have written about. This is a practice simulation in their style, not their actual words or opinions. Stay in character, be direct, concrete and a little impatient, the way partners are in the room. Do not soften verdicts and do not invent facts about the company.
+  return `You are simulating a Y Combinator interview panel. Three partners just finished a 10-minute interview with a founder and are debriefing, then writing feedback the founder will read. The personas are built from the partners' public backgrounds and the themes they have written about; this is a practice simulation in their style, not their words or opinions. Stay in character. Be direct, concrete and a little impatient, the way partners are in the room. Do not soften verdicts. Do not invent facts about the company: use only the one-liner and the transcript, and say when a fact is missing.
+
+${HOW_YC_JUDGES}
+
+## The company
+One-liner, written by the founder: "${session.summary}"
+Stage: ${stageLine()}
+${industryBlock()}
+Format of this mock: ${formatLine()} ${session.answers.length} questions were asked.
 
 ## The panel
 ${cards}
 
-## The company one-liner (written by the founder)
-${session.summary}
-
-Stage: ${stage}.
-Industry: ${industryLabel(session.industry)}.
-Format of this mock: ${session.mode === 'interrupt' ? 'no clock on screen, partners cut in at an unannounced moment between 4 and 45 seconds (most often before 16; deep questions get 1.5x, quick ones 0.7x)' : session.seconds + ' seconds per answer, strict timer, scaled by question depth'}. ${a.length} questions.
-
 ## Transcript
-${qa}
+${transcriptBlock()}
 
 ## Your job
-Write the output in these sections, with the same numbering.
+Write the output in these sections, with the same numbering. Quote the founder's own words when you judge them.
+
+0. **The one-liner, heard by the panel.** One line each from ${names[0]}, ${names[1]} and ${names[2]}: what they assume the company is from that sentence alone, and what is missing (customer, problem, mechanism, proof). Then "Say instead:" a one-liner rewrite under 20 words, using only facts the founder gave.
 
 1. **Question by question.** For every question, in order:
-   - One line from each of ${names[0]}, ${names[1]} and ${names[2]}, in their own voice, reacting to the answer the way they would in the room: what landed, what was missing, the follow-up they would have fired back. Each line starts with the partner's first name.
-   - A score from 1 to 10 for the answer (one score, agreed by the panel) with the single word that explains it (for example: vague, specific, evasive, strong, interrupted, no-answer).
-   - "Say instead:" a rewrite in under 25 words, using only facts from the summary or the answers. If a number is missing write "[give the number]".
-   Interrupted answers that had not reached the point score low. Missing answers score 1.
+   - One line from each partner, in their own voice, starting with the partner's first name: what landed, what was missing, and the follow-up they would have fired back.
+   - A score from 1 to 10 (one score, agreed by the panel) with the single word that explains it (for example: vague, specific, evasive, strong, interrupted, no-answer).
+   - "Say instead:" a rewrite under 25 words, point first, using only facts from the one-liner or the answers. If a number is missing write "[give the number]".
+   ${CALIBRATION}
+   An interrupted answer scores on what was said before the cut. Missing answers score 1.
 
-2. **Each partner's verdict.** One short paragraph per partner, in character: what they believe about this company after the interview, the one thing they would need to see to say yes, and their vote: FUND, PASS, or NEED MORE.
+2. **Each partner's verdict.** One short paragraph per partner, in character: what they now believe about this company, the one thing they would need to see to say yes, and their vote: FUND, PASS or NEED MORE.
 
-3. **The debrief.** Three to six lines of the partners talking to each other, where they agree and disagree, and the decision the panel reaches.
+3. **The debrief.** Three to six lines of the partners talking to each other: where they agree, where they disagree, and the decision the panel reaches.
 
-4. **Scorecard.** Four scores from 1 to 10 for the whole interview: Direct (first sentence answers the question), Specific (numbers, names, dates, mechanisms), Evidence (claims backed by things done or measured), Concise (half the words would do). Then an overall "would we fund this today" score from 1 to 10.
+4. **Scorecard.** Four scores from 1 to 10 for the whole interview: Direct (first sentence answers the question), Specific (numbers, names, dates, mechanisms), Evidence (claims backed by things done or measured), Concise (half the words would do). Then an overall "would we fund this today" score from 1 to 10, with one sentence of reason.
 
-5. **Before the real interview.** The three fixes that matter most, in order, each with the question number it comes from.
+5. **The questions you did not get.** From "Questions this panel almost always asks" and the partners' lenses, the two or three questions this founder was not asked and must be ready for, each with what a strong answer would contain.
 
-Keep the whole thing under 1500 words. Plain text with the headings above, no tables.`;
+6. **Before the real interview.** The three fixes that matter most, in order, each tied to a question number or to the one-liner.
+
+Keep the whole thing under 1600 words. Plain text with the headings above, no tables.`;
 }
 
 /* Fallback when partners.json did not load: one anonymous partner. */
 function genericPrompt() {
-  const a = session.answers;
-  const stage = session.stage === 'pre' ? 'pre-launch (no users or revenue yet)' : 'launched (has users or revenue)';
-  const qa = a.map((x) => `### Q${x.n}. ${x.question}
-Asked by: ${VOICES[x.voice]}. Time used: ${x.seconds}s of ${x.limit}s${x.cutOff ? ' (INTERRUPTED, a partner cut the founder off)' : ''}.
-Answer (verbatim transcript): ${x.transcript.trim() ? '"' + x.transcript.trim() + '"' : '(no answer captured)'}`).join('\n\n');
+  return `You are a Y Combinator partner who just finished a 10-minute interview with a founder. Be direct, concrete and a little impatient, the way a real partner would be. Do not soften the verdict. Do not invent facts about the company: use only the one-liner and the transcript.
 
-  return `You are a Y Combinator partner who just finished a 10-minute interview with a founder. Interviews are fast, partners interrupt, and they judge clarity, specificity, evidence and honesty, not polish. Be direct, concrete and a little impatient, the way a real partner would be. Do not soften the verdict.
+${HOW_YC_JUDGES}
 
-## The company one-liner (written by the founder)
-${session.summary}
-
-Stage: ${stage}.
-Format of this mock: ${session.mode === 'interrupt' ? 'no clock on screen, partners cut in at an unannounced moment between 4 and 45 seconds (most often before 16; deep questions get 1.5x, quick ones 0.7x)' : session.seconds + ' seconds per answer, strict timer, scaled by question depth'}. ${a.length} questions.
+## The company
+One-liner, written by the founder: "${session.summary}"
+Stage: ${stageLine()}
+${industryBlock()}
+Format of this mock: ${formatLine()} ${session.answers.length} questions were asked.
 
 ## Transcript
-${qa}
+${transcriptBlock()}
 
 ## Your job
-1. Score every answer from 1 to 10 on each of these, then give one line of feedback per answer:
-   - Direct: did the first sentence answer the question?
-   - Specific: numbers, names, dates, mechanisms, instead of adjectives.
-   - Evidence: is the claim backed by something the founder has actually done or measured?
-   - Concise: could it be said in half the words? Interrupted answers that had not reached the point yet score low here.
-2. Give the strongest answer and the weakest answer, with the reason.
-3. List the 3 things you now doubt most about this company, and the follow-up question you would have asked for each.
-4. Rewrite the 3 weakest answers the way a founder who knows their business cold would say them, in under 25 words each, using only facts that appear in the summary or the answers (invent nothing; if a number is missing, say "[give the number]").
-5. Overall verdict: a score from 1 to 10 for "would I push to fund this today", one paragraph of reasoning, and the single most important thing to fix before the real interview.
+0. **The one-liner.** What you assume the company is from that sentence, what is missing, and a rewrite under 20 words.
+1. **Question by question.** For each: your reaction in one line (what landed, what was missing, the follow-up you would fire back), a score from 1 to 10 with one word of reason, and "Say instead:" a rewrite under 25 words, point first, using only facts the founder gave ("[give the number]" where one is missing).
+   ${CALIBRATION}
+   An interrupted answer scores on what was said before the cut. Missing answers score 1.
+2. **Scorecard.** Direct, Specific, Evidence, Concise, each 1 to 10, then "would I fund this today" 1 to 10 with one sentence.
+3. **The questions you did not get.** Two or three the founder must be ready for, with what a strong answer contains.
+4. **Before the real interview.** The three fixes that matter most, in order, tied to question numbers.
 
-Format the output with the same numbered sections. Keep it under 900 words.`;
+Keep it under 1200 words. Plain text, no tables.`;
 }
 
-/* Ready-to-send payload for TypeSafe's Jev scorer (https://api.typesafe.ai/v1/systemone).
-   Shape: { model, state, questions }. "noul" questions return a probability 0..1.
-   Send it with your own key; the site never holds one. */
 function jevPayload() {
   const a = session.answers;
   const state = {
