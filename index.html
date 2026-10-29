@@ -16,55 +16,58 @@
 <body>
 
 <header class="top">
-  <a class="brand" href="./" aria-label="Y home"><span class="mark">Y</span><span class="brand-text">YC mock interview</span></a>
+  <a class="brand" href="./" aria-label="Y home"><span class="mark">Y</span><span data-i18n="brand" class="brand-text">YC mock interview</span></a>
   <nav class="steps" aria-label="Progress">
-    <span class="step" data-step="setup">01 Setup</span>
-    <span class="step" data-step="interview">02 Interview</span>
-    <span class="step" data-step="report">03 Report</span>
+    <span data-i18n="step.setup" class="step" data-step="setup">01 Setup</span>
+    <span data-i18n="step.interview" class="step" data-step="interview">02 Interview</span>
+    <span data-i18n="step.report" class="step" data-step="report">03 Report</span>
   </nav>
+  <div class="lang" id="lang" role="radiogroup" aria-label="Language">
+    <button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="es">ES</button><button type="button" data-lang="pt">PT</button><button type="button" data-lang="hi">HI</button>
+  </div>
 </header>
 
 <main id="app">
 
   <!-- ============ 1. SETUP ============ -->
   <section id="screen-setup" class="screen" data-screen="setup">
-    <h1>Practice the 10-minute YC interview.</h1>
-    <p class="lead">Partners ask fast, out loud, and cut you off. So does this.
+    <h1 data-i18n="setup.h1">Practice the 10-minute YC interview.</h1>
+    <p data-i18n="setup.lead" class="lead">Partners ask fast, out loud, and cut you off. So does this.
       Four voices, a timer, a written record of every answer. Free. Nothing leaves your device.</p>
 
     <form id="setup-form" autocomplete="off">
 
       <div class="block">
-        <div class="block-label">01 · Your company one-liner</div>
-        <textarea id="summary" name="summary" rows="2" maxlength="300" placeholder="One sentence, the way you would say it to a partner. Example: Same-day payroll for restaurant staff, no bank account needed." required></textarea>
-        <label class="select-label" for="industry"><span>Industry</span>
+        <div data-i18n="setup.b1" class="block-label">01 · Your company one-liner</div>
+        <textarea id="summary" data-i18n-ph="ph.summary" name="summary" rows="2" maxlength="300" placeholder="One sentence, the way you would say it to a partner. Example: Same-day payroll for restaurant staff, no bank account needed." required></textarea>
+        <label class="select-label" for="industry"><span data-i18n="setup.industry">Industry</span>
           <select id="industry" name="industry">
-            <option value="other">Something else / not sure</option>
-            <option value="ai">AI models, infra, dev tools</option>
-            <option value="b2b">B2B software, vertical AI</option>
-            <option value="fintech">Fintech, payments, insurance</option>
-            <option value="health">Healthcare, bio, wearables</option>
-            <option value="consumer">Consumer apps, social, media</option>
-            <option value="marketplace">Marketplaces, creators, e-commerce</option>
-            <option value="hardware">Hardware, robotics, space, deep tech</option>
-            <option value="climate">Climate, energy, government</option>
-            <option value="edtech">Education, learning</option>
+            <option data-i18n="ind.other" value="other">Something else / not sure</option>
+            <option data-i18n="ind.ai" value="ai">AI models, infra, dev tools</option>
+            <option data-i18n="ind.b2b" value="b2b">B2B software, vertical AI</option>
+            <option data-i18n="ind.fintech" value="fintech">Fintech, payments, insurance</option>
+            <option data-i18n="ind.health" value="health">Healthcare, bio, wearables</option>
+            <option data-i18n="ind.consumer" value="consumer">Consumer apps, social, media</option>
+            <option data-i18n="ind.marketplace" value="marketplace">Marketplaces, creators, e-commerce</option>
+            <option data-i18n="ind.hardware" value="hardware">Hardware, robotics, space, deep tech</option>
+            <option data-i18n="ind.climate" value="climate">Climate, energy, government</option>
+            <option data-i18n="ind.edtech" value="edtech">Education, learning</option>
           </select></label>
-        <div class="hint">Picks which three YC partners sit on your simulated panel in the report.</div>
+        <div data-i18n="setup.indhint" class="hint">Picks which three YC partners sit on your simulated panel in the report.</div>
         <div class="choices" role="radiogroup" aria-label="Stage">
-          <label class="choice"><input type="radio" name="stage" value="pre" checked><span class="choice-title">Not launched yet</span><span class="choice-sub">No metric questions</span></label>
-          <label class="choice"><input type="radio" name="stage" value="post"><span class="choice-title">Launched</span><span class="choice-sub">Burn, growth, retention</span></label>
+          <label class="choice"><input data-i18n-after="stage.pre" type="radio" name="stage" value="pre" checked><span class="choice-title">Not launched yet</span><span class="choice-sub">No metric questions</span></label>
+          <label class="choice"><input data-i18n-after="stage.post" type="radio" name="stage" value="post"><span class="choice-title">Launched</span><span class="choice-sub">Burn, growth, retention</span></label>
         </div>
       </div>
 
       <div class="block">
-        <div class="block-label">02 · Interviewer</div>
+        <div data-i18n="setup.b2" class="block-label">02 · Interviewer</div>
         <div class="choices" role="radiogroup" aria-label="Interviewer">
-          <label class="choice"><input type="radio" name="mode" value="interrupt" checked><span class="choice-title">Partners interrupt</span><span class="choice-sub">No clock. A partner cuts in when they feel like it, 4 to 45 s, usually early. Deep questions get more.</span></label>
-          <label class="choice"><input type="radio" name="mode" value="fixed"><span class="choice-title">Strict timer</span><span class="choice-sub">Fixed time per answer. Warning at 75%.</span></label>
+          <label class="choice"><input data-i18n-after="mode.interrupt" type="radio" name="mode" value="interrupt" checked><span class="choice-title">Partners interrupt</span><span class="choice-sub">No clock. A partner cuts in when they feel like it, 4 to 45 s, usually early. Deep questions get more.</span></label>
+          <label class="choice"><input data-i18n-after="mode.fixed" type="radio" name="mode" value="fixed"><span class="choice-title">Strict timer</span><span class="choice-sub">Fixed time per answer. Warning at 75%.</span></label>
         </div>
         <div id="seconds-row" class="row" hidden>
-          <span class="row-label">Seconds per answer</span>
+          <span data-i18n="setup.seconds" class="row-label">Seconds per answer</span>
           <div class="segmented" role="radiogroup" aria-label="Seconds per answer">
             <label><input type="radio" name="seconds" value="20"><span>20</span></label>
             <label><input type="radio" name="seconds" value="30" checked><span>30</span></label>
@@ -73,27 +76,27 @@
           </div>
         </div>
         <div class="row">
-          <span class="row-label">Length</span>
+          <span data-i18n="setup.length" class="row-label">Length</span>
           <div class="segmented" role="radiogroup" aria-label="Number of questions">
-            <label><input type="radio" name="count" value="6"><span>Short · 6</span></label>
-            <label><input type="radio" name="count" value="10" checked><span>Standard · 10</span></label>
-            <label><input type="radio" name="count" value="15"><span>Full · 15</span></label>
+            <label><input type="radio" name="count" value="6"><span data-i18n="len.short">Short · 6</span></label>
+            <label><input type="radio" name="count" value="10" checked><span data-i18n="len.standard">Standard · 10</span></label>
+            <label><input type="radio" name="count" value="15"><span data-i18n="len.full">Full · 15</span></label>
           </div>
         </div>
         <div class="hint mono" id="estimate"></div>
       </div>
 
       <div class="block">
-        <div class="block-label">03 · Sound</div>
+        <div data-i18n="setup.b3" class="block-label">03 · Sound</div>
         <div class="toggles">
-          <label class="switch"><input type="checkbox" name="voice" checked><span class="switch-title">Questions read out loud</span></label>
-          <label class="switch"><input type="checkbox" name="mic" checked><span class="switch-title">Record and transcribe my answers</span></label>
+          <label class="switch"><input type="checkbox" name="voice" checked><span data-i18n="setup.voice" class="switch-title">Questions read out loud</span></label>
+          <label class="switch"><input type="checkbox" name="mic" checked><span data-i18n="setup.mic" class="switch-title">Record and transcribe my answers</span></label>
         </div>
-        <div class="hint" id="mic-support">Audio and text stay in this tab. Turn the mic off to type instead.</div>
+        <div data-i18n="setup.michint" class="hint" id="mic-support">Audio and text stay in this tab. Turn the mic off to type instead.</div>
       </div>
 
-      <button type="submit" class="btn primary big" id="start">Start mock interview</button>
-      <p class="hint center"><kbd>Space</kbd> or <kbd>Enter</kbd> ends an answer early · <kbd>Esc</kbd> ends the interview</p>
+      <button data-i18n="setup.start" type="submit" class="btn primary big" id="start">Start mock interview</button>
+      <p data-i18n="setup.keys" class="hint center"><kbd>Space</kbd> or <kbd>Enter</kbd> ends an answer early · <kbd>Esc</kbd> ends the interview</p>
     </form>
   </section>
 
@@ -102,7 +105,7 @@
     <div class="interview-head">
       <span id="q-counter" class="counter mono">Q 01 / 10</span>
       <span id="q-kind" class="kind mono"></span>
-      <button type="button" class="btn ghost small" id="end-early">End interview</button>
+      <button data-i18n="int.end" type="button" class="btn ghost small" id="end-early">End interview</button>
     </div>
 
     <div class="stage-card" id="stage-card">
@@ -124,7 +127,7 @@
       <div id="timer-msg" class="timer-msg mono" aria-live="polite"></div>
 
       <div id="answer-live" class="answer-live" aria-live="polite"></div>
-      <textarea id="answer-typed" class="answer-typed" rows="4" placeholder="Type your answer. Ctrl+Enter (or ⌘+Enter) moves on." hidden></textarea>
+      <textarea id="answer-typed" data-i18n-ph="ph.typed" class="answer-typed" rows="4" placeholder="Type your answer. Ctrl+Enter (or ⌘+Enter) moves on." hidden></textarea>
 
       <div id="cutin" class="cutin" hidden aria-live="assertive">
         <span id="cutin-avatar" class="avatar">S</span>
@@ -133,61 +136,61 @@
     </div>
 
     <div class="interview-foot">
-      <button type="button" class="btn primary" id="next">Done, next <kbd>Space</kbd></button>
+      <button data-i18n="int.next" type="button" class="btn primary" id="next">Done, next <kbd>Space</kbd></button>
       <span id="mic-state" class="mic-state mono"></span>
     </div>
   </section>
 
   <!-- ============ 3. REPORT ============ -->
   <section id="screen-report" class="screen" data-screen="report" hidden>
-    <h1>Session complete.</h1>
+    <h1 data-i18n="rep.h1">Session complete.</h1>
     <p class="lead" id="report-lead"></p>
 
     <div class="totals" id="totals"></div>
 
     <div class="actions">
-      <button type="button" class="btn primary" id="copy-prompt">Copy partner-panel prompt</button>
-      <button type="button" class="btn" id="copy-jev">Copy Jev payload</button>
-      <button type="button" class="btn" id="download-json">Download JSON</button>
-      <button type="button" class="btn" id="print">Print</button>
-      <button type="button" class="btn ghost" id="again">Go again</button>
+      <button data-i18n="rep.copy" type="button" class="btn primary" id="copy-prompt">Copy partner-panel prompt</button>
+      <button data-i18n="rep.jev" type="button" class="btn" id="copy-jev">Copy Jev payload</button>
+      <button data-i18n="rep.json" type="button" class="btn" id="download-json">Download JSON</button>
+      <button data-i18n="rep.print" type="button" class="btn" id="print">Print</button>
+      <button data-i18n="rep.again" type="button" class="btn ghost" id="again">Go again</button>
     </div>
     <p class="hint mono" id="copy-status" aria-live="polite"></p>
     <div class="panel" id="panel"></div>
 
     <details class="block prompt-block" id="prompt-block" open>
-      <summary>Read the prompt before pasting</summary>
-      <p class="hint">This is exactly what "Copy partner-panel prompt" puts on your clipboard. Edit a transcript above and it updates.</p>
+      <summary data-i18n="rep.readprompt">Read the prompt before pasting</summary>
+      <p data-i18n="rep.readhint" class="hint">This is exactly what "Copy partner-panel prompt" puts on your clipboard. Edit a transcript above and it updates.</p>
       <pre id="prompt-text" class="prompt-text" tabindex="0"></pre>
-      <button type="button" class="btn primary" id="copy-prompt-2">Copy partner-panel prompt</button>
+      <button data-i18n="rep.copy2" type="button" class="btn primary" id="copy-prompt-2">Copy partner-panel prompt</button>
     </details>
 
     <details class="block" id="whisper-block" hidden>
-      <summary>Improve transcripts with on-device Whisper (optional, ~40 MB download, runs in your browser)</summary>
-      <p class="hint">Live transcription is fast but rough. Whisper re-listens to each recording on this device. Nothing is uploaded.</p>
-      <button type="button" class="btn" id="whisper-run">Run Whisper on all answers</button>
+      <summary data-i18n="rep.whisper">Improve transcripts with on-device Whisper (optional, ~40 MB download, runs in your browser)</summary>
+      <p data-i18n="rep.whisperhint" class="hint">Live transcription is fast but rough. Whisper re-listens to each recording on this device. Nothing is uploaded.</p>
+      <button data-i18n="rep.whisperrun" type="button" class="btn" id="whisper-run">Run Whisper on all answers</button>
       <div class="hint mono" id="whisper-status"></div>
     </details>
 
-    <h2>Your answers</h2>
-    <p class="hint">Transcripts are editable. Fix anything before you copy the prompt.</p>
+    <h2 data-i18n="rep.answers">Your answers</h2>
+    <p data-i18n="rep.answershint" class="hint">Transcripts are editable. Fix anything before you copy the prompt.</p>
     <ol class="answers" id="answers"></ol>
 
-    <h2>What to do now</h2>
+    <h2 data-i18n="rep.now">What to do now</h2>
     <ol class="tips">
-      <li><strong>Paste the prompt</strong> into Claude, ChatGPT or any model you trust. Three simulated YC partners, matched to your industry, score every answer and say what they would push on.</li>
-      <li><strong>Cut every answer in half.</strong> Partners want the number, the name, the date. Not the story.</li>
-      <li><strong>Fix the cut-offs first.</strong> An interrupted answer is one that started with context instead of the point.</li>
-      <li><strong>Go again.</strong> The cut comes at a different moment every run. If the point is out in the first 8 seconds, it survives the real room.</li>
+      <li data-i18n="tip.1"><strong>Paste the prompt</strong> into Claude, ChatGPT or any model you trust. Three simulated YC partners, matched to your industry, score every answer and say what they would push on.</li>
+      <li data-i18n="tip.2"><strong>Cut every answer in half.</strong> Partners want the number, the name, the date. Not the story.</li>
+      <li data-i18n="tip.3"><strong>Fix the cut-offs first.</strong> An interrupted answer is one that started with context instead of the point.</li>
+      <li data-i18n="tip.4"><strong>Go again.</strong> The cut comes at a different moment every run. If the point is out in the first 8 seconds, it survives the real room.</li>
     </ol>
   </section>
 
 </main>
 
 <footer class="foot">
-  <span>Free forever. No AI, no server, no tracking: everything runs in your browser.</span>
-  <span>Questions from <a href="https://yci.vercel.app/" rel="noopener">yci.vercel.app</a>. Not affiliated with Y Combinator.</span>
-  <span><a href="https://github.com/carlosr-create/y" rel="noopener">Source on GitHub</a></span>
+  <span data-i18n="foot.1">Free forever. No AI, no server, no tracking: everything runs in your browser.</span>
+  <span data-i18n="foot.2">Questions from <a href="https://yci.vercel.app/" rel="noopener">yci.vercel.app</a>. Not affiliated with Y Combinator.</span>
+  <span data-i18n="foot.3"><a href="https://github.com/carlosr-create/y" rel="noopener">Source on GitHub</a></span>
 </footer>
 
 <script src="app.js"></script>

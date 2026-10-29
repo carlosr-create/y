@@ -33,6 +33,84 @@ const SHORT = new Set(['g7','g8','g10','g13','g16','g31','g52','post1','post3','
 const WEIGHT = { long: 1.5, normal: 1, short: 0.7 };
 const kindOf = (id) => LONG.has(id) ? 'long' : SHORT.has(id) ? 'short' : 'normal';
 let CUTS = { lines: {}, interrupt: [], timeup: [], files: {} };   // loaded from audio/cuts.json
+
+/* ───────────────────────── Language ─────────────────────────
+   EN is built into the HTML and this file. ES, PT and HI come from i18n/<lang>.json:
+   {prompt_lang, ui: {data-i18n keys}, rt: {runtime strings below}, questions: {id: text}, cuts: {key: line}}.
+   Audio for those lives in audio/<lang>/<voice>/; when a clip is missing the browser's own voice reads the text. */
+const LANGS = { en: 'en-US', es: 'es-MX', pt: 'pt-BR', hi: 'hi-IN' };
+const WHISPER_LANG = { es: 'spanish', pt: 'portuguese', hi: 'hindi' };
+let LANG = 'en', I18N = null, QUESTIONS_EN = [], EN_DOM = null;
+const RT = {   // runtime strings, English; translations in i18n/<lang>.json "rt"
+  'rt.listen': 'Listen', 'rt.asks': 'asks', 'rt.waiting': 'is waiting', 'rt.answer': 'Answer', 'rt.go': 'Go',
+  'rt.interrupted': 'Interrupted', 'rt.wrapup': 'Wrap up', 'rt.recording': 'Recording', 'rt.recfail': 'Recorder failed, type instead',
+  'rt.cutsin': '{name} cuts in', 'rt.time': '{name}: time',
+  'rt.est.capped': 'About {total} total. The real interview is 10 minutes, so this run stops after {n} questions.',
+  'rt.est.open': 'About {total} total.', 'rt.est.interrupt': 'No clock on screen. A partner cuts in at an unannounced moment, 4 to 45 seconds, most often before 16.',
+  'rt.lead': '{n} questions, {mode}, {time} of talking.', 'rt.lead.interrupt': 'partners interrupting', 'rt.lead.fixed': '{s} s per answer',
+  'rt.t.questions': 'questions', 'rt.t.answered': 'answered', 'rt.t.cut1': 'cut off', 'rt.t.cutn': 'cut-offs', 'rt.t.avg': 'avg per answer', 'rt.t.wpm': 'words / min', 'rt.t.fillers': 'filler words',
+  'rt.general': 'general', 'rt.pre': 'pre-launch', 'rt.post': 'post-launch', 'rt.deep': ' · deep', 'rt.quick': ' · quick', 'rt.cutoff': 'cut off', 'rt.finished': 'finished',
+  'rt.ph.none': 'No live transcript in this browser. Run Whisper above or type what you said.', 'rt.ph.empty': 'No words captured. Type what you said.',
+  'rt.meta': '{w} words · {wpm} wpm · {f} fillers', 'rt.meta.none': 'no transcript',
+  'rt.copied': 'Copied', 'rt.copyprompt': 'Copy partner-panel prompt', 'rt.copystatus': '{label} copied ({n} characters).', 'rt.copyfail': 'Copy failed. Download the JSON instead.',
+  'rt.wh.load': 'Loading Whisper (first time downloads about 40 MB)…', 'rt.wh.dl': 'Downloading {file} {pct}%', 'rt.wh.run': 'Transcribing answer {n} ({k} of {total})…',
+  'rt.wh.done': 'Done. {n} answers re-transcribed on this device.', 'rt.wh.fail': 'Whisper failed: {err}. The live transcripts are kept.',
+  'rt.mic.unavail': 'Microphone unavailable ({err}). You can type your answers instead.', 'rt.mic.norec': 'This browser cannot record audio. Answers will be typed.',
+  'rt.mic.nolive': 'Live transcription needs Chrome, Edge or Safari. Here, audio is recorded and you can run Whisper afterwards.',
+  'rt.live.unsupported': 'Live transcript is not supported in this browser. Audio is still recorded; run Whisper in the report.',
+  'rt.noquestions': 'Could not load questions.json.',
+};
+function t(key, vars) {
+  let str = (I18N && ((I18N.rt && I18N.rt[key]) || (I18N.ui && I18N.ui[key]))) || RT[key] || key;
+  if (vars) for (const k in vars) str = str.split(`{${k}}`).join(String(vars[k]));
+  return str;
+}
+function detectLang() {
+  try { const saved = localStorage.getItem('y-lang'); if (saved && LANGS[saved]) return saved; } catch (_) {}
+  const nav = (navigator.language || 'en').slice(0, 2).toLowerCase();
+  return LANGS[nav] ? nav : 'en';
+}
+function snapshotEnglish() {   // so switching back to EN restores the built-in text
+  EN_DOM = { html: {}, after: {}, ph: {} };
+  $$('[data-i18n]').forEach((el) => { EN_DOM.html[el.dataset.i18n] = el.innerHTML; });
+  $$('[data-i18n-after]').forEach((el) => { let h = '', n = el.nextElementSibling; while (n && n.tagName === 'SPAN') { h += n.outerHTML; n = n.nextElementSibling; } EN_DOM.after[el.dataset.i18nAfter] = h; });
+  $$('[data-i18n-ph]').forEach((el) => { EN_DOM.ph[el.dataset.i18nPh] = el.placeholder; });
+}
+async function applyLang(lang) {
+  if (!EN_DOM) snapshotEnglish();
+  LANG = LANGS[lang] ? lang : 'en';
+  I18N = null;
+  if (LANG !== 'en') {
+    try { I18N = await (await fetch(`i18n/${LANG}.json`)).json(); } catch (_) { LANG = 'en'; }
+  }
+  try { localStorage.setItem('y-lang', LANG); } catch (_) {}
+  document.documentElement.lang = LANG;
+  const ui = (I18N && I18N.ui) || {};
+  $$('[data-i18n]').forEach((el) => { const k = el.dataset.i18n; el.innerHTML = ui[k] || EN_DOM.html[k]; });
+  $$('[data-i18n-after]').forEach((el) => {
+    const k = el.dataset.i18nAfter; let n = el.nextElementSibling;
+    while (n && n.tagName === 'SPAN') { const gone = n; n = n.nextElementSibling; gone.remove(); }
+    el.insertAdjacentHTML('afterend', ui[k] || EN_DOM.after[k]);
+  });
+  $$('[data-i18n-ph]').forEach((el) => { const k = el.dataset.i18nPh; el.placeholder = ui[k] || EN_DOM.ph[k]; });
+  $$('#lang button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === LANG)));
+  const tr = (I18N && I18N.questions) || {};
+  QUESTIONS = QUESTIONS_EN.map((q) => ({ ...q, text: tr[q.id] || q.text }));
+  if (typeof updateEstimate === 'function' && QUESTIONS.length) updateEstimate();
+}
+function cutLine(key) { return (I18N && I18N.cuts && I18N.cuts[key]) || CUTS.lines[key]; }
+function audioPath(voice, id) { return LANG === 'en' ? `audio/${voice}/${id}.mp3` : `audio/${LANG}/${voice}/${id}.mp3`; }
+/* A clip is missing (non-English sets are generated over time): the browser reads the text in that language. */
+function speakFallback(text, done) {
+  if (!('speechSynthesis' in window) || !text) { done(); return; }
+  try {
+    const u = new SpeechSynthesisUtterance(text); u.lang = LANGS[LANG]; u.rate = 1.05;
+    const v = speechSynthesis.getVoices().find((x) => x.lang.replace('_', '-').toLowerCase().startsWith(LANG)); if (v) u.voice = v;
+    let ended = false; const end = () => { if (ended) return; ended = true; setBars(''); done(); };
+    u.onstart = () => setBars('speaking'); u.onend = end; u.onerror = end;
+    speechSynthesis.cancel(); speechSynthesis.speak(u); setTimeout(end, 15000);
+  } catch (_) { done(); }
+}
 let PARTNERS = null;                           // loaded from partners.json
 const FILLERS = ['um', 'uh', 'umm', 'uhh', 'like', 'you know', 'basically', 'actually', 'literally', 'kind of', 'sort of', 'i mean', 'so yeah', 'right'];
 
@@ -62,6 +140,7 @@ function showScreen(name) {
     el.classList.toggle('active', i === cur);
     el.classList.toggle('done', i < cur);
   });
+  $$('#lang button').forEach((b) => { b.disabled = name === 'interview'; });
   window.scrollTo({ top: 0 });
 }
 
@@ -94,8 +173,8 @@ function updateEstimate() {
   const fitted = capped ? Math.max(1, Math.floor(MAX_SESSION_SECONDS / (per + overhead))) : session.count;
   $('#seconds-row').hidden = session.mode !== 'fixed';
   $('#estimate').textContent = capped
-    ? `About ${fmtTime(total)} total. The real interview is 10 minutes, so this run stops after ${fitted} questions.`
-    : `About ${fmtTime(total)} total. ${session.mode === 'interrupt' ? 'No clock on screen. A partner cuts in at an unannounced moment, 4 to 45 seconds, most often before 16.' : ''}`;
+    ? t('rt.est.capped', { total: fmtTime(total), n: fitted })
+    : `${t('rt.est.open', { total: fmtTime(total) })} ${session.mode === 'interrupt' ? t('rt.est.interrupt') : ''}`;
   session.count = fitted;
 }
 
@@ -124,7 +203,7 @@ form.addEventListener('submit', async (e) => {
   if (!session.summary) { summaryEl.focus(); return; }
   if (session.mic) {
     try { await openMic(); }
-    catch (err) { session.mic = false; $('#mic-support').textContent = `Microphone unavailable (${err.name || err}). You can type your answers instead.`; }
+    catch (err) { session.mic = false; $('#mic-support').textContent = t('rt.mic.unavail', { err: err.name || err }); }
   }
   buildPlan();
   session.answers = [];
@@ -225,22 +304,22 @@ function askQuestion(i) {
   $('#mic-state').textContent = session.mic ? '' : 'Typing mode';
   $('#mic-state').className = 'mic-state';
   ringFg.style.strokeDashoffset = 0;
-  setTimer(session.mode === 'interrupt' ? 0 : q.limit, 'idle', session.voice ? 'Listen' : '');
-  $('#speaker-state').textContent = 'asks'; $('#speaker-state').classList.toggle('speaking', session.voice);
+  setTimer(session.mode === 'interrupt' ? 0 : q.limit, 'idle', session.voice ? t('rt.listen') : '');
+  $('#speaker-state').textContent = t('rt.asks'); $('#speaker-state').classList.toggle('speaking', session.voice);
 
   // Preload the next question's audio while this one plays.
   const next = session.plan[i + 1];
-  if (next && session.voice) { const a = new Audio(`audio/${next.voice}/${next.id}.mp3`); a.preload = 'auto'; }
+  if (next && session.voice) { const a = new Audio(audioPath(next.voice, next.id)); a.preload = 'auto'; }
 
   setBars('');
   if (session.voice) {
-    currentAudio = new Audio(`audio/${q.voice}/${q.id}.mp3`);
+    currentAudio = new Audio(audioPath(q.voice, q.id));
     attachVoice(currentAudio);
     currentAudio.addEventListener('playing', () => setBars('speaking'), { once: true });
     const start = () => { currentAudio = null; startAnswer(); };
     currentAudio.addEventListener('ended', start, { once: true });
-    currentAudio.addEventListener('error', start, { once: true });
-    currentAudio.play().catch(start);
+    currentAudio.addEventListener('error', () => { currentAudio = null; speakFallback(q.text, start); }, { once: true });
+    currentAudio.play().catch(() => { if (currentAudio) { currentAudio = null; speakFallback(q.text, start); } });
   } else {
     startAnswer();
   }
@@ -248,9 +327,9 @@ function askQuestion(i) {
 
 function startAnswer() {
   const q = session.plan[qIndex];
-  $('#speaker-state').textContent = 'is waiting'; $('#speaker-state').classList.remove('speaking');
+  $('#speaker-state').textContent = t('rt.waiting'); $('#speaker-state').classList.remove('speaking');
   timer = { raf: 0, start: performance.now(), limit: q.limit, running: true, cutOff: false, elapsed: 0 };
-  setTimer(session.mode === 'interrupt' ? 0 : q.limit, '', session.mode === 'interrupt' ? 'Answer' : 'Go');
+  setTimer(session.mode === 'interrupt' ? 0 : q.limit, '', session.mode === 'interrupt' ? t('rt.answer') : t('rt.go'));
   if (session.mic) { startRecording(); setBars('listening'); } else { setBars(''); $('#answer-typed').focus(); }
   tick();
 }
@@ -263,8 +342,8 @@ function tick() {
   if (session.mode === 'interrupt') {
     // A real room has no clock: a stopwatch counts up, the ring just spins, no warning before the cut.
     ringFg.style.strokeDashoffset = RING * (1 - (timer.elapsed % 10) / 10);
-    if (left <= 0) { timer.cutOff = true; setTimer(timer.elapsed, 'over', 'Interrupted'); finishAnswer(true); return; }
-    setTimer(timer.elapsed, 'live', 'Answer');
+    if (left <= 0) { timer.cutOff = true; setTimer(timer.elapsed, 'over', t('rt.interrupted')); finishAnswer(true); return; }
+    setTimer(timer.elapsed, 'live', t('rt.answer'));
     timer.raf = requestAnimationFrame(tick);
     return;
   }
@@ -275,8 +354,8 @@ function tick() {
     finishAnswer(true);
     return;
   }
-  if (frac >= 0.75) setTimer(left, 'warn', 'Wrap up');
-  else setTimer(left, '', 'Go');
+  if (frac >= 0.75) setTimer(left, 'warn', t('rt.wrapup'));
+  else setTimer(left, '', t('rt.go'));
   timer.raf = requestAnimationFrame(tick);
 }
 
@@ -286,12 +365,12 @@ function startRecording() {
     recorder = new MediaRecorder(micStream);
     recorder.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
     recorder.start();
-    $('#mic-state').textContent = 'Recording'; $('#mic-state').className = 'mic-state on';
-  } catch (e) { recorder = null; $('#mic-state').textContent = 'Recorder failed, type instead'; $('#answer-typed').hidden = false; }
+    $('#mic-state').textContent = t('rt.recording'); $('#mic-state').className = 'mic-state on';
+  } catch (e) { recorder = null; $('#mic-state').textContent = t('rt.recfail'); $('#answer-typed').hidden = false; }
   if (SpeechRecognition) {
     try {
       recog = new SpeechRecognition();
-      recog.continuous = true; recog.interimResults = true; recog.lang = navigator.language || 'en-US';
+      recog.continuous = true; recog.interimResults = true; recog.lang = LANGS[LANG] || navigator.language || 'en-US';
       recog.onresult = (e) => {
         liveInterim = '';
         for (let i = e.resultIndex; i < e.results.length; i++) {
@@ -304,7 +383,7 @@ function startRecording() {
       recog.start();
     } catch (e) { recog = null; }
   } else {
-    $('#answer-live').textContent = 'Live transcript is not supported in this browser. Audio is still recorded; run Whisper in the report.';
+    $('#answer-live').textContent = t('rt.live.unsupported');
   }
 }
 
@@ -353,8 +432,8 @@ function playCutIn(q, done) {
   const key = silent ? '' : interrupt ? pickCut(CUTS.interrupt, 'cut1') : pickCut(CUTS.timeup, 'timeup');
   $('#stage-card').classList.add('flash');
   const av = $('#cutin-avatar'); av.textContent = VOICES[voice][0]; av.dataset.voice = voice;
-  $('#cutin-name').textContent = interrupt ? `${VOICES[voice]} cuts in` : `${VOICES[voice]}: time`;
-  $('#cutin-line').textContent = silent ? '' : `“${CUTS.lines[key] || (interrupt ? 'Okay, let me stop you there.' : 'Okay, time. Next one.')}”`;
+  $('#cutin-name').textContent = t(interrupt ? 'rt.cutsin' : 'rt.time', { name: VOICES[voice] });
+  $('#cutin-line').textContent = silent ? '' : `“${cutLine(key) || (interrupt ? 'Okay, let me stop you there.' : 'Okay, time. Next one.')}”`;
   $('#cutin').hidden = false;
   if (navigator.vibrate) { try { navigator.vibrate(interrupt ? [60, 40, 60] : 80); } catch (_) {} }
   let finished = false;
@@ -366,12 +445,13 @@ function playCutIn(q, done) {
   }
   setTimeout(() => { if (!session.voice) finish(); }, 2000);
   if (session.voice) {
-    const a = new Audio(`audio/${voice}/${key}.mp3`);
+    const a = new Audio(audioPath(voice, key));
     attachVoice(a); a.addEventListener('playing', () => setBars('speaking'), { once: true });
     a.addEventListener('ended', () => { setBars(''); setTimeout(finish, interrupt ? randInt(GAP_MIN, GAP_MAX) : 350); }, { once: true });
-    a.addEventListener('error', () => setTimeout(finish, 1000), { once: true });
-    a.play().catch(() => setTimeout(finish, 1000));
-    setTimeout(finish, 4000);                                 // safety: never hang on a stuck clip
+    let fell = false; const fallback = () => { if (fell) return; fell = true; speakFallback(cutLine(key), () => setTimeout(finish, 300)); };
+    a.addEventListener('error', fallback, { once: true });
+    a.play().catch(fallback);
+    setTimeout(finish, LANG === 'en' ? 4000 : 8000);                                 // safety: never hang on a stuck clip
   }
 }
 
@@ -418,22 +498,22 @@ function renderReport() {
   const fillers = a.reduce((s, x) => s + fillerCount(x.transcript), 0);
   const wpm = totalSec ? Math.round(allWords / (totalSec / 60)) : 0;
 
-  $('#report-lead').textContent = `${a.length} questions, ${session.mode === 'interrupt' ? 'partners interrupting' : session.seconds + ' s per answer'}, ${fmtTime(totalSec)} of talking.`;
+  $('#report-lead').textContent = t('rt.lead', { n: a.length, mode: session.mode === 'interrupt' ? t('rt.lead.interrupt') : t('rt.lead.fixed', { s: session.seconds }), time: fmtTime(totalSec) });
   $('#totals').innerHTML = [
-    [a.length, 'questions'], [answered, 'answered'], [cut, cut === 1 ? 'cut off' : 'cut-offs'],
-    [avg.toFixed(0) + 's', 'avg per answer'], [wpm || '–', 'words / min'], [fillers, 'filler words'],
+    [a.length, t('rt.t.questions')], [answered, t('rt.t.answered')], [cut, cut === 1 ? t('rt.t.cut1') : t('rt.t.cutn')],
+    [avg.toFixed(0) + 's', t('rt.t.avg')], [wpm || '–', t('rt.t.wpm')], [fillers, t('rt.t.fillers')],
   ].map(([v, l]) => `<div class="tile"><b>${v}</b><span>${l}</span></div>`).join('');
 
   $('#answers').innerHTML = a.map((x, i) => `
     <li class="answer" data-i="${i}">
       <div class="answer-head">
         <span class="n">Q${x.n}</span>
-        <span>${VOICES[x.voice]} · ${x.type === 'GENERAL' ? 'general' : x.type === 'PRE_LAUNCH' ? 'pre-launch' : 'post-launch'}</span>
-        <span>${x.seconds}s of ${x.limit}s${x.kind === 'long' ? ' · deep' : x.kind === 'short' ? ' · quick' : ''}</span>
-        <span class="badge ${x.cutOff ? 'cut' : 'ok'}">${x.cutOff ? 'cut off' : 'finished'}</span>
+        <span>${VOICES[x.voice]} · ${x.type === 'GENERAL' ? t('rt.general') : x.type === 'PRE_LAUNCH' ? t('rt.pre') : t('rt.post')}</span>
+        <span>${x.seconds}s / ${x.limit}s${x.kind === 'long' ? t('rt.deep') : x.kind === 'short' ? t('rt.quick') : ''}</span>
+        <span class="badge ${x.cutOff ? 'cut' : 'ok'}">${x.cutOff ? t('rt.cutoff') : t('rt.finished')}</span>
       </div>
       <p class="answer-q">${esc(x.question)}</p>
-      <textarea data-i="${i}" placeholder="${x.source === 'none' ? 'No live transcript in this browser. Run Whisper above or type what you said.' : 'No words captured. Type what you said.'}">${esc(x.transcript)}</textarea>
+      <textarea data-i="${i}" placeholder="${x.source === 'none' ? t('rt.ph.none') : t('rt.ph.empty')}">${esc(x.transcript)}</textarea>
       ${x.blobUrl ? `<audio controls preload="none" src="${x.blobUrl}"></audio>` : ''}
       <div class="answer-meta" data-meta="${i}">${metaLine(x)}</div>
     </li>`).join('');
@@ -448,7 +528,7 @@ function refreshPromptPreview() { $('#prompt-text').textContent = partnerPrompt(
 function metaLine(x) {
   const w = words(x.transcript), f = fillerCount(x.transcript);
   const wpm = x.seconds ? Math.round(w / (x.seconds / 60)) : 0;
-  return w ? `${w} words · ${wpm} wpm · ${f} filler${f === 1 ? '' : 's'}` : 'no transcript';
+  return w ? t('rt.meta', { w, wpm, f }) : t('rt.meta.none');
 }
 
 $('#answers').addEventListener('input', (e) => {
@@ -472,8 +552,9 @@ function industryLabel(industry) {
 /* Prompt for any chat model: a three-partner YC panel scores the run, question by question. */
 function partnerPrompt() {
   const panel = panelFor(session.industry);
-  if (panel.length === 3) return panelPrompt(panel);
-  return genericPrompt();
+  const base = panel.length === 3 ? panelPrompt(panel) : genericPrompt();
+  if (LANG === 'en' || !I18N || !I18N.prompt_lang) return base;
+  return `${base}\n\nLANGUAGE: the founder answered in ${I18N.prompt_lang}. Write the entire evaluation in ${I18N.prompt_lang}, same structure, same section titles translated.`;
 }
 
 function stageLine() {
@@ -637,15 +718,15 @@ function exportJson() {
 }
 
 async function copyText(text, label) {
-  try { await navigator.clipboard.writeText(text); $('#copy-status').textContent = `${label} copied (${text.length.toLocaleString()} characters).`; }
+  try { await navigator.clipboard.writeText(text); $('#copy-status').textContent = t('rt.copystatus', { label, n: text.length.toLocaleString() }); }
   catch (_) {
     const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
-    try { document.execCommand('copy'); $('#copy-status').textContent = `${label} copied.`; } catch (e) { $('#copy-status').textContent = 'Copy failed. Download the JSON instead.'; }
+    try { document.execCommand('copy'); $('#copy-status').textContent = `${label} copied.`; } catch (e) { $('#copy-status').textContent = t('rt.copyfail'); }
     ta.remove();
   }
 }
 $('#copy-prompt').addEventListener('click', () => copyText(partnerPrompt(), 'Partner-panel prompt'));
-$('#copy-prompt-2').addEventListener('click', () => { copyText(partnerPrompt(), 'Partner-panel prompt'); $('#copy-prompt-2').textContent = 'Copied'; setTimeout(() => { $('#copy-prompt-2').textContent = 'Copy partner-panel prompt'; }, 1500); });
+$('#copy-prompt-2').addEventListener('click', () => { copyText(partnerPrompt(), 'Partner-panel prompt'); $('#copy-prompt-2').textContent = t('rt.copied'); setTimeout(() => { $('#copy-prompt-2').textContent = (I18N && I18N.ui && I18N.ui['rep.copy2']) || t('rt.copyprompt'); }, 1500); });
 $('#copy-jev').addEventListener('click', () => copyText(JSON.stringify(jevPayload(), null, 2), 'Jev payload'));
 $('#download-json').addEventListener('click', () => {
   const blob = new Blob([JSON.stringify(exportJson(), null, 2)], { type: 'application/json' });
@@ -661,27 +742,29 @@ $('#again').addEventListener('click', () => {
 });
 
 /* On-device Whisper (transformers.js). Loaded only when the user clicks. */
-let asr = null;
+let asr = null, asrModel = '';
 $('#whisper-run').addEventListener('click', async () => {
   const btn = $('#whisper-run'), status = $('#whisper-status');
   btn.disabled = true;
   try {
-    if (!asr) {
-      status.textContent = 'Loading Whisper (first time downloads about 40 MB)…';
+    const model = LANG === 'en' ? 'onnx-community/whisper-tiny.en' : 'onnx-community/whisper-tiny';
+    if (!asr || asrModel !== model) {
+      status.textContent = t('rt.wh.load');
       const { pipeline, env } = await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.5.2');
       env.allowLocalModels = false;
-      asr = await pipeline('automatic-speech-recognition', 'onnx-community/whisper-tiny.en', {
-        progress_callback: (p) => { if (p.status === 'progress' && p.file) status.textContent = `Downloading ${p.file.split('/').pop()} ${Math.round(p.progress || 0)}%`; },
+      asr = await pipeline('automatic-speech-recognition', model, {
+        progress_callback: (p) => { if (p.status === 'progress' && p.file) status.textContent = t('rt.wh.dl', { file: p.file.split('/').pop(), pct: Math.round(p.progress || 0) }); },
       });
+      asrModel = model;
     }
     const ctx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16000 });
     const todo = session.answers.filter((x) => x.blob);
     for (let k = 0; k < todo.length; k++) {
       const x = todo[k];
-      status.textContent = `Transcribing answer ${x.n} (${k + 1} of ${todo.length})…`;
+      status.textContent = t('rt.wh.run', { n: x.n, k: k + 1, total: todo.length });
       const buf = await ctx.decodeAudioData(await x.blob.arrayBuffer());
       const pcm = buf.numberOfChannels > 1 ? mixDown(buf) : buf.getChannelData(0);
-      const out = await asr(pcm, { chunk_length_s: 30, stride_length_s: 5 });
+      const out = await asr(pcm, LANG === 'en' ? { chunk_length_s: 30, stride_length_s: 5 } : { chunk_length_s: 30, stride_length_s: 5, language: WHISPER_LANG[LANG], task: 'transcribe' });
       const text = (out && out.text || '').trim();
       if (text) {
         x.transcript = text; x.source = 'whisper';
@@ -690,10 +773,10 @@ $('#whisper-run').addEventListener('click', async () => {
         $(`[data-meta="${i}"]`).textContent = metaLine(x);
       }
     }
-    status.textContent = `Done. ${todo.length} answers re-transcribed on this device.`;
+    status.textContent = t('rt.wh.done', { n: todo.length });
     renderTotalsOnly();
   } catch (e) {
-    status.textContent = `Whisper failed: ${e.message || e}. The live transcripts are kept.`;
+    status.textContent = t('rt.wh.fail', { err: e.message || e });
   } finally { btn.disabled = false; }
 });
 function mixDown(buf) {
@@ -706,14 +789,16 @@ function renderTotalsOnly() { renderReport(); }   // session.answers already hol
 /* ───────────────────────── Boot ───────────────────────── */
 
 (async function boot() {
-  if (!canRecord) { $('#mic-support').textContent = 'This browser cannot record audio. Answers will be typed.'; form.elements.mic.checked = false; form.elements.mic.disabled = true; }
-  else if (!SpeechRecognition) { $('#mic-support').textContent = 'Live transcription needs Chrome, Edge or Safari. Here, audio is recorded and you can run Whisper afterwards.'; }
+  if (!canRecord) { $('#mic-support').textContent = t('rt.mic.norec'); form.elements.mic.checked = false; form.elements.mic.disabled = true; }
+  else if (!SpeechRecognition) { $('#mic-support').textContent = t('rt.mic.nolive'); }
   // Interruption mode is the default: that is the real room.
   try {
-    const r = await fetch('questions.json'); QUESTIONS = await r.json();
-  } catch (e) { $('#start').disabled = true; $('#estimate').textContent = 'Could not load questions.json.'; return; }
+    const r = await fetch('questions.json'); QUESTIONS_EN = await r.json(); QUESTIONS = QUESTIONS_EN;
+  } catch (e) { $('#start').disabled = true; $('#estimate').textContent = t('rt.noquestions'); return; }
   try { CUTS = await (await fetch('audio/cuts.json')).json(); } catch (_) {}
   try { PARTNERS = await (await fetch('partners.json')).json(); } catch (_) {}
+  await applyLang(detectLang());
+  $$('#lang button').forEach((b) => b.addEventListener('click', () => { if (b.dataset.lang !== LANG) applyLang(b.dataset.lang).then(() => { if (!$('#screen-report').hidden) renderReport(); }); }));
   window.Y = { partnerPrompt, jevPayload, exportJson, session };   // for tests and curious people
   updateEstimate();
   showScreen('setup');

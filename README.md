@@ -38,6 +38,10 @@ forever. Feedback accepted, please use it and let me know if you like it.
    - Also: download the JSON, print, go again. Optional on-device Whisper
      (about 40 MB, only if you click) for a cleaner transcript.
 
+🌎 **English, Spanish, Portuguese, Hindi.** Toggle in the header: questions,
+labels and interruptions switch, the transcript runs in that language and the
+scoring prompt asks the AI to answer in it.
+
 ## 🔒 What leaves your device
 
 Nothing. Static files, no server, no account, no analytics, no AI call at

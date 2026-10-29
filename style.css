@@ -63,6 +63,14 @@ kbd {
 }
 .brand-text { color: var(--muted); font-weight: 500; }
 .steps { display: flex; gap: 4px; font: 12px/1 var(--mono); }
+.lang { display: inline-flex; gap: 2px; font: 600 11px/1 var(--mono); letter-spacing: .04em; }
+.lang button {
+  appearance: none; background: transparent; border: 1px solid transparent; border-radius: 6px;
+  color: var(--muted); padding: 6px 7px; cursor: pointer; font: inherit;
+}
+.lang button:hover { color: var(--text); }
+.lang button[aria-pressed="true"] { color: var(--text); border-color: var(--line-2); background: var(--panel); }
+.lang button:disabled { opacity: .45; cursor: default; }
 .step { color: var(--muted); padding: 6px 10px; border-radius: 6px; border: 1px solid transparent; white-space: nowrap; }
 .step.active { color: var(--text); border-color: var(--line-2); background: var(--panel); }
 .step.done { color: var(--ok); }
