@@ -1,5 +1,7 @@
 # 🎤 Y · a YC mock interview that actually mocks a YC interview
 
+**Read this in:** [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
+
 > Four different voices ask you the real YC questions out loud, as if a YC
 > team was interviewing you. The timer is random and they cut you off, like
 > in the room. Everything you say gets written down on your device and turned
@@ -39,8 +41,9 @@ forever. Feedback accepted, please use it and let me know if you like it.
      (about 40 MB, only if you click) for a cleaner transcript.
 
 🌎 **English, Spanish, Portuguese, Hindi.** Toggle in the header: questions,
-labels and interruptions switch, the transcript runs in that language and the
-scoring prompt asks the AI to answer in it.
+labels and interruptions switch, the partners speak with native voices in that
+language (four in Spanish, two in Portuguese, two in Hindi), the transcript runs
+in that language and the scoring prompt asks the AI to answer in it.
 
 ## 🔒 What leaves your device
 
@@ -71,9 +74,10 @@ style.css        plain CSS, works at phone width
 app.js           all the logic, sections numbered 1-4
 questions.json   73 questions {id, text, type}
 partners.json    20 YC partners and the 3-partner panel per industry
-audio/           308 mp3 files, one per question and voice, plus the cut-ins
+i18n/            es, pt, hi: labels, questions, cut-in lines, voices and partner names
+audio/           1,032 mp3 files in 4 languages, one per question and voice, plus the cut-ins
 ```
 
 Btw the audio was generated once with [Fish Audio](https://fish.audio) (four
-voices, one emotion tag per question) and committed, so the site never needs
-a TTS key.
+English voices and native voices per language, one emotion tag per question)
+and committed, so the site never needs a TTS key.
