@@ -1,5 +1,17 @@
 {
  "prompt_lang": "Spanish",
+ "voices": [
+  "ethan",
+  "adrian",
+  "sarah",
+  "hannah"
+ ],
+ "names": {
+  "ethan": "Rodrigo",
+  "adrian": "Pablo",
+  "sarah": "Carmen",
+  "hannah": "Isabela"
+ },
  "ui": {
   "brand": "Entrevista simulada YC",
   "step.setup": "01 Preparación",

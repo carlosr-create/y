@@ -15,6 +15,10 @@ const $$ = (sel) => Array.from(document.querySelectorAll(sel));
 
 const VOICES = { ethan: 'Ethan', adrian: 'Adrian', sarah: 'Sarah', hannah: 'Hannah' };
 const VOICE_KEYS = Object.keys(VOICES);
+/* Partners on the panel for the current language: all four in English; the non-English voice sets are smaller (i18n json "voices"). */
+function activeVoices() { const v = I18N && Array.isArray(I18N.voices) ? I18N.voices.filter((k) => VOICES[k]) : []; return v.length ? v : VOICE_KEYS; }
+/* Partner name shown for a voice slot: the i18n json "names" map when the language has its own voices, else the English name. */
+function vname(k) { return (I18N && I18N.names && I18N.names[k]) || VOICES[k]; }
 const MAX_SESSION_SECONDS = 600;          // the real interview is 10 minutes
 const INTERRUPT_MIN = 4, INTERRUPT_MAX = 45;
 // How long a partner lets an answer run before cutting in, in seconds. Weighted so most
@@ -186,7 +190,8 @@ function buildPlan() {
   const picked = shuffle([...stageQs.slice(0, 2), ...general]).slice(0, session.count);
   let last = null;
   session.plan = picked.map((q) => {
-    let v; do { v = VOICE_KEYS[randInt(0, VOICE_KEYS.length - 1)]; } while (v === last && VOICE_KEYS.length > 1);
+    const keys = activeVoices();
+    let v; do { v = keys[randInt(0, keys.length - 1)]; } while (v === last && keys.length > 1);
     last = v;
     const kind = kindOf(q.id), w = WEIGHT[kind];
     const limit = session.mode === 'fixed' ? Math.max(6, Math.round(session.seconds * w)) : Math.max(4, Math.round(drawCut() * w));
@@ -295,8 +300,8 @@ function askQuestion(i) {
   $('#q-kind').textContent = session.mode === 'interrupt' ? '' : q.kind === 'long' ? 'deep question · more time' : q.kind === 'short' ? 'quick one · less time' : '';
   $('#cutin').hidden = true; $('#stage-card').classList.remove('flash');
   $('#q-text').textContent = q.text;
-  const av = $('#speaker-avatar'); av.textContent = VOICES[q.voice][0]; av.dataset.voice = q.voice;
-  $('#speaker-name').textContent = VOICES[q.voice];
+  const av = $('#speaker-avatar'); av.textContent = vname(q.voice)[0]; av.dataset.voice = q.voice;
+  $('#speaker-name').textContent = vname(q.voice);
   $('#answer-live').innerHTML = '';
   $('#answer-typed').value = '';
   $('#answer-live').hidden = !session.mic;
@@ -427,12 +432,13 @@ function playCutIn(q, done) {
   const next = session.plan[qIndex + 1];
   const interrupt = session.mode === 'interrupt';
   // Interruptions come from another partner (the next one to speak); "time's up" from the same one.
-  let voice = interrupt ? (next ? next.voice : VOICE_KEYS.filter((v) => v !== q.voice)[randInt(0, 2)]) : q.voice;
+  const others = activeVoices().filter((v) => v !== q.voice);
+  let voice = interrupt ? (next ? next.voice : (others[randInt(0, others.length - 1)] || q.voice)) : q.voice;
   const silent = interrupt && !!next && Math.random() < SILENT_CUT_SHARE;
   const key = silent ? '' : interrupt ? pickCut(CUTS.interrupt, 'cut1') : pickCut(CUTS.timeup, 'timeup');
   $('#stage-card').classList.add('flash');
-  const av = $('#cutin-avatar'); av.textContent = VOICES[voice][0]; av.dataset.voice = voice;
-  $('#cutin-name').textContent = t(interrupt ? 'rt.cutsin' : 'rt.time', { name: VOICES[voice] });
+  const av = $('#cutin-avatar'); av.textContent = vname(voice)[0]; av.dataset.voice = voice;
+  $('#cutin-name').textContent = t(interrupt ? 'rt.cutsin' : 'rt.time', { name: vname(voice) });
   $('#cutin-line').textContent = silent ? '' : `“${cutLine(key) || (interrupt ? 'Okay, let me stop you there.' : 'Okay, time. Next one.')}”`;
   $('#cutin').hidden = false;
   if (navigator.vibrate) { try { navigator.vibrate(interrupt ? [60, 40, 60] : 80); } catch (_) {} }
@@ -508,7 +514,7 @@ function renderReport() {
     <li class="answer" data-i="${i}">
       <div class="answer-head">
         <span class="n">Q${x.n}</span>
-        <span>${VOICES[x.voice]} · ${x.type === 'GENERAL' ? t('rt.general') : x.type === 'PRE_LAUNCH' ? t('rt.pre') : t('rt.post')}</span>
+        <span>${vname(x.voice)} · ${x.type === 'GENERAL' ? t('rt.general') : x.type === 'PRE_LAUNCH' ? t('rt.pre') : t('rt.post')}</span>
         <span>${x.seconds}s / ${x.limit}s${x.kind === 'long' ? t('rt.deep') : x.kind === 'short' ? t('rt.quick') : ''}</span>
         <span class="badge ${x.cutOff ? 'cut' : 'ok'}">${x.cutOff ? t('rt.cutoff') : t('rt.finished')}</span>
       </div>
@@ -569,7 +575,7 @@ function formatLine() {
 }
 function transcriptBlock() {
   return session.answers.map((x) => `### Q${x.n}. ${x.question}
-Asked by ${VOICES[x.voice]}. Time used: ${x.seconds}s${x.cutOff ? ', INTERRUPTED (a partner cut in)' : ', finished on their own'}.
+Asked by ${vname(x.voice)}. Time used: ${x.seconds}s${x.cutOff ? ', INTERRUPTED (a partner cut in)' : ', finished on their own'}.
 Founder (verbatim transcript): ${x.transcript.trim() ? '"' + x.transcript.trim() + '"' : '(no answer captured)'}`).join('\n\n');
 }
 function industryBlock() {

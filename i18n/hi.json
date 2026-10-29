@@ -1,5 +1,13 @@
 {
  "prompt_lang": "Hindi",
+ "voices": [
+  "ethan",
+  "sarah"
+ ],
+ "names": {
+  "ethan": "अर्जुन",
+  "sarah": "अनन्या"
+ },
  "ui": {
   "brand": "YC मॉक इंटरव्यू",
   "step.setup": "01 सेटअप",
