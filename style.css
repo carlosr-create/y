@@ -178,6 +178,8 @@ select { font: inherit; padding: 8px 10px; border-radius: 8px; border: 1px solid
 .timer-wrap.warn .ring-fg { stroke: var(--warn); }
 .timer-wrap.over .ring-fg { stroke: var(--bad); }
 .timer-wrap.idle .ring-fg { stroke: var(--line-2); }
+.timer-wrap.live .ring-fg { stroke: var(--line-2); transition: none; }
+.timer-msg.live { color: var(--muted); }
 .timer-num { position: absolute; inset: 0; display: grid; place-items: center; font-size: 34px; font-weight: 600; font-variant-numeric: tabular-nums; }
 .timer-num small { font-size: 13px; color: var(--muted); margin-left: 2px; }
 .timer-msg { min-height: 20px; font-weight: 600; letter-spacing: .1em; font-size: 12px; text-transform: uppercase; color: var(--ok); }

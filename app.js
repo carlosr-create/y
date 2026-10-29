@@ -16,7 +16,17 @@ const $$ = (sel) => Array.from(document.querySelectorAll(sel));
 const VOICES = { ethan: 'Ethan', adrian: 'Adrian', sarah: 'Sarah', hannah: 'Hannah' };
 const VOICE_KEYS = Object.keys(VOICES);
 const MAX_SESSION_SECONDS = 600;          // the real interview is 10 minutes
-const INTERRUPT_MIN = 8, INTERRUPT_MAX = 18;
+const INTERRUPT_MIN = 4, INTERRUPT_MAX = 45;
+// How long a partner lets an answer run before cutting in, in seconds. Weighted so most
+// cuts land early, a few are brutal, a few let you run: you never know which one is coming.
+const CUT_BANDS = [[15, 4, 7], [55, 8, 16], [25, 18, 30], [5, 30, 45]];   // [weight %, lo, hi]
+const INTERRUPT_MEAN = CUT_BANDS.reduce((s, [w, lo, hi]) => s + w / 100 * (lo + hi) / 2, 0);
+const GAP_MIN = 200, GAP_MAX = 1500;      // ms before the next partner speaks
+function drawCut() {
+  let r = Math.random() * 100;
+  for (const [w, lo, hi] of CUT_BANDS) { if (r < w) return lo + Math.random() * (hi - lo); r -= w; }
+  return INTERRUPT_MIN;
+}
 // Some questions need a real explanation, some want one number. Time scales with that.
 const LONG = new Set(['g3','g6','g9','g14','g18','g24','g30','g34','g38','g42','g45','g47','g50','g51','g53','g56','post5','post7','post10','post13']);
 const SHORT = new Set(['g7','g8','g10','g13','g16','g31','g52','post1','post3','post4','post6','post8','post12','post14']);
@@ -77,7 +87,7 @@ function readForm() {
 
 function updateEstimate() {
   readForm();
-  const per = (session.mode === 'fixed' ? session.seconds : (INTERRUPT_MIN + INTERRUPT_MAX) / 2) * 1.05; // a few long ones
+  const per = (session.mode === 'fixed' ? session.seconds : INTERRUPT_MEAN) * 1.05; // a few long ones
   const overhead = session.voice ? 5 : 2;                      // question playback, cut-in, gap
   const total = session.count * (per + overhead);
   const capped = total > MAX_SESSION_SECONDS;
@@ -85,7 +95,7 @@ function updateEstimate() {
   $('#seconds-row').hidden = session.mode !== 'fixed';
   $('#estimate').textContent = capped
     ? `About ${fmtTime(total)} total. The real interview is 10 minutes, so this run stops after ${fitted} questions.`
-    : `About ${fmtTime(total)} total. ${session.mode === 'interrupt' ? 'Each answer is cut at a random point between 8 and 18 seconds.' : ''}`;
+    : `About ${fmtTime(total)} total. ${session.mode === 'interrupt' ? 'No clock on screen. A partner cuts in at an unannounced moment, 4 to 45 seconds, most often before 16.' : ''}`;
   session.count = fitted;
 }
 
@@ -100,7 +110,7 @@ function buildPlan() {
     let v; do { v = VOICE_KEYS[randInt(0, VOICE_KEYS.length - 1)]; } while (v === last && VOICE_KEYS.length > 1);
     last = v;
     const kind = kindOf(q.id), w = WEIGHT[kind];
-    const limit = Math.max(6, Math.round((session.mode === 'fixed' ? session.seconds : randInt(INTERRUPT_MIN, INTERRUPT_MAX)) * w));
+    const limit = session.mode === 'fixed' ? Math.max(6, Math.round(session.seconds * w)) : Math.max(4, Math.round(drawCut() * w));
     return { id: q.id, text: q.text, type: q.type, voice: v, limit, kind };
   });
 }
@@ -193,7 +203,7 @@ function closeMic() {
 }
 
 function setTimer(sec, cls, msg) {
-  $('#timer-sec').textContent = Math.max(0, Math.ceil(sec));
+  $('#timer-sec').textContent = Math.max(0, cls === 'live' || cls === 'over' ? Math.floor(sec) : Math.ceil(sec));
   const wrap = $('#timer-wrap'); wrap.className = `timer-wrap ${cls || ''}`;
   const m = $('#timer-msg'); m.className = `timer-msg ${cls || ''}`; m.textContent = msg || '';
 }
@@ -203,7 +213,7 @@ function askQuestion(i) {
   advancing = false;
   const q = session.plan[i];
   $('#q-counter').textContent = `Q ${String(i + 1).padStart(2, '0')} / ${session.plan.length}`;
-  $('#q-kind').textContent = q.kind === 'long' ? 'deep question · more time' : q.kind === 'short' ? 'quick one · less time' : '';
+  $('#q-kind').textContent = session.mode === 'interrupt' ? '' : q.kind === 'long' ? 'deep question · more time' : q.kind === 'short' ? 'quick one · less time' : '';
   $('#cutin').hidden = true; $('#stage-card').classList.remove('flash');
   $('#q-text').textContent = q.text;
   const av = $('#speaker-avatar'); av.textContent = VOICES[q.voice][0]; av.dataset.voice = q.voice;
@@ -215,7 +225,7 @@ function askQuestion(i) {
   $('#mic-state').textContent = session.mic ? '' : 'Typing mode';
   $('#mic-state').className = 'mic-state';
   ringFg.style.strokeDashoffset = 0;
-  setTimer(q.limit, 'idle', session.voice ? 'Listen' : '');
+  setTimer(session.mode === 'interrupt' ? 0 : q.limit, 'idle', session.voice ? 'Listen' : '');
   $('#speaker-state').textContent = 'asks'; $('#speaker-state').classList.toggle('speaking', session.voice);
 
   // Preload the next question's audio while this one plays.
@@ -240,7 +250,7 @@ function startAnswer() {
   const q = session.plan[qIndex];
   $('#speaker-state').textContent = 'is waiting'; $('#speaker-state').classList.remove('speaking');
   timer = { raf: 0, start: performance.now(), limit: q.limit, running: true, cutOff: false, elapsed: 0 };
-  setTimer(q.limit, '', session.mode === 'interrupt' ? 'Answer' : 'Go');
+  setTimer(session.mode === 'interrupt' ? 0 : q.limit, '', session.mode === 'interrupt' ? 'Answer' : 'Go');
   if (session.mic) { startRecording(); setBars('listening'); } else { setBars(''); $('#answer-typed').focus(); }
   tick();
 }
@@ -250,15 +260,23 @@ function tick() {
   timer.elapsed = (performance.now() - timer.start) / 1000;
   const left = timer.limit - timer.elapsed;
   const frac = Math.min(1, timer.elapsed / timer.limit);
+  if (session.mode === 'interrupt') {
+    // A real room has no clock: a stopwatch counts up, the ring just spins, no warning before the cut.
+    ringFg.style.strokeDashoffset = RING * (1 - (timer.elapsed % 10) / 10);
+    if (left <= 0) { timer.cutOff = true; setTimer(timer.elapsed, 'over', 'Interrupted'); finishAnswer(true); return; }
+    setTimer(timer.elapsed, 'live', 'Answer');
+    timer.raf = requestAnimationFrame(tick);
+    return;
+  }
   ringFg.style.strokeDashoffset = RING * frac;
   if (left <= 0) {
     timer.cutOff = true;
-    setTimer(0, 'over', session.mode === 'interrupt' ? 'Interrupted' : "Time's up");
+    setTimer(0, 'over', "Time's up");
     finishAnswer(true);
     return;
   }
-  if (frac >= 0.75) setTimer(left, 'warn', session.mode === 'interrupt' ? 'Interrupting soon…' : 'Wrap up');
-  else setTimer(left, '', session.mode === 'interrupt' ? 'Answer' : 'Go');
+  if (frac >= 0.75) setTimer(left, 'warn', 'Wrap up');
+  else setTimer(left, '', 'Go');
   timer.raf = requestAnimationFrame(tick);
 }
 
@@ -314,7 +332,7 @@ async function finishAnswer(cutOff) {
     source: session.mic ? (SpeechRecognition ? 'live' : 'none') : 'typed',
   });
   const goOn = () => { if (qIndex + 1 < session.plan.length) askQuestion(qIndex + 1); else endInterview(); };
-  if (cutOff) playCutIn(q, goOn); else setTimeout(goOn, 250);
+  if (cutOff) playCutIn(q, goOn); else setTimeout(goOn, session.mode === 'interrupt' ? randInt(GAP_MIN, GAP_MAX) : 250);
 }
 
 /* A partner cuts in: red flash, their name and line on screen, and their voice if sound is on. */
@@ -336,7 +354,7 @@ function playCutIn(q, done) {
   if (session.voice) {
     const a = new Audio(`audio/${voice}/${key}.mp3`);
     attachVoice(a); a.addEventListener('playing', () => setBars('speaking'), { once: true });
-    a.addEventListener('ended', () => { setBars(''); setTimeout(finish, 350); }, { once: true });
+    a.addEventListener('ended', () => { setBars(''); setTimeout(finish, interrupt ? randInt(GAP_MIN, GAP_MAX) : 350); }, { once: true });
     a.addEventListener('error', () => setTimeout(finish, 1000), { once: true });
     a.play().catch(() => setTimeout(finish, 1000));
     setTimeout(finish, 4000);                                 // safety: never hang on a stuck clip
@@ -466,7 +484,7 @@ ${session.summary}
 
 Stage: ${stage}.
 Industry: ${industryLabel(session.industry)}.
-Format of this mock: ${session.mode === 'interrupt' ? 'partners interrupt at a random 8 to 18 seconds (deep questions get up to 1.5x, quick ones 0.7x)' : session.seconds + ' seconds per answer, strict timer, scaled by question depth'}. ${a.length} questions.
+Format of this mock: ${session.mode === 'interrupt' ? 'no clock on screen, partners cut in at an unannounced moment between 4 and 45 seconds (most often before 16; deep questions get 1.5x, quick ones 0.7x)' : session.seconds + ' seconds per answer, strict timer, scaled by question depth'}. ${a.length} questions.
 
 ## Transcript
 ${qa}
@@ -505,7 +523,7 @@ Answer (verbatim transcript): ${x.transcript.trim() ? '"' + x.transcript.trim() 
 ${session.summary}
 
 Stage: ${stage}.
-Format of this mock: ${session.mode === 'interrupt' ? 'partners interrupt at a random 8 to 18 seconds (deep questions get up to 1.5x, quick ones 0.7x)' : session.seconds + ' seconds per answer, strict timer, scaled by question depth'}. ${a.length} questions.
+Format of this mock: ${session.mode === 'interrupt' ? 'no clock on screen, partners cut in at an unannounced moment between 4 and 45 seconds (most often before 16; deep questions get 1.5x, quick ones 0.7x)' : session.seconds + ' seconds per answer, strict timer, scaled by question depth'}. ${a.length} questions.
 
 ## Transcript
 ${qa}
@@ -533,7 +551,7 @@ function jevPayload() {
     project_summary: session.summary,
     stage: session.stage === 'pre' ? 'pre-launch' : 'launched',
     industry: industryLabel(session.industry),
-    format: session.mode === 'interrupt' ? 'partners interrupt, 8-18 s per answer scaled by question depth' : `${session.seconds} s per answer scaled by question depth`,
+    format: session.mode === 'interrupt' ? 'partners interrupt at an unannounced moment, 4-45 s per answer scaled by question depth, no clock shown' : `${session.seconds} s per answer scaled by question depth`,
     answers: a.map((x) => ({ n: x.n, question: x.question, answer: x.transcript.trim(), seconds_used: x.seconds, seconds_allowed: x.limit, cut_off: x.cutOff })),
   };
   const questions = {};
