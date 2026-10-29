@@ -32,7 +32,7 @@ const LONG = new Set(['g3','g6','g9','g14','g18','g24','g30','g34','g38','g42','
 const SHORT = new Set(['g7','g8','g10','g13','g16','g31','g52','post1','post3','post4','post6','post8','post12','post14']);
 const WEIGHT = { long: 1.5, normal: 1, short: 0.7 };
 const kindOf = (id) => LONG.has(id) ? 'long' : SHORT.has(id) ? 'short' : 'normal';
-let CUTS = { lines: {}, files: {} };          // loaded from audio/cuts.json
+let CUTS = { lines: {}, interrupt: [], timeup: [], files: {} };   // loaded from audio/cuts.json
 let PARTNERS = null;                           // loaded from partners.json
 const FILLERS = ['um', 'uh', 'umm', 'uhh', 'like', 'you know', 'basically', 'actually', 'literally', 'kind of', 'sort of', 'i mean', 'so yeah', 'right'];
 
@@ -335,21 +335,35 @@ async function finishAnswer(cutOff) {
   if (cutOff) playCutIn(q, goOn); else setTimeout(goOn, session.mode === 'interrupt' ? randInt(GAP_MIN, GAP_MAX) : 250);
 }
 
-/* A partner cuts in: red flash, their name and line on screen, and their voice if sound is on. */
+/* A partner cuts in: red flash, their name on screen, and usually a line in their voice if sound is on.
+   Some interruptions have no line at all: the next partner just starts their question. */
+const SILENT_CUT_SHARE = 0.3;                 // share of interruptions with no spoken line
+let lastCutKey = '';
+function pickCut(pool, fallback) {
+  const keys = (pool && pool.length ? pool : [fallback]).filter((k) => k !== lastCutKey);
+  lastCutKey = keys[randInt(0, keys.length - 1)] || fallback;
+  return lastCutKey;
+}
 function playCutIn(q, done) {
   const next = session.plan[qIndex + 1];
   const interrupt = session.mode === 'interrupt';
   // Interruptions come from another partner (the next one to speak); "time's up" from the same one.
   let voice = interrupt ? (next ? next.voice : VOICE_KEYS.filter((v) => v !== q.voice)[randInt(0, 2)]) : q.voice;
-  const key = interrupt ? `cut${randInt(1, 3)}` : 'timeup';
+  const silent = interrupt && !!next && Math.random() < SILENT_CUT_SHARE;
+  const key = silent ? '' : interrupt ? pickCut(CUTS.interrupt, 'cut1') : pickCut(CUTS.timeup, 'timeup');
   $('#stage-card').classList.add('flash');
   const av = $('#cutin-avatar'); av.textContent = VOICES[voice][0]; av.dataset.voice = voice;
   $('#cutin-name').textContent = interrupt ? `${VOICES[voice]} cuts in` : `${VOICES[voice]}: time`;
-  $('#cutin-line').textContent = `“${CUTS.lines[key] || (interrupt ? 'Okay, let me stop you there.' : 'Okay, time. Next one.')}”`;
+  $('#cutin-line').textContent = silent ? '' : `“${CUTS.lines[key] || (interrupt ? 'Okay, let me stop you there.' : 'Okay, time. Next one.')}”`;
   $('#cutin').hidden = false;
   if (navigator.vibrate) { try { navigator.vibrate(interrupt ? [60, 40, 60] : 80); } catch (_) {} }
   let finished = false;
   const finish = () => { if (finished) return; finished = true; done(); };
+  if (silent) {
+    // No line: the next question starts almost at once, the badge stays on a moment so you see who cut in.
+    setTimeout(() => { finish(); $('#cutin').hidden = false; setTimeout(() => { $('#cutin').hidden = true; }, 1600); }, randInt(150, 400));
+    return;
+  }
   setTimeout(() => { if (!session.voice) finish(); }, 2000);
   if (session.voice) {
     const a = new Audio(`audio/${voice}/${key}.mp3`);
