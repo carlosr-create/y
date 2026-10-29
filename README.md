@@ -1,36 +1,38 @@
-# 🎤 Y · the YC mock interview, out loud
+# 🎤 Y · a YC mock interview that actually mocks a YC interview
 
-> Four YC-style partners fire real interview questions at you, out loud, on a
-> timer that cuts you off mid-sentence. Your answers are written down on your
-> device and turned into a scoring prompt. Free, no account, nothing leaves
-> your browser.
+> Four different voices ask you the real YC questions out loud, as if a YC
+> team was interviewing you. The timer is random and they cut you off, like
+> in the room. Everything you say gets written down on your device and turned
+> into a tight prompt that scores you. Free, no account, nothing leaves your
+> browser.
 
-### 👉 Try it now: **[yc-stt.vercel.app](https://yc-stt.vercel.app)**
+### 👉 Try it: **[yc-stt.vercel.app](https://yc-stt.vercel.app)**
 
-Works on a laptop or a phone. Headphones and the mic on give you the real thing.
+Laptop or phone. Headphones and mic on is the real thing.
 
 ## Why I built this
 
-I'm prepping for YC. Reading questions off a page is not the interview. The
-real one is 10 minutes, the partners interrupt you, and you never get to finish
-the answer you rehearsed. I wanted that pressure, out loud, with a record I
-could score afterwards. So I built it: no API keys, no paid plan, no sign-up.
-Free forever. If it helps you get in, tell me.
+I'm prepping for YC. Reading questions off a page is not it. The real
+interview is 10 minutes, they interrupt you, and you never get to finish the
+answer you rehearsed. I wanted that, out loud, with my answers written down so
+I could get feedback on every single one. So I made it: extremely structured,
+simple, easy to read and follow. No API keys, no paid plan, no sign-up. Free
+forever. Feedback accepted, please use it and let me know if you like it.
 
 ## How it works
 
-1. ⚙️ **Setup.** One line about your company, your industry (it picks the three
-   partners who grill you), your stage, how strict the timer is, how many
-   questions, voice on, mic on.
-2. 🗣️ **Interview.** One question at a time, asked out loud by one of four
-   voices. In interrupt mode the cut comes at a random moment, the way it
-   does in the room. Space ends an answer early, Esc ends the interview.
-   Your answers are recorded and transcribed live, on your device.
+1. ⚙️ **Setup.** Add your company one-liner, pick your industry (it picks the
+   three YC partners that grill you), your stage, how strict the timer is, how
+   many questions, voice on, mic on.
+2. 🗣️ **Interview.** One question at a time, asked out loud by a random
+   speaker (2 male, 2 female voices). The cut comes at a random moment, you
+   don't know when. Space ends an answer early, Esc ends the interview. Your
+   answers are recorded and written down live, on your device.
 3. 📊 **Report.** Every answer with seconds used, words per minute, filler
-   words, the transcript (editable) and playback. Then two buttons:
-   - **Copy partner-panel prompt**: three YC partners matched to your
-     industry react to every answer in character, score it, rewrite it and
-     vote. Paste it into any chat model.
+   words, the transcript (you can edit it) and playback. Then two buttons:
+   - **Copy partner-panel prompt**: three YC partners matched to your industry
+     react to every answer in character, score it, rewrite it and vote. Paste
+     it into any chat model and read it before you send it.
    - **Copy Jev payload**: a ready JSON body for TypeSafe's Jev scorer, send
      it with your own key.
    - Also: download the JSON, print, go again. Optional on-device Whisper
@@ -68,16 +70,6 @@ partners.json    20 YC partners and the 3-partner panel per industry
 audio/           308 mp3 files, one per question and voice, plus the cut-ins
 ```
 
-The audio was generated once with [Fish Audio](https://fish.audio) (four
+Btw the audio was generated once with [Fish Audio](https://fish.audio) (four
 voices, one emotion tag per question) and committed, so the site never needs
 a TTS key.
-
-## 🇲🇽 En español
-
-Y es un simulador gratis de la entrevista de 10 minutos de Y Combinator.
-Cuatro voces te hacen las preguntas reales en voz alta, con un cronómetro
-que te corta a la mitad, como en la sala. Tus respuestas se transcriben en
-tu dispositivo (nada sale de tu navegador) y al final tienes un reporte y un
-prompt listo para que tres partners de YC, elegidos según tu industria,
-califiquen cada respuesta. Sin cuenta, sin claves, sin costo.
-**[Pruébalo aquí](https://yc-stt.vercel.app).**
